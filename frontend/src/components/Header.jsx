@@ -1,0 +1,67 @@
+import React from 'react';
+import { Link } from 'react-router-dom';
+import { FaBars, FaUser, FaShoppingCart } from 'react-icons/fa';
+import logo from '../assets/logo.PNG';
+import '../styles/header.css'; 
+export default function Header() {
+
+    const isSmallScreen = window.innerWidth <= 768; // Adjust the breakpoint as needed
+  return (
+    <header className="fixed-header">
+        <div className='header-content'>
+      <div className="logo">
+        {/* Add your logo image or text here */}
+        <Link to="/"><img src={logo} className='header-logo'/></Link>
+      </div>
+      {isSmallScreen ? (
+        <div className="expand-button">
+          {/* Show the bar icon for small screens */}
+          <FaBars />
+        </div>
+      ) : (
+        <div className="category-selector">
+          {/* Add your category selector component or expand button here */}
+          {/* <button>Expand</button> */}
+        </div>
+      )}
+      <div className='header-item home-header'>
+      <Link to="/">Home</Link>
+      </div>
+      <Link to='/shop'>
+      <div className='header-item categories-header'>
+        Categories
+      </div>
+      </Link>
+      <Link to='/deals'>
+      <div className='header-item deals-header'>
+        Deals
+      </div>
+      </Link>
+      <Link to='/orderhistory'>
+      <div className='header-item orders-header'>
+        My Orders
+      </div></Link>
+
+      <div className="search-input">
+        {/* Add your search input component here */}
+        <input type="text" placeholder="Search" />
+      </div>
+      
+      <div className="user-icon">
+        {/* Add your user icon component or link to user dashboard here */}
+        <Link to="user-dashboard">
+          <FaUser />
+        </Link>
+      </div>
+      <div className="cart-icon">
+        {/* Add your cart icon component or link to cart page here */}
+        <Link to="/cart">
+          <FaShoppingCart />
+        </Link>
+      </div>
+      </div>
+    </header>
+  );
+};
+
+

@@ -1,0 +1,26 @@
+.fixed-header {
+    /* Other styles for the fixed header */
+    min-height: 20%!important;
+  }
+  
+  .header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: rgb(229 234 243);
+    
+    width: 100%;
+    padding-top: 2.5%;
+    padding-bottom: 2.5%;
+    /* Add any additional styling as needed */
+  }
+ 
+  .header-logo{
+    width: 30px;
+    height: 30px;
+    margin-left: 10px;
+  }
+
+  .cart-icon{
+    margin-right: 5%;
+  }
