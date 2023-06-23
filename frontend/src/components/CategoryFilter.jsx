@@ -1,6 +1,8 @@
 import React from 'react';
-
-const CategoryFilter = ({ onFilterChange }) => {
+import { useRef,useState,useEffect } from "react";
+const CategoryFilter = ({ onFilterChange,selectedCheckboxes, onCheckboxChange }) => {
+  
+  
   return (
     <section className="filters" aria-labelledby="filters-header">
       <header id="filters-header">Filters</header>
@@ -10,9 +12,10 @@ const CategoryFilter = ({ onFilterChange }) => {
         <li>
           <label>
             <input
-              onChange={onFilterChange}
+              onChange={onCheckboxChange}
               type="checkbox"
               value="exercise"
+              checked={selectedCheckboxes.includes('exercise')}
             />
             Exercise
           </label>
@@ -22,9 +25,10 @@ const CategoryFilter = ({ onFilterChange }) => {
         <li>
           <label>
             <input
-              onChange={onFilterChange}
+              onChange={onCheckboxChange}
               type="checkbox"
               value="team_sports"
+              checked={selectedCheckboxes.includes('team_sports')}
             />
             Team Sports
           </label>
@@ -32,9 +36,10 @@ const CategoryFilter = ({ onFilterChange }) => {
             <li>
               <label>
                 <input
-                  onChange={onFilterChange}
+                  onChange={onCheckboxChange}
                   type="checkbox"
                   value="football"
+                  checked={selectedCheckboxes.includes('football')}
                 />
                 Football
               </label>
@@ -42,9 +47,10 @@ const CategoryFilter = ({ onFilterChange }) => {
             <li>
               <label>
                 <input
-                  onChange={onFilterChange}
+                  onChange={onCheckboxChange}
                   type="checkbox"
                   value="basketball"
+                  checked={selectedCheckboxes.includes('basketball')}
                 />
                 Basketball
               </label>
@@ -52,9 +58,10 @@ const CategoryFilter = ({ onFilterChange }) => {
             <li>
               <label>
                 <input
-                  onChange={onFilterChange}
+                  onChange={onCheckboxChange}
                   type="checkbox"
                   value="volleyball"
+                  checked={selectedCheckboxes.includes('volleyball')}
                 />
                 Volleyball
               </label>
@@ -62,9 +69,10 @@ const CategoryFilter = ({ onFilterChange }) => {
             <li>
               <label>
                 <input
-                  onChange={onFilterChange}
+                  onChange={onCheckboxChange}
                   type="checkbox"
                   value="cricket"
+                  checked={selectedCheckboxes.includes('cricket')}
                 />
                 Cricket
               </label>
@@ -76,9 +84,10 @@ const CategoryFilter = ({ onFilterChange }) => {
         <li>
           <label>
             <input
-              onChange={onFilterChange}
+              onChange={onCheckboxChange}
               type="checkbox"
-              value="racquet_sports"
+              value="Racket"
+              checked={selectedCheckboxes.includes('Racket')}
             />
             Racquet Sports
           </label>
@@ -86,9 +95,10 @@ const CategoryFilter = ({ onFilterChange }) => {
             <li>
               <label>
                 <input
-                  onChange={onFilterChange}
+                  onChange={onCheckboxChange}
                   type="checkbox"
                   value="badminton"
+                  checked={selectedCheckboxes.includes('badminton')}
                 />
                 Badminton
               </label>
@@ -96,9 +106,10 @@ const CategoryFilter = ({ onFilterChange }) => {
             <li>
               <label>
                 <input
-                  onChange={onFilterChange}
+                  onChange={onCheckboxChange}
                   type="checkbox"
                   value="tennis"
+                  checked={selectedCheckboxes.includes('tennis')}
                 />
                 Tennis
               </label>
@@ -106,9 +117,10 @@ const CategoryFilter = ({ onFilterChange }) => {
             <li>
               <label>
                 <input
-                  onChange={onFilterChange}
+                  onChange={onCheckboxChange}
                   type="checkbox"
                   value="table_tennis"
+                  checked={selectedCheckboxes.includes('table_tennis')}
                 />
                 Table Tennis
               </label>
@@ -120,9 +132,10 @@ const CategoryFilter = ({ onFilterChange }) => {
         <li>
           <label>
             <input
-              onChange={onFilterChange}
+              onChange={onCheckboxChange}
               type="checkbox"
               value="water_sports"
+              checked={selectedCheckboxes.includes('water_sports')}
             />
             Water Sports
           </label>
@@ -132,9 +145,10 @@ const CategoryFilter = ({ onFilterChange }) => {
         <li>
           <label>
             <input
-              onChange={onFilterChange}
+              onChange={onCheckboxChange}
               type="checkbox"
               value="skating"
+              checked={selectedCheckboxes.includes('skating')}
             />
             Skating
           </label>
@@ -142,9 +156,10 @@ const CategoryFilter = ({ onFilterChange }) => {
             <li>
               <label>
                 <input
-                  onChange={onFilterChange}
+                  onChange={onCheckboxChange}
                   type="checkbox"
                   value="roller"
+                  checked={selectedCheckboxes.includes('roller')}
                 />
                 Roller Skating
               </label>
@@ -152,9 +167,10 @@ const CategoryFilter = ({ onFilterChange }) => {
             <li>
               <label>
                 <input
-                  onChange={onFilterChange}
+                  onChange={onCheckboxChange}
                   type="checkbox"
                   value="inline"
+                  checked={selectedCheckboxes.includes('inline')}
                 />
                 Inline Skating
               </label>
@@ -166,9 +182,10 @@ const CategoryFilter = ({ onFilterChange }) => {
         <li>
           <label>
             <input
-              onChange={onFilterChange}
+              onChange={onCheckboxChange}
               type="checkbox"
               value="combat"
+              checked={selectedCheckboxes.includes('combat')}
             />
             Combat
           </label>
@@ -178,9 +195,10 @@ const CategoryFilter = ({ onFilterChange }) => {
         <li>
           <label>
             <input
-              onChange={onFilterChange}
+              onChange={onCheckboxChange}
               type="checkbox"
               value="games"
+              checked={selectedCheckboxes.includes('games')}
             />
             Games
           </label>
@@ -188,9 +206,10 @@ const CategoryFilter = ({ onFilterChange }) => {
             <li>
               <label>
                 <input
-                  onChange={onFilterChange}
+                  onChange={onCheckboxChange}
                   type="checkbox"
                   value="billiards"
+                  checked={selectedCheckboxes.includes('billiards')}
                 />
                 Billiards
               </label>
@@ -198,9 +217,10 @@ const CategoryFilter = ({ onFilterChange }) => {
             <li>
               <label>
                 <input
-                  onChange={onFilterChange}
+                  onChange={onCheckboxChange}
                   type="checkbox"
                   value="carrom"
+                  checked={selectedCheckboxes.includes('carrom')}
                 />
                 Carrom
               </label>
@@ -208,9 +228,10 @@ const CategoryFilter = ({ onFilterChange }) => {
             <li>
               <label>
                 <input
-                  onChange={onFilterChange}
+                  onChange={onCheckboxChange}
                   type="checkbox"
                   value="darts"
+                  checked={selectedCheckboxes.includes('darts')}
                 />
                 Darts
               </label>
@@ -218,9 +239,10 @@ const CategoryFilter = ({ onFilterChange }) => {
             <li>
               <label>
                 <input
-                  onChange={onFilterChange}
+                  onChange={onCheckboxChange}
                   type="checkbox"
                   value="cards"
+                  checked={selectedCheckboxes.includes('cards')}
                 />
                 Cards
               </label>
@@ -228,9 +250,10 @@ const CategoryFilter = ({ onFilterChange }) => {
             <li>
               <label>
                 <input
-                  onChange={onFilterChange}
+                  onChange={onCheckboxChange}
                   type="checkbox"
                   value="others"
+                  checked={selectedCheckboxes.includes('others')}
                 />
                 Others
               </label>
@@ -242,9 +265,10 @@ const CategoryFilter = ({ onFilterChange }) => {
         <li>
           <label>
             <input
-              onChange={onFilterChange}
+              onChange={onCheckboxChange}
               type="checkbox"
               value="active_wear"
+              checked={selectedCheckboxes.includes('active_wear')}
             />
             Active Wear
           </label>
@@ -252,9 +276,10 @@ const CategoryFilter = ({ onFilterChange }) => {
             <li>
               <label>
                 <input
-                  onChange={onFilterChange}
+                  onChange={onCheckboxChange}
                   type="checkbox"
                   value="clothing"
+                  checked={selectedCheckboxes.includes('clothing')}
                 />
                 Clothing
               </label>
@@ -262,9 +287,10 @@ const CategoryFilter = ({ onFilterChange }) => {
             <li>
               <label>
                 <input
-                  onChange={onFilterChange}
+                  onChange={onCheckboxChange}
                   type="checkbox"
                   value="footwear"
+                  checked={selectedCheckboxes.includes('footwear')}
                 />
                 Footwear
               </label>
@@ -276,9 +302,10 @@ const CategoryFilter = ({ onFilterChange }) => {
         <li>
           <label>
             <input
-              onChange={onFilterChange}
+              onChange={onCheckboxChange}
               type="checkbox"
               value="trophies"
+              checked={selectedCheckboxes.includes('trophies')}
             />
             Trophies
           </label>

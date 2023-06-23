@@ -6,6 +6,7 @@ import cors from "cors";
 import helmet from "helmet";
 import morgan from "morgan";
 import categoryRoutes from "./routes/category.js";
+import productRouter from "./routes/product.js"
 // import productRoutes from "./routes/product.js";
 // import transactionRoutes from "./routes/transaction.js";
 // import KPI from "./models/KPI.js";
@@ -27,6 +28,7 @@ app.use(cors());
 /* ROUTES */
 app.use("/categories", categoryRoutes);
 
+app.use('/products', productRouter);
 
 /* MONGOOSE SETUP */
 const PORT = 9000;

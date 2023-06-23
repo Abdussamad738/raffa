@@ -1,11 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link,useLocation } from 'react-router-dom';
 import { FaBars, FaUser, FaShoppingCart } from 'react-icons/fa';
 import logo from '../assets/logo.PNG';
 import '../styles/header.css'; 
+import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 export default function Header() {
+  const location = useLocation();
+  const isHomePage = location.pathname === '/';
 
-    const isSmallScreen = window.innerWidth <= 768; // Adjust the breakpoint as needed
+
+    const isSmallScreen = window.innerWidth <= 500; // Adjust the breakpoint as needed
   return (
     <header className="fixed-header">
         <div className='header-content'>
@@ -19,33 +23,36 @@ export default function Header() {
           <FaBars />
         </div>
       ) : (
-        <div className="category-selector">
+        <div className="header-links category-selector">
+          <div className='header-item home-header'>
+              <Link to="/">Home</Link>
+              </div>
+              <Link to='/shop'>
+              <div className='header-item categories-header'>
+                Categories
+              </div>
+              </Link>
+              <Link to='/deals'>
+              <div className='header-item deals-header'>
+                Deals
+              </div>
+              </Link>
+              <Link to='/orderhistory'>
+              <div className='header-item orders-header'>
+                My Orders
+              </div></Link>
           {/* Add your category selector component or expand button here */}
           {/* <button>Expand</button> */}
         </div>
       )}
-      <div className='header-item home-header'>
-      <Link to="/">Home</Link>
-      </div>
-      <Link to='/shop'>
-      <div className='header-item categories-header'>
-        Categories
-      </div>
-      </Link>
-      <Link to='/deals'>
-      <div className='header-item deals-header'>
-        Deals
-      </div>
-      </Link>
-      <Link to='/orderhistory'>
-      <div className='header-item orders-header'>
-        My Orders
-      </div></Link>
-
-      <div className="search-input">
-        {/* Add your search input component here */}
-        <input type="text" placeholder="Search" />
-      </div>
+      
+      <div className='header-icons'>
+      {!isHomePage && (
+          <div className="search-input">
+            {/* Add your search input component here */}
+            <input type="text" placeholder="Search" />
+          </div>
+        )}
       
       <div className="user-icon">
         {/* Add your user icon component or link to user dashboard here */}
@@ -58,6 +65,7 @@ export default function Header() {
         <Link to="/cart">
           <FaShoppingCart />
         </Link>
+      </div>
       </div>
       </div>
     </header>

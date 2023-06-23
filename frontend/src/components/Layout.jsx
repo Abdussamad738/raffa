@@ -1,5 +1,5 @@
 import { Box, useMediaQuery } from "@mui/material";
-import React from 'react'
+import React, { useState } from 'react'
 import activewear from '../assets/activewear.png'
 import badminton from '../assets/badminton.png'
 import billiards from '../assets/billiards.png'
@@ -26,7 +26,9 @@ import volleyball from '../assets/volleyball.png'
 import water from '../assets/water.png'
 import basketball from '../assets/basketball.png'
 import '../styles/layout.css'; 
-
+import { useNavigate  } from 'react-router-dom';
+import CategoryProducts from "./CategoryProducts";
+import { useSelector, useDispatch } from 'react-redux';
 // const gridTemplateLargeScreens = `
 //   "a a d d k k o p"
 //   "a a e e k k q r"
@@ -91,21 +93,42 @@ const gridTemplateMediumScreens = `
 
     { name: 'Apparels', area: 'i' ,img:activewear},
     { name: 'Exercise & Fitness', area: 'j',img:fitness },
-    { name: 'Football', area: 'a',img: football},
+    { name: 'football', area: 'a',img: football},
     { name: 'Basketball', area: 'd' ,img:basketball},
     { name: 'Volleyball', area: 'c' ,img:volleyball},
     { name: 'Cricket', area: 'b' ,img:cricket},
     { name: 'Water & Combats', area: 'l',img:water },
     { name: 'Game Room', area: 'e' ,img:games},
-    { name: 'Racket ', area: 'k' ,img:racket},
+    { name: 'racket', area: 'k' ,img:racket},
     { name: 'Skating', area: 'h' ,img:skating},
     { name: 'Billiards', area: 'f' ,img:billiards},
     { name: 'Trophies', area: 'g' ,img:trophies},
     // Add more categories as needed
   ];
 
-export default function Layout() {
+export default function Layout({  onCategoryClick }) {
     const isAboveMediumScreens = useMediaQuery("(min-width: 1500px)");
+    const navigate = useNavigate();
+    const data = useSelector((state) => state.products.products);
+    const [filteredItems, setFilteredItems] = useState([]);
+  const handleCategoryClick = (category) => {
+    console.log("from handleCategoryClick",JSON.stringify(category))
+    const matchedItems = data.filter((item) => item.category === category.name);
+    const updatedFilteredItems = matchedItems.length > 0 ? matchedItems : [];
+  
+    onCategoryClick(category.name);
+    setFilteredItems(updatedFilteredItems);
+    console.log("filtered item from layout :",JSON.stringify(category.name))
+    
+    // Redirect to the shop category page with the selected category and filtered items
+    // navigate({
+    //   pathname: '/category',
+    //   state: {
+    //     category: category.name,
+    //     filteredItems: filteredItems.filter(item => item.category === category.name),
+    //   },
+    // });
+  };
   return (
     <div>
     <Box
@@ -132,12 +155,13 @@ export default function Layout() {
           <div
             key={category.name}
             style={{ gridArea: category.area, backgroundColor:'rgb(229 234 243)' }}
-          className="category">
+          className="category" onClick={() => handleCategoryClick(category)}>
             <img src={category.img} alt={category.name}></img>
             <h4>{category.name}</h4>
           </div>
         ))}
     </Box>
+    {/* {filteredItems.length > 0 && <CategoryProducts filteredItems={filteredItems} />} */}
     </div>
   )
 }

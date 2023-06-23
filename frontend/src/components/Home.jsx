@@ -12,17 +12,7 @@ import { FaIoIosArrowDropdown } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {FaAngleDown} from 'react-icons/fa'
 export default function Home() {
-    const [data, setData] = useState(null);
-    useEffect(() => {
-        async function fetchData() {
-          // const response = await fetch('https://risk-viz-psi.vercel.app/api/data');
-          const response= await fetch ('http://localhost:9000/categories')
-          const data = await response.json();
-          console.log("from first useeffect :",JSON.stringify(data))
-          setData(data);
-        }
-        fetchData();
-      }, []);
+    
 
     
   return (
@@ -87,7 +77,7 @@ export default function Home() {
         
         
         <div className='second-tab'>
-        <Link to={{ pathname: "/shop", state: { data:data } }}>
+        <Link to={{ pathname: "/shop" }}>
         <img src={secondtab} alt='secondtab'></img>
             <p>Shop by category</p>
             <FaAngleDown className='down'/>
