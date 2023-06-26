@@ -23,7 +23,7 @@ export default function ShopByCategory() {
 
   const handleCheckboxChange = (event, updatedCheckboxes) => {
     console.log(JSON.stringify(selectedCheckboxes))
-    setSelectedCheckboxes(updatedCheckboxes);
+    // setSelectedCheckboxes(updatedCheckboxes);
     const value = event.target.value;
     if (event.target.checked) {
       setSelectedCheckboxes((prevSelectedCheckboxes) => [
@@ -40,13 +40,18 @@ export default function ShopByCategory() {
   const handleCategoryClick = (category) => {
     const updatedCheckboxes = [...selectedCheckboxes, category];
     setSelectedCheckboxes(updatedCheckboxes);
+    console.log("handlCategory click in shop by category :",JSON.stringify(category))
+    const matchedItems = products.filter((item) => item.category.includes(category));
+    
+    const updatedFilteredItems = matchedItems.length > 0 ? matchedItems : [];
+    setFilteredItems(updatedFilteredItems);
   };
 
   const [data, setData] = useState(null);
 useEffect(()=>{
   const filteredItems = products.filter((item) =>
           
-          selectedCheckboxes.includes(item.category)
+  selectedCheckboxes.some((checkbox) => item.category.includes(checkbox))
         );
         setFilteredItems(filteredItems);
         console.log("filtered item from useeffect:",JSON.stringify(filteredItems))

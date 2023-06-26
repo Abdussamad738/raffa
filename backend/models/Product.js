@@ -1,10 +1,10 @@
 import { Schema, model } from 'mongoose';
 import mongoose from "mongoose";
 const productSchema = new Schema({
-  category: {
-    type: String,
-    required: true
-  },
+    category: {
+        type: [String],
+        required: true
+      },
   name: {
     type: String,
     required: true
@@ -21,7 +21,7 @@ const productSchema = new Schema({
     type: Map,
     of: String
   },
-  ratings: Number,
+  ratings: [Number],
   actual_price: Number,
   offer_price: Number,
   quantity_in_stock: Number,

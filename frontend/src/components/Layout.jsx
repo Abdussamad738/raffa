@@ -93,13 +93,13 @@ const gridTemplateMediumScreens = `
 
     { name: 'Apparels', area: 'i' ,img:activewear},
     { name: 'Exercise & Fitness', area: 'j',img:fitness },
-    { name: 'football', area: 'a',img: football},
+    { name: 'Football', area: 'a',img: football},
     { name: 'Basketball', area: 'd' ,img:basketball},
     { name: 'Volleyball', area: 'c' ,img:volleyball},
     { name: 'Cricket', area: 'b' ,img:cricket},
     { name: 'Water & Combats', area: 'l',img:water },
     { name: 'Game Room', area: 'e' ,img:games},
-    { name: 'racket', area: 'k' ,img:racket},
+    { name: 'Racket', area: 'k' ,img:racket},
     { name: 'Skating', area: 'h' ,img:skating},
     { name: 'Billiards', area: 'f' ,img:billiards},
     { name: 'Trophies', area: 'g' ,img:trophies},
@@ -113,11 +113,11 @@ export default function Layout({  onCategoryClick }) {
     const [filteredItems, setFilteredItems] = useState([]);
   const handleCategoryClick = (category) => {
     console.log("from handleCategoryClick",JSON.stringify(category))
-    const matchedItems = data.filter((item) => item.category === category.name);
-    const updatedFilteredItems = matchedItems.length > 0 ? matchedItems : [];
+    // const matchedItems = data.filter((item) => item.category === category.name);
+    // const updatedFilteredItems = matchedItems.length > 0 ? matchedItems : [];
   
     onCategoryClick(category.name);
-    setFilteredItems(updatedFilteredItems);
+    // setFilteredItems(updatedFilteredItems);
     console.log("filtered item from layout :",JSON.stringify(category.name))
     
     // Redirect to the shop category page with the selected category and filtered items
