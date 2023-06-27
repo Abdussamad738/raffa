@@ -22,14 +22,14 @@
     margin-left: 10px;
   }
 
-  .cart-icon{
+  /* .cart-icon{
     margin-right: 10px;
     margin-left: 10px;
   }
   .user-icon{
     margin-right: 10px;
     margin-left: 5%;
-  }
+  } */
 
   .header-item {
     display: inline-block;
@@ -63,8 +63,10 @@
   flex-direction: row;
   align-items: center;
     justify-content: space-between;
-    margin-right: 1%;
-    margin-left: 1%;
+    margin-right: 2%;
+    /* margin-left: 2%; */
+    gap: 5%;
+    width: 10%;
 }
 
 .search-input input{

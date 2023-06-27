@@ -2,6 +2,7 @@ import { Router } from 'express';
 const router = Router();
 import Product from '../models/Product.js';
 
+
 // Get all products
 router.get('/', async (req, res) => {
   try {
@@ -14,9 +15,17 @@ router.get('/', async (req, res) => {
 });
 
 // Get a specific product by ID
-router.get('/:id', getProduct, (req, res) => {
-  res.json(res.product);
-});
+router.get('/:id', async (req, res) => {
+    try {
+      const product = await Product.findOne({ _id: req.params.id });
+      if (!product) {
+        return res.status(404).json({ message: 'Product not found' });
+      }
+      res.json(product);
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  });
 
 router.get('/:category', async (req, res) => {
     const { category } = req.params;
@@ -71,20 +80,18 @@ router.delete('/:id', getProduct, async (req, res) => {
   }
 });
 
-// Middleware function to get a product by ID
+// Middleware function to get a specific product by ID
 async function getProduct(req, res, next) {
-  let product;
-  try {
-    product = await findById(req.params.id);
-    if (product == null) {
-      return res.status(404).json({ message: 'Product not found' });
+    try {
+      const product = await Product.findOne({ _id: req.params.id });
+      if (product == null) {
+        return res.status(404).json({ message: 'Product not found' });
+      }
+      res.product = product;
+      next();
+    } catch (error) {
+      res.status(500).json({ message: error.message });
     }
-  } catch (error) {
-    return res.status(500).json({ message: error.message });
   }
-
-  res.product = product;
-  next();
-}
 
 export default router;

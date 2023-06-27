@@ -61,10 +61,33 @@ body::-moz-scrollbar-thumb {
 }
 
 .app__container {
-  width: 100%;
-  min-height: 100vh;
+  width: 80%;
+  min-height: 80vh;
 }
 
 html,body{
-  height: 70%;
+
+  height: 100%;
+
+  
+}
+
+.handle-like {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 2px;
+}
+
+.card-title {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  padding-top: 1px;
+  margin-right: 1px;
+  justify-content: space-between;
+  align-items: center;
+}
+.like{
+  margin-right: 1px;
 }

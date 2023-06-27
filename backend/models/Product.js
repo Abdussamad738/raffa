@@ -5,28 +5,30 @@ const productSchema = new Schema({
         type: [String],
         required: true
       },
-  name: {
+  Name: {
     type: String,
     required: true
   },
-  image: String,
-  description: String,
-  features: [String],
-  dimensions: {
+  Image: {
+    type: [String],
+},
+  Description: String,
+  Features: [String],
+  Dimensions: {
     width: String,
     height: String,
     depth: String
   },
-  specifications: {
+  Specifications: {
     type: Map,
     of: String
   },
-  ratings: [Number],
-  actual_price: Number,
-  offer_price: Number,
-  quantity_in_stock: Number,
-  colour: String,
-  delivery_time: String
+  Ratings: [Number],
+  Actual_Price: Number,
+  Offer_Price: Number,
+  Quantity_in_Stock: Number,
+  Colour: String,
+  Delivery_Time: String
 },{ collection: "products" });
 
 const Product = mongoose.model('Product', productSchema);

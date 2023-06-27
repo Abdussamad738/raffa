@@ -16,6 +16,9 @@ import Deals from './components/Deals';
 import Cart from './components/Cart'
 import Header from './components/Header';
 import OrderHistory from './components/OrderHistory';
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+
 function App() {
   
   return (

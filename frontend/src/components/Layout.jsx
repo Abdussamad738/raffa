@@ -133,7 +133,7 @@ export default function Layout({  onCategoryClick }) {
     <div>
     <Box
       width="100%"
-      height="100%"
+      height="80%"
       display="grid"
       gap="1.5rem"
       marginTop="5%"
@@ -157,7 +157,7 @@ export default function Layout({  onCategoryClick }) {
             style={{ gridArea: category.area, backgroundColor:'rgb(229 234 243)' }}
           className="category" onClick={() => handleCategoryClick(category)}>
             <img src={category.img} alt={category.name}></img>
-            <h4>{category.name}</h4>
+            <h6>{category.name}</h6>
           </div>
         ))}
     </Box>

@@ -4,6 +4,7 @@ import { FaBars, FaUser, FaShoppingCart } from 'react-icons/fa';
 import logo from '../assets/logo.PNG';
 import '../styles/header.css'; 
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
+import {HeartFill} from 'react-bootstrap-icons'
 export default function Header() {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
@@ -46,13 +47,16 @@ export default function Header() {
         </div>
       )}
       
-      <div className='header-icons'>
+      
       {!isHomePage && (
           <div className="search-input">
             {/* Add your search input component here */}
             <input type="text" placeholder="Search" />
           </div>
         )}
+        <div className='header-icons'>
+
+        <Link to="user-dashboard"><HeartFill className='text-danger'/></Link>
       
       <div className="user-icon">
         {/* Add your user icon component or link to user dashboard here */}

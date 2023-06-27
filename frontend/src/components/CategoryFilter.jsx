@@ -134,8 +134,8 @@ const CategoryFilter = ({ onFilterChange,selectedCheckboxes, onCheckboxChange })
             <input
               onChange={onCheckboxChange}
               type="checkbox"
-              value="Water Sports"
-              checked={selectedCheckboxes.includes('Water Sports')}
+              value="Water"
+              checked={selectedCheckboxes.includes('Water')}
             />
             Water Sports
           </label>
