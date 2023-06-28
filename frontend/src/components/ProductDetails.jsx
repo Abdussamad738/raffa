@@ -7,21 +7,38 @@ import '../styles/productdetails.css';
 import { renderStars } from '../utils/renderStars';
 import { useLocation } from 'react-router-dom';
 import HandleLike from '../utils/handleLike';
-
+import ImageZoom from "react-image-zooom";
+import { Link } from 'react-router-dom';
+import { Modal } from 'react-bootstrap';
+import CartPage from './Cart';
 export default function ProductDetails() {
   const dispatch = useDispatch();
   const { productId } = useParams();
   const [quantity, setQuantity] = useState(1);
 //   const location = useLocation();
 //   const { likedItems } = location.state;
-const likedItems = useSelector((state) => state.products.likedItems);
 
   useEffect(() => {
     dispatch(fetchProduct(productId));
   }, [dispatch, productId]);
-
+  const [showZoom, setShowZoom] = useState(false);
   const product = useSelector((state) => state.products.products.find((p) => p._id === productId));
   console.log("from product details:",JSON.stringify(product))
+  const likedItems = useSelector((state) => state.products.likedItems);
+const [currentImage, setCurrentImage] = useState(0);
+const imageUrls = product.Image.map((imageName) => require(`../assets/${imageName}`));
+
+// console.log("imageUrls :",JSON.stringify(imageUrls))
+
+  const handlePrevImage = () => {
+    console.log("from handlprevImage :",currentImage)
+    setCurrentImage((prevImage) => (prevImage === 0 ? imageUrls.length - 1 : prevImage - 1));
+  };
+
+  const handleNextImage = () => {
+    console.log("from handlNextImage ",currentImage)
+    setCurrentImage((prevImage) => (prevImage === imageUrls.length - 1 ? 0 : prevImage + 1));
+  };
 // Store likedItems in local storage
 useEffect(() => {
     localStorage.setItem('likedItems', JSON.stringify(likedItems));
@@ -40,6 +57,8 @@ useEffect(() => {
   const handleIncreaseQuantity = () => {
     setQuantity(quantity + 1);
   };
+  
+
 
   const handleBuyNow = () => {
     // Logic to navigate to checkout page
@@ -51,38 +70,52 @@ useEffect(() => {
     console.log(`Added product ${productId} to cart with quantity ${quantity}`);
   };
 
+  const handleThumbnailClick = (index) => {
+    setCurrentImage(index);
+    console.log("from handleThumbnailClick:", JSON.stringify(currentImage))
+  };
+  
+
+
 //   const { Images, Name, Ratings, Actual_Price, Offer_Price, Colour, Description, Dimensions, Features } = product;
 
   return (
     <div className="product-details">
       <div className="image-container">
+      <div className='thumbnail'>
         {/* Show other images */}
         {product.Image && (
           <div className="other-images">
-            {product.Image.map((image, index) => (
+            {imageUrls.map((image, index) => (
               <img
                 key={index}
-                src={require(`../assets/${image}`)}
+                src={imageUrls[index]}
                 alt={`Image ${index + 1}`}
                 className="thumbnail-image"
+                onClick={() => handleThumbnailClick(index)}
               />
             ))}
           </div>
         )}
+        </div>
+
+        
 
         {/* Main image */}
         <div className="main-image-container">
-          <img
-            src={require(`../assets/${product.Image[0]}`)}
+        
+          <ImageZoom
+            src={imageUrls[currentImage]}
             alt={product.Name}
+            key={currentImage}
             className="main-image"
+            zoom="300"
           />
-
-          {/* Image zoom */}
-          <div className="image-zoom">
-            <BsArrowLeft className="arrow-icon left-arrow" />
-            <BsArrowRight className="arrow-icon right-arrow" />
-          </div>
+          {/* <div className='next-arrows'>
+          <BsArrowLeft className="arrow-icon left-arrow" onClick={handlePrevImage} />
+        <BsArrowRight className="arrow-icon right-arrow" onClick={handleNextImage} />
+        </div> */}
+    
         </div>
       </div>
 
@@ -151,10 +184,10 @@ useEffect(() => {
 
         {/* Buy Now and Add to Cart buttons */}
         <div className="action-buttons">
-          <button className="btn btn-primary buy-now-btn" onClick={handleBuyNow}>
+          <button className="buy-now-btn" onClick={handleBuyNow}>
             Buy Now
           </button>
-          <button className="btn btn-primary add-to-cart-btn" onClick={handleAddToCart}>
+          <button className=" add-to-cart-btn" onClick={handleAddToCart}>
             Add to Cart
           </button>
         </div>
