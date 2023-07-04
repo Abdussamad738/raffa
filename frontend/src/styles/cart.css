@@ -1,3 +1,235 @@
-.cart{
-    background-color: blanchedalmond;
-}
+/* cart.css */
+
+/* Global styles */
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    background-color: beige;
+  }
+  
+  .container {
+    margin: 0 auto;
+    padding: 1rem;
+    overflow-y: auto;
+    background-color: #bdbdbd;
+  }
+  
+  /* Cart page styles */
+  .cart-page {
+    margin-top: 2rem;
+  }
+  
+  h2 {
+    margin-bottom: 1rem;
+  }
+  
+  /* Section 1: Shipping method */
+  /* Add your custom styles for the shipping method section here */
+  
+  /* Section 3: Items details */
+  .cart-item {
+    border: 1px solid #ccc;
+    padding: 1rem;
+    display: flex;
+    flex-direction: row;
+  }
+  .item-image{
+    width: 80%;
+    height: 80%;
+  }
+  @media (min-width:700px) {
+    .mb-3{
+        display: flex;
+        flex-direction:row ;
+    }
+    .item-info{
+        justify-content: space-between;
+        gap: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+    .cart-item{
+        flex-direction: row;
+    }
+    .price{
+        display: flex;
+        flex-direction: row;
+        align-items: flex-start;
+        top: 0;
+    }
+  }
+  
+  .item-info{
+    display: flex;
+    flex-direction: row;
+    
+    
+  }
+  .item-header{
+    display: flex;
+    flex-direction: column;
+    padding: 5px;
+    border-color: #1b1010;
+  }
+  .item-header p{
+    font-size: 12px;
+  }
+  .item-quantity p{
+    font-size: 12px;
+  }
+  .cart-item .item-image img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 1rem;
+  }
+  
+  .cart-item .item-info h5 {
+    margin-bottom: 0.5rem;
+  }
+  
+  .cart-item .item-quantity {
+    display: flex;
+    align-items: flex-start;
+  }
+  
+  .cart-item .item-quantity button {
+    margin: 0 0.25rem;
+  }
+  
+  .cart-item .btn-danger {
+    align-self: flex-start;
+  }
+  
+  /* Section 4: Order summary */
+  /* Add your custom styles for the order summary section here */
+  
+  /* Responsive styles */
+  @media (min-width: 1050px) {
+    /* Hide section 2 on screens greater than or equal to 1050px */
+    .total-price {
+      display: none;
+    }
+  }
+  
+  @media (max-width: 700px) {
+    /* Items section layout for screens less than 700px */
+
+    .mb-3{
+        display: flex;
+        flex-direction: row;
+    }
+    .item-image{
+        flex-direction: row;
+    }
+    .item-info{
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .cart-item {
+      flex-direction: column;
+    }
+  
+    .cart-item .item-quantity {
+      justify-content: flex-start;
+    }
+  
+    .cart-item .btn-danger {
+      align-self: flex-start;
+      margin-bottom: 0.5rem;
+    }
+    .price{
+        
+        flex-direction: row;
+    }
+  }
+  
+  @media (min-width: 700px) {
+    /* Items section layout for screens greater than or equal to 700px */
+    .cart-item {
+      flex-direction: row;
+    }
+  
+    .cart-item .item-quantity {
+        
+        margin-top: 0;
+      justify-content: flex-start;
+    }
+  }
+  .label {
+    font-weight: 500;
+  }
+  
+  
+  
+  
+  
+  
+
+  /* Styles for the shipping method section */
+.mb-4 {
+    margin-bottom: 1rem;
+    padding: 5%;
+    margin-top: 10%;
+    border-radius: 7px;
+    background-color: rgb(242, 248, 253);
+  }
+  
+  .mb-4 h4 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 3%;
+  }
+  
+  /* Styles for the radio button inputs and labels */
+  .d-flex {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  
+  .d-flex label {
+    margin-right: 1rem;
+    font-size: 1.2rem;
+    cursor: pointer;
+  }
+  
+  .d-flex input[type="radio"] {
+    margin-right: 0.5rem;
+    cursor: pointer;
+  }
+  
+  /* Custom radio button styles */
+  .d-flex input[type="radio"] {
+    /* Hide default radio buttons */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    outline: none;
+    width: 1.4rem;
+    height: 1.4rem;
+    border-radius: 50%;
+    border: 2px solid #007bff;
+    position: relative;
+    margin: 0;
+    cursor: pointer;
+  }
+  
+  .d-flex input[type="radio"]:checked::before {
+    /* Show a dot inside the selected radio button */
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 0.6rem;
+    height: 0.6rem;
+    border-radius: 50%;
+    background-color: #007bff;
+  }
+  
+  /* Bootstrap utility class for radio button label color */
+  .form-check-label {
+    color: #333;
+  }

@@ -84,11 +84,11 @@ export default function CategoryProducts({ filteredItems }) {
               </h6>
               {item.Offer_Price ? (
                 <div>
-                  <span className="text-muted">${item.Actual_Price}</span>{' '}
-                  <del>${item.Offer_Price}</del>
+                  <span className="text-muted">AED {item.Actual_Price}</span>{' '}
+                  <del>AED {item.Offer_Price}</del>
                 </div>
               ) : (
-                <div>${item.Actual_Price}</div>
+                <div>AED {item.Actual_Price}</div>
               )}
               <div className="rating">
                 {renderStars(item.Ratings[0])}

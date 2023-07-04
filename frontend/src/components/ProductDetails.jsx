@@ -2,22 +2,33 @@ import React,{useState,useEffect}from 'react';
 import { useParams } from 'react-router-dom';
 import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchProduct } from '../utils/productActions';
+import { addToCart ,fetchProduct } from '../utils/productActions';
 import '../styles/productdetails.css'; 
 import { renderStars } from '../utils/renderStars';
 import { useLocation } from 'react-router-dom';
 import HandleLike from '../utils/handleLike';
 import ImageZoom from "react-image-zooom";
-import { Link } from 'react-router-dom';
+import { Link} from 'react-router-dom';
+import { createBrowserHistory } from 'history';
 import { Modal } from 'react-bootstrap';
 import CartPage from './Cart';
 export default function ProductDetails() {
   const dispatch = useDispatch();
+  const history = createBrowserHistory();
   const { productId } = useParams();
   const [quantity, setQuantity] = useState(1);
 //   const location = useLocation();
 //   const { likedItems } = location.state;
+const [showModal, setShowModal] = useState(false);
 
+// const handleModalShow = () => {
+//   dispatch(addToCart(productId, quantity));
+//   setShowModal(true);
+// };
+
+const handleModalHide = () => {
+  setShowModal(false);
+};
   useEffect(() => {
     dispatch(fetchProduct(productId));
   }, [dispatch, productId]);
@@ -67,12 +78,31 @@ useEffect(() => {
 
   const handleAddToCart = () => {
     // Logic to add product to cart with quantity
+    
+    const productDetails = {
+      productId: productId,
+      name: product.Name,
+      description: product.Description,
+      color: product.Colour,
+      size: product.Size,
+      imageUrl: product.Image,
+      quantity: quantity, // You can set the initial quantity here, and later increase/decrease it if needed.
+      price: product.Offer_Price?product.Offer_Price:product.Actual_Price,
+    };
+    dispatch(addToCart(productDetails));
+    setShowModal(true);
     console.log(`Added product ${productId} to cart with quantity ${quantity}`);
+    
   };
 
   const handleThumbnailClick = (index) => {
     setCurrentImage(index);
     console.log("from handleThumbnailClick:", JSON.stringify(currentImage))
+  };
+
+  const handleGoToCart = () => {
+    setShowModal(false);
+    history.push('/Cart'); // Navigate to the cart page
   };
   
 
@@ -136,11 +166,11 @@ useEffect(() => {
         <div className="price">
           {product.Offer_Price ? (
             <div>
-              <span className="text-muted">${product.Actual_Price}</span>{' '}
-              <del>${product.Offer_Price}</del>
+              <span className="text-muted">AED{product.Actual_Price}</span>{' '}
+              <del>AED{product.Offer_Price}</del>
             </div>
           ) : (
-            <div>${product.Actual_Price}</div>
+            <div>AED{product.Actual_Price}</div>
           )}
         </div>
         <div className="details">
@@ -184,12 +214,34 @@ useEffect(() => {
 
         {/* Buy Now and Add to Cart buttons */}
         <div className="action-buttons">
-          <button className="buy-now-btn" onClick={handleBuyNow}>
-            Buy Now
-          </button>
+          
           <button className=" add-to-cart-btn" onClick={handleAddToCart}>
             Add to Cart
           </button>
+          <Modal show={showModal} onHide={handleModalHide} centered={true}>
+          <Modal.Header closeButton>
+            <Modal.Title>Cart</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            {/* Modal content */}
+            <div className="modal-content">
+              <p>Item added to cart successfully!</p>
+              <div className="item-info">
+                <img src={imageUrls[currentImage]} alt={product.Name} />
+                <div className="item-details">
+                  <p className="item-name">{product.Name}</p>
+                  {/* Add any other item details you want to show */}
+                </div>
+                
+              </div>
+              <Link to='/cart'><button  className="go-to-cart-btn">
+                Go to Cart
+              </button>
+              </Link>
+              
+            </div>
+          </Modal.Body>
+        </Modal>
         </div>
       </div>
     </div>
