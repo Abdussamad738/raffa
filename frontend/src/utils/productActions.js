@@ -3,6 +3,7 @@ export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const DECREASE_QUANTITY = 'DECREASE_QUANTITY';
 export const INCREASE_QUANTITY = 'INCREASE_QUANTITY';
+export const CLEAR_CART ='CLEAR_CART'
 // Action creator to fetch product details
 export const fetchProducts = () => {
   return async (dispatch) => {
@@ -57,6 +58,11 @@ export const updateLikedItems = (likedItems) => {
       payload: productDetails,
     };
   };
+
+  // Action creator
+export const clearCart = () => ({
+  type: CLEAR_CART,
+});
 
   export const decreaseQuantity = (productId) => {
     return {

@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link,useLocation } from 'react-router-dom';
+import { useDispatch,useSelector } from 'react-redux';
 import { FaBars, FaUser, FaShoppingCart } from 'react-icons/fa';
 import logo from '../assets/logo.PNG';
 import '../styles/header.css'; 
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import {HeartFill} from 'react-bootstrap-icons'
-export default function Header() {
+export default function Header({onSearch }) {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
+  const [searchQuery, setSearchQuery] = useState('');
+  const user = useSelector((state) => state.user.user);
+  const handleSearchInputChange = (event) => {
+    setSearchQuery(event.target.value);
+  };
+
+  const handleSearch = () => {
+    onSearch(searchQuery);
+  };
 
 
     const isSmallScreen = window.innerWidth <= 500; // Adjust the breakpoint as needed
@@ -38,10 +48,19 @@ export default function Header() {
                 Deals
               </div>
               </Link>
+              {user ? (
               <Link to='/orderhistory'>
               <div className='header-item orders-header'>
                 My Orders
               </div></Link>
+              ):(
+                <Link to="/login">
+                  <div className='header-item orders-header'>
+                My Orders
+              </div>
+                </Link>
+
+              )}
           {/* Add your category selector component or expand button here */}
           {/* <button>Expand</button> */}
         </div>
@@ -49,20 +68,41 @@ export default function Header() {
       
       
       {!isHomePage && (
-          <div className="search-input">
-            {/* Add your search input component here */}
-            <input type="text" placeholder="Search" />
-          </div>
-        )}
+      <div className="search-input">
+        <input
+          type="text"
+          placeholder="Search"
+          value={searchQuery}
+          onChange={handleSearchInputChange}
+        />
+        <Link to={`/search?query=${searchQuery}`}>
+        <button onClick={handleSearch}>
+        🔍
+          {/* <img src={SearchIcon} alt="Search" /> */}
+        </button>
+        </Link>
+        </div>
+      )}
+        
+        
         <div className='header-icons'>
 
         <Link to="user-dashboard"><HeartFill className='text-danger'/></Link>
       
       <div className="user-icon">
         {/* Add your user icon component or link to user dashboard here */}
-        <Link to="user-dashboard">
+        {/* <Link to="/user-dashboard">
+          <FaUser />
+        </Link> */}
+        {user ? (
+        <Link to="/user-dashboard">
           <FaUser />
         </Link>
+      ) : (
+        <Link to="/login">
+          <FaUser />
+        </Link>
+      )}
       </div>
       <div className="cart-icon">
         {/* Add your cart icon component or link to cart page here */}

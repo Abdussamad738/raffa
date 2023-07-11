@@ -1,13 +1,24 @@
-
+import axios from 'axios';
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const DECREASE_QUANTITY = 'DECREASE_QUANTITY';
 export const INCREASE_QUANTITY = 'INCREASE_QUANTITY';
+export const CLEAR_CART ='CLEAR_CART'
+export const FETCH_CART_SUCCESS = "FETCH_CART_SUCCESS";
+export const FETCH_CART_FAILURE = "FETCH_CART_FAILURE";
 const initialState = {
     cart: [],
   };
   
-  const cartReducer = (state = initialState, action) => {
+ 
+const cartReducer = (state = initialState, action) => {
     switch (action.type) {
+      case CLEAR_CART:
+      return {
+        ...state,
+        cart: [],
+      };
+    
+  
         case ADD_TO_CART:
             const  productDetails  = action.payload;
             console.log("this is from productActions and product id and quantity is:",JSON.stringify(productDetails))
@@ -52,4 +63,31 @@ const initialState = {
   };
   
   
+  export const fetchCartSuccess = (cart) => ({
+    type: FETCH_CART_SUCCESS,
+    payload: cart,
+  });
+  
+  export const fetchCartFailure = (error) => ({
+    type: FETCH_CART_FAILURE,
+    payload: error,
+  });
+  
+  // Thunk action creator
+  export const fetchCart = (userId) => {
+    return async (dispatch) => {
+      try {
+        // Make an API call to fetch the cart data from the database using the userId
+        const response = await axios.get(`/users/${userId}/cart`);
+        const cart = response.data;
+  
+        // Dispatch the fetchCartSuccess action with the fetched cart data
+        dispatch(fetchCartSuccess(cart));
+      } catch (error) {
+        // Dispatch the fetchCartFailure action if there is an error
+        dispatch(fetchCartFailure(error));
+      }
+    };
+  };
+
   export default cartReducer;

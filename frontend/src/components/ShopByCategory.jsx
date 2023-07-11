@@ -8,19 +8,32 @@ import Layout from './Layout';
 import fitness from '../assets/fitness.png';
 import CategoryProducts from './CategoryProducts'
 import { fetchProducts } from '../utils/productActions';
-export default function ShopByCategory() {
+export default function ShopByCategory({filteredItems}) {
   const [filterOptions, setFilterOptions] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState('');
-  const [filteredItems, setFilteredItems] = useState([]);
+  
   const [selectedCategories, setSelectedCategories] = useState([]);
   const location = useLocation();
   const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
+  // Check if filteredItems is undefined, and if so, set it to an empty array
+  const [items, setItems] = useState(filteredItems || []);
+  console.log("from shop:",JSON.stringify(items))
+
+  // Rest of your component code...
+
+  useEffect(() => {
+    // If filteredItems prop changes, update the items state accordingly
+    if (filteredItems !== undefined) {
+      setItems(filteredItems);
+    }
+  }, [filteredItems]);
   const handleFilterChange = (event) => {
     setSelectedFilter(event.target.value);
   };
 
+  
   const handleCheckboxChange = (event, updatedCheckboxes) => {
     console.log(JSON.stringify(selectedCheckboxes))
     // setSelectedCheckboxes(updatedCheckboxes);
@@ -44,7 +57,8 @@ export default function ShopByCategory() {
     const matchedItems = products.filter((item) => item.category.includes(category));
     
     const updatedFilteredItems = matchedItems.length > 0 ? matchedItems : [];
-    setFilteredItems(updatedFilteredItems);
+    setItems(updatedFilteredItems);
+    // setSearchQuery('');
   };
 
   const [data, setData] = useState(null);
@@ -53,7 +67,7 @@ useEffect(()=>{
           
   selectedCheckboxes.some((checkbox) => item.category.includes(checkbox))
         );
-        setFilteredItems(filteredItems);
+        setItems(filteredItems);
         console.log("filtered item from useeffect:",JSON.stringify(filteredItems))
 
 },[selectedCheckboxes,products])
@@ -64,6 +78,25 @@ useEffect(()=>{
   //   )
 
   // },[filteredItems])
+
+  // const handleSearch = () => {
+  //   console.log(JSON.stringify(products))
+  //   const filtered = products.filter(
+  //     (product) =>
+  //       product.Name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  //       product.Description.toLowerCase().includes(searchQuery.toLowerCase())
+  //   );
+    
+  //   console.log("filtered :",JSON.stringify(filtered))
+  //   setFilteredItems(filtered);
+  //   console.log(JSON.stringify(filteredItems))
+  // };
+
+  // useEffect(() => {
+  //   // Filter products based on the search query when searchQuery prop changes
+  //   handleSearch();
+  // }, [searchQuery]);
+
   
  
 
@@ -87,8 +120,8 @@ useEffect(()=>{
         
         </div>
         <div className='items scrollbar'>
-          {filteredItems.length > 0 ? (
-            <CategoryProducts filteredItems={filteredItems} />
+          {items.length > 0 ? (
+            <CategoryProducts filteredItems={items} />
           ) : (
             <Layout onCategoryClick={handleCategoryClick}/>
           )}

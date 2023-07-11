@@ -138,6 +138,8 @@ body {
     font-style: italic;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     text-overflow: hidden;
+    margin-top: 5%;
+    margin-bottom: 5%;
   }
 
   .search-input input[type=text]{

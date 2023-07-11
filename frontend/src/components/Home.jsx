@@ -11,7 +11,18 @@ import secondtab from '../assets/secondtab.jpg'
 import { FaIoIosArrowDropdown } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {FaAngleDown} from 'react-icons/fa'
-export default function Home() {
+import ShopByCategory from './ShopByCategory';
+export default function Home({onSearch}) {
+
+  const [searchQuery, setSearchQuery] = useState('');
+  const [showShopByCategory, setShowShopByCategory] = useState(false);
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+  // const handleSearchIconClick = () => {
+  //   setShowShopByCategory(!showShopByCategory);
+  // };
+
     
 
     
@@ -58,10 +69,19 @@ export default function Home() {
     
   </div>
   <div className='arabic'>تجارة المعدات الرياضية راف</div>
-  <div className="search-input">
-        {/* Add your search input component here */}
-        <input type="text" placeholder="Find your sporting gear and unleash your athletic potential!" />
-      </div>
+  {/* <div className="search-input">
+        <input
+          type="text"
+          placeholder="Find your winning gear!"
+          value={searchQuery}
+          onChange={(e) => handleSearch(e.target.value)}
+        />
+        <Link to={`/search?query=${searchQuery}`}>
+        <button onClick={handleSearch}>🔍</button>
+        </Link>
+      </div> */}
+      
+      
 </div>
     <div className='tabs'>
         
@@ -85,6 +105,8 @@ export default function Home() {
         </div>
         
     </div>
+    
+    
 </div>
 
   
