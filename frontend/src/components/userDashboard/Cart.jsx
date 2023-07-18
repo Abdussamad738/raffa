@@ -1,19 +1,20 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import '../styles/cart.css';
+import '../../styles/cart.css';
+import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { decreaseQuantity, increaseQuantity } from '../utils/productActions';
+import { decreaseQuantity, increaseQuantity } from '../../utils/productActions';
 import {FaTrash} from 'react-icons/fa'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
-import { setUser, updateUser, removeUser } from "../utils/userActions";
-import {updateDeliveryAddress} from '../utils/userActions'
+import { setUser, updateUser, removeUser } from "../../utils/userActions";
+import {updateDeliveryAddress} from '../../utils/userActions'
 import axios, { AxiosError } from "axios";
-import DeliveryAddressForm from './DeliveryAddressForm';
-import { clearCart } from '../utils/productActions';
+import DeliveryAddressForm from '../DeliveryAddressForm';
+import { clearCart } from '../../utils/productActions';
 export default function Cart() {
   const cartItems = useSelector((state) => state.cart.cart ?? []);
-  
+  const navigate = useNavigate();
   console.log("cart :",JSON.stringify(cartItems))
   const [shippingMethod, setShippingMethod] = useState('instorePickup');
   const dispatch = useDispatch();
@@ -55,29 +56,8 @@ export default function Cart() {
   
   //delivery Address submit
   const user = useSelector((state) => state.user.user);
-  console.log("delivery address: ",JSON.stringify(user.user.deliveryAddress))
-  console.log("user address:",JSON.stringify(user.user.deliveryAddress))
-  const deliveryAddressFormik = useFormik({
-    initialValues: {
-      name:'',
-      buildingName:'',
-      suiteNo:'',
-      street: '',
-      // city:'',
-      state: '',
-      phoneNumber: '',
-      postalCode: '',
-      country:'',
-    },
-    onSubmit: (values) => {
-      
-    dispatch(updateUser(values));
-    // updateDeliveryAddress(user.user._id, values);
-      // Handle form submission for delivery address insertion
-      console.log('Delivery address form submitted', values);
-      // Call API or dispatch Redux action to insert delivery address
-    },
-  });
+    
+  console.log("user from cart ",JSON.stringify(user))
 
   // Find the maximum Delivery_Time from the cart
 const findMaxDeliveryTime = () => {
@@ -97,23 +77,18 @@ const findMaxDeliveryTime = () => {
   
 };
 
-const [isFormVisible, setIsFormVisible] = useState(false); // Define the isFormVisible state variable
+const [showForm, setShowForm] = useState(false);
 
-  // Rest of your component code...
-
-  const toggleFormVisibility = () => {
-    console.log("form toggle",isFormVisible)
-    setIsFormVisible(!isFormVisible);
+  const handleClick = () => {
+    setShowForm(true);
     // return(
     //   <DeliveryAddressForm/>
     // )
   };
-
-
-const delivery_time=findMaxDeliveryTime();
-  const handleCheckout = async () => {
-    const order = {
-      deliveryDate: delivery_time, // Logic to set the delivery date goes here
+  const delivery_time=findMaxDeliveryTime();
+  const userDeliveryAddress = user?user.deliveryAddress:null;
+  const [order, setOrder] = useState({
+    deliveryDate: delivery_time, // Logic to set the delivery date goes here
       status: 'Pending', // Value passed from cart component
       price: subtotal.toFixed(2),
       shippingMethod,
@@ -122,23 +97,40 @@ const delivery_time=findMaxDeliveryTime();
       products: cartItems.map((item) => ({
         productId: item.productDetails.productId,
         quantity: item.productDetails.quantity,
+        image:item.productDetails.imageUrl[0],
+        productName:item.productDetails.name||null,
+        productDescription:item.productDetails.description||null,
       })),
-      deliveryAddress: {
-        name: deliveryAddressFormik.values.name,
-        buildingName: deliveryAddressFormik.values.buildingName,
-        suiteNo: deliveryAddressFormik.values.suiteNo,
-        street: deliveryAddressFormik.values.street,
-        // city: deliveryAddressFormik.values.city,
-        state: deliveryAddressFormik.values.state,
-        phoneNo: deliveryAddressFormik.values.phoneNumber,
-        postalCode: deliveryAddressFormik.values.postalCode,
-        country: 'Uae',
-      },
-    };
+    // Other order properties
+    deliveryAddress: userDeliveryAddress || null,
+  });
 
+  // const [orderDeliveryAddress, setOrderDeliveryAddress] = useState({
+  //   values: {
+  //     name: '',
+  //     buildingName:'',
+  //     suiteNo:'',
+  //     street:'',
+  //     state:'',
+  //     phoneNo:'',
+  //     postalCode:'',
+  //     country:'UAE'
+  //     // Other delivery address values...
+  //   },
+  // });
+
+  const handleCheckout = async (orderDeliveryAddress) => {
+    
+    if (user === null) {
+        // User is not logged in, navigate to sign-in page
+        navigate('/login');
+        return;
+      }
+    
+    console.log("order from handlecheckout",order)
     try {
       const response = await axios.post('http://localhost:9000/users/updateOrderHistory', {
-        userId: user.user._id,
+        userId: user._id,
         order,
       });
     
@@ -156,10 +148,16 @@ const delivery_time=findMaxDeliveryTime();
       console.error('Failed to update order history', error);
     }
   }
+  const setOrderDeliveryAddress = (address) => {
+    setOrder((prevOrder) => ({
+      ...prevOrder,
+      deliveryAddress: address,
+    }));
+  };
 
   return (
     <div className="container cart-page">
-      <h2>Cart</h2>
+      {/* <h2>Cart</h2> */}
       <div className="row">
         <div className="col-12 col-lg-8">
           {/* Section 1: Shipping method */}
@@ -205,7 +203,7 @@ const delivery_time=findMaxDeliveryTime();
                     <div className="cart-item">
                       <div className="item-image">
                         {console.log(JSON.stringify(item.productDetails.imageUrl[0]))}
-                      <img src={require(`../assets/${item.productDetails.imageUrl[0]}`)} alt={item.productDetails.name} />
+                      <img src={require(`../../assets/${item.productDetails.imageUrl[0]}`)} alt={item.productDetails.name} />
                       </div>
                       <div className="item-info">
                         <div className="item-header">
@@ -258,34 +256,28 @@ const delivery_time=findMaxDeliveryTime();
         {shippingMethod === 'deliverToHome' ? (
         <div className='delivery'>
         <h3>Delivery Address</h3>
-        {user.user.deliveryAddress ? (
+        {user.deliveryAddress && !showForm ? (
           <div>
                 {/* Render the existing address */}
                 <h4>Existing Address:</h4>
-              {Object.entries(user.user.deliveryAddress).map(([key, value]) => (
+              {Object.entries(user.deliveryAddress).map(([key, value]) => (
                 <p key={key}>
                   <strong>{capitalizeFirstLetter(key)}:</strong> {value}
                 </p>
               ))}
-              <Button variant="primary" onClick={toggleFormVisibility}>
+              <Button variant="primary" onClick={handleClick}>
                 Edit Delivery Address
               </Button>
           </div>
           ) : (
             <div>
-              {isFormVisible ? (
+              {/* {showForm ? ( */}
                 <div>
-                  <DeliveryAddressForm
-                  orderDeliveryAddress={user.user.deliveryAddress} // Pass the orderHistory.deliveryAddress as a prop
+                  <DeliveryAddressForm setOrderDeliveryAddressInCart={setOrderDeliveryAddress}
+                   // Pass the orderHistory.deliveryAddress as a prop
                 />
                 </div>
-                
-        
-        ) : (
-          <Button variant="primary" onClick={toggleFormVisibility}>
-            Add Delivery Address
-          </Button>
-        )}
+ 
       </div>
     )}
   </div>
@@ -298,7 +290,7 @@ const delivery_time=findMaxDeliveryTime();
         )}
         </div>
         <div className="mb-4">
-          <button className="btn btn-primary btn-block" onClick={handleCheckout}>Checkout</button>
+        <button onClick={() => handleCheckout()}>Checkout</button>
         </div>
       </div>
       </div>

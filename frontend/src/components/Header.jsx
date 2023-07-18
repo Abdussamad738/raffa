@@ -1,9 +1,15 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { Link,useLocation } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
 import { FaBars, FaUser, FaShoppingCart } from 'react-icons/fa';
 import logo from '../assets/logo.PNG';
 import '../styles/header.css'; 
+import Badge from '@mui/material/Badge';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { fetchProducts } from '../utils/productActions';
+
 import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import {HeartFill} from 'react-bootstrap-icons'
 export default function Header({onSearch }) {
@@ -14,11 +20,25 @@ export default function Header({onSearch }) {
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
   };
-
+  const dispatch = useDispatch();
   const handleSearch = () => {
     onSearch(searchQuery);
   };
 
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  // const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
+  //   '& .MuiBadge-badge': {
+  //     right: -3,
+  //     top: 13,
+  //     border: `2px solid ${theme.palette.background.paper}`,
+  //     padding: '0 4px',
+  //   },
+  // }));
+  const cartItems = useSelector((state) => state.cart.cart ?? []);
+const cartItemCount = cartItems.length;
 
     const isSmallScreen = window.innerWidth <= 500; // Adjust the breakpoint as needed
   return (
@@ -49,7 +69,7 @@ export default function Header({onSearch }) {
               </div>
               </Link>
               {user ? (
-              <Link to='/orderhistory'>
+              <Link to='/user/orders'>
               <div className='header-item orders-header'>
                 My Orders
               </div></Link>
@@ -87,7 +107,9 @@ export default function Header({onSearch }) {
         
         <div className='header-icons'>
 
-        <Link to="user-dashboard"><HeartFill className='text-danger'/></Link>
+        <Link to="user/wishlist">
+          <HeartFill className='text-danger'/>
+          </Link>
       
       <div className="user-icon">
         {/* Add your user icon component or link to user dashboard here */}
@@ -95,7 +117,7 @@ export default function Header({onSearch }) {
           <FaUser />
         </Link> */}
         {user ? (
-        <Link to="/user-dashboard">
+        <Link to="/user">
           <FaUser />
         </Link>
       ) : (
@@ -106,9 +128,15 @@ export default function Header({onSearch }) {
       </div>
       <div className="cart-icon">
         {/* Add your cart icon component or link to cart page here */}
-        <Link to="/cart">
-          <FaShoppingCart />
-        </Link>
+        
+          <IconButton aria-label="cart">
+          <Link to="user/cart">
+            <Badge badgeContent={cartItemCount} color="secondary" >
+              <ShoppingCartIcon />
+            </Badge>
+            </Link>
+          </IconButton>
+        
       </div>
       </div>
       </div>

@@ -1,5 +1,5 @@
 import { Router } from 'express';
-
+import { checkAccess } from '../controllers/admin.js';
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
@@ -91,11 +91,12 @@ router.post('/login', async (req, res) => {
     const token = jwt.sign({ user_id: user._id }, 'your-secret-key', {
       expiresIn: '1h',
     });
+    req.user = user;
     // user.cart = cartItems;
     await user.save(); 
     // dispatch(updateUserCart(cartItems));
 
-    res.json({ user, token });
+    res.json({ token, user });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
@@ -113,6 +114,30 @@ router.get('/profile', authMiddleware, async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 });
+
+// DELETE user by ID
+router.delete("/:id", authMiddleware, isAdmin, async (req, res) => {
+  console.log("from delete")
+  try {
+    const { id } = req.params;
+
+    // Find the user by ID
+    const user = await User.findById(id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    // Delete the user
+    await user.remove();
+
+    res.json({ message: "User deleted successfully" });
+  } catch (error) {
+    console.error("Error deleting user:", error);
+    res.status(500).json({ message: "Error deleting user" });
+  }
+});
+
 
 // Route for updating user profile
 router.patch('/profile', authMiddleware, async (req, res) => {

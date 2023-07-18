@@ -43,7 +43,7 @@ function Login() {
         tokenType: "Bearer",
         authState: { email: values.email },
       });
-      
+      sessionStorage.setItem("token", response.data.token);
       const  cart  = response.data.user.cart;
 
       // Dispatch the setCart action to set the cart in the Redux store
@@ -51,13 +51,20 @@ function Login() {
         dispatch(addToCart(item.productDetails));
       });
       const userData = response.data;
-      dispatch(setUser(userData));
+      console.log(userData)
+      dispatch(setUser(userData, response.data.token));
       // if (userData) {
       //   dispatch(fetchCart(userData._id));
       // }
       console.log("after successful login :",JSON.stringify(cart))
       // Redirect the user after successful login (optional)
-      navigate("/user-dashboard"); // Replace '/dashboard' with the desired route
+      // Check the user's role and redirect accordingly
+  if (userData.user.role === "admin") {
+    console.log("u r admin")
+    navigate("/admin"); // Redirect to the admin routes
+  } else {
+    navigate("/user"); // Redirect to the user dashboard
+  }
     } catch (err) {
       if (err && err instanceof AxiosError)
         setError(err.response?.data.message);

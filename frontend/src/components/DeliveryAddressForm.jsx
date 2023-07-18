@@ -4,26 +4,28 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUser, updateUser, removeUser } from "../utils/userActions";
 import { clearCart } from '../utils/productActions';
+import {updateDeliveryAddress} from '../utils/userActions'
 
-export default function DeliveryAddressForm ({ orderDeliveryAddress })  {
-
+export default function DeliveryAddressForm ({ setOrderDeliveryAddressInCart  })  {
+  const user = useSelector((state) => state.user.user);
     const dispatch = useDispatch();
     const deliveryAddressFormik = useFormik({
         initialValues: {
-          name: orderDeliveryAddress.name || '', // Set the initial value for each field from orderDeliveryAddress
-      buildingName: orderDeliveryAddress.buildingName || '',
-      suiteNo: orderDeliveryAddress.suiteNo || '',
-      street: orderDeliveryAddress.street || '',
-      city: orderDeliveryAddress.city || '',
-      state: orderDeliveryAddress.state || '',
-      phoneNumber: orderDeliveryAddress.phoneNumber || '',
-      postalCode: orderDeliveryAddress.postalCode || '',
-      country: orderDeliveryAddress.country || '',
+          name:  '', // Set the initial value for each field from orderDeliveryAddress
+      buildingName:  '',
+      suiteNo:  '',
+      street:  '',
+      city:  '',
+      state:  '',
+      phoneNo:  '',
+      postalCode:'',
+      country:  'UAE',
         },
         onSubmit: (values) => {
-          
+          // Call the callback function to set the order.deliveryAddress in the parent component
+      setOrderDeliveryAddressInCart(values);
         dispatch(updateUser(values));
-        // updateDeliveryAddress(user.user._id, values);
+        updateDeliveryAddress(user.user._id, values);
           // Handle form submission for delivery address insertion
           console.log('Delivery address form submitted', values);
           // Call API or dispatch Redux action to insert delivery address
@@ -122,8 +124,8 @@ export default function DeliveryAddressForm ({ orderDeliveryAddress })  {
             <Col sm={10}>
               <Form.Control
                 type="tel"
-                name="phoneNumber"
-                value={deliveryAddressFormik.values.phoneNumber}
+                name="phoneNo"
+                value={deliveryAddressFormik.values.phoneNo}
                 onChange={deliveryAddressFormik.handleChange}
               />
             </Col>

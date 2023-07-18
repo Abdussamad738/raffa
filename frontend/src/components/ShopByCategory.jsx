@@ -1,5 +1,7 @@
 import React, { useState, useEffect }  from 'react'
 import '../styles/shop.css'; 
+import { Box,useTheme, useMediaQuery } from "@mui/material";
+import { ColorModeContext, tokens } from "./../theme";
 
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation,useParams } from "react-router-dom";
@@ -8,18 +10,21 @@ import Layout from './Layout';
 import fitness from '../assets/fitness.png';
 import CategoryProducts from './CategoryProducts'
 import { fetchProducts } from '../utils/productActions';
+import { NavigationBreadcrumbs } from './NavigationBreadcrumbs';
 export default function ShopByCategory({filteredItems}) {
   const [filterOptions, setFilterOptions] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState('');
-  
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
   const [selectedCategories, setSelectedCategories] = useState([]);
   const location = useLocation();
   const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
   // Check if filteredItems is undefined, and if so, set it to an empty array
-  const [items, setItems] = useState(filteredItems || []);
-  console.log("from shop:",JSON.stringify(items))
+  console.log("from shop filteredItems:",JSON.stringify(filteredItems))
+  const [items, setItems] = useState(filteredItems ? filteredItems : []);
+  console.log("from shop items:",JSON.stringify(items))
 
   // Rest of your component code...
 
@@ -70,7 +75,7 @@ useEffect(()=>{
         setItems(filteredItems);
         console.log("filtered item from useeffect:",JSON.stringify(filteredItems))
 
-},[selectedCheckboxes,products])
+},[selectedCheckboxes])
 
   // useEffect(()=>{
   //   return(
@@ -105,8 +110,11 @@ useEffect(()=>{
   }, [dispatch]);
 
   return (
-    <div className='main'>
+    <div className='main' backgroundColor={colors.primary[400]}>
+        
+        
         <h2>Shop By Category</h2>
+        
         <div className='container sub'>
         
         <div className='filter scrollbar'>
@@ -115,6 +123,7 @@ useEffect(()=>{
             onFilterChange={handleFilterChange}
             selectedCheckboxes={selectedCheckboxes}
             onCheckboxChange={handleCheckboxChange}
+            backgroundColor={colors.primary[400]}
           />
 
         

@@ -26,7 +26,7 @@ export default function SearchResults() {
     );
     console.log("matched items :",matchedItems)
     setFilteredItems(matchedItems);
-    console.log("this is from searchResults",JSON.stringify(filteredItems))
+    console.log("this is from searchResults",filteredItems)
   };
 
   return (

@@ -17,12 +17,16 @@ const userSchema = new Schema({
   phone: {
     type: String,
     required: false,
-    unique: true,
+    
     trim: true,
   },
   password: {
     type: String,
     required: true,
+  },
+  role: {
+    type: String,
+    required: false,
   },
   // deliveryAddress: {
   //   name: { type: String },
@@ -109,6 +113,18 @@ const userSchema = new Schema({
           },
           quantity: {
             type: Number,
+            required: true,
+          },
+          productName:{
+            type:String,
+            required:false,
+          },
+          productDescription:{
+            type:String,
+            required:false,
+          },
+          image: {
+            type: String,
             required: true,
           },
         },

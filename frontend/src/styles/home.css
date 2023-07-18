@@ -6,7 +6,7 @@ body {
     animation: gradient 15s ease infinite;
     background-size: 400% 400%;
     background-attachment: fixed;
-    height: 70%;
+    height: 100%;
     /* margin-bottom: 10%; */
 }
 
@@ -159,10 +159,24 @@ body {
     font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
   }
 
+  .search-input {
+    display: flex;
+    align-items: center;
+  }
+  
+  .search-icon {
+    display: flex;
+    align-items: center;
+    padding: 5px;
+    cursor: pointer;
+  }
+  
+
   .tabs{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    background-color: #1a050515!important;
   }
 
   .first-tab{

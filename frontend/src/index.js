@@ -17,9 +17,9 @@ root.render(
     <StyletronProvider value={engine}>
     <AuthProvider>
     <Provider store={store}>
-    <ThemeProvider theme={theme}>
+    {/* <ThemeProvider theme={theme}> */}
     <App />
-    </ThemeProvider>
+    {/* </ThemeProvider> */}
     </Provider>
     </AuthProvider>
     </StyletronProvider>

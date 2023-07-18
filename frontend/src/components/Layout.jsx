@@ -1,4 +1,4 @@
-import { Box, useMediaQuery } from "@mui/material";
+import { Box,useTheme, useMediaQuery } from "@mui/material";
 import React, { useState } from 'react'
 import activewear from '../assets/activewear.png'
 import badminton from '../assets/badminton.png'
@@ -26,6 +26,8 @@ import volleyball from '../assets/volleyball.png'
 import water from '../assets/water.png'
 import basketball from '../assets/basketball.png'
 import '../styles/layout.css'; 
+import { ColorModeContext, tokens } from "./../theme";
+
 import { useNavigate  } from 'react-router-dom';
 import CategoryProducts from "./CategoryProducts";
 import { useSelector, useDispatch } from 'react-redux';
@@ -107,7 +109,10 @@ const gridTemplateMediumScreens = `
   ];
 
 export default function Layout({  onCategoryClick }) {
-    const isAboveMediumScreens = useMediaQuery("(min-width: 1500px)");
+    
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+  const isAboveMediumScreens = useMediaQuery("(min-width: 1500px)");
     const navigate = useNavigate();
     const data = useSelector((state) => state.products.products);
     const [filteredItems, setFilteredItems] = useState([]);
@@ -115,7 +120,7 @@ export default function Layout({  onCategoryClick }) {
     console.log("from handleCategoryClick",JSON.stringify(category))
     // const matchedItems = data.filter((item) => item.category === category.name);
     // const updatedFilteredItems = matchedItems.length > 0 ? matchedItems : [];
-  
+    
     onCategoryClick(category.name);
     // setFilteredItems(updatedFilteredItems);
     console.log("filtered item from layout :",JSON.stringify(category.name))
@@ -137,6 +142,7 @@ export default function Layout({  onCategoryClick }) {
       display="grid"
       gap="1.5rem"
       marginTop="5%"
+      backgroundColor={colors.primary[400]}
       sx={
         isAboveMediumScreens
           ? {

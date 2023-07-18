@@ -9,6 +9,7 @@ import categoryRoutes from "./routes/category.js";
 import productRouter from "./routes/product.js";
 import userRouter from "./routes/user.js"
 import orderRouter from './routes/order.js'
+import adminRouter from './routes/admin.js'
 // import productRoutes from "./routes/product.js";
 // import transactionRoutes from "./routes/transaction.js";
 // import KPI from "./models/KPI.js";
@@ -32,6 +33,7 @@ app.use("/categories", categoryRoutes);
 app.use('/users',userRouter);
 app.use('/products', productRouter);
 app.use('/orders', orderRouter);
+app.use('/admin', adminRouter);
 
 /* MONGOOSE SETUP */
 const PORT = 9000;

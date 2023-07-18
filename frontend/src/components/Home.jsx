@@ -12,6 +12,8 @@ import { FaIoIosArrowDropdown } from 'react-icons/fa';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {FaAngleDown} from 'react-icons/fa'
 import ShopByCategory from './ShopByCategory';
+import SearchIcon from '@mui/icons-material/Search';
+import { MDBCol, MDBFormInline, MDBBtn } from "mdbreact";
 export default function Home({onSearch}) {
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -69,18 +71,23 @@ export default function Home({onSearch}) {
     
   </div>
   <div className='arabic'>تجارة المعدات الرياضية راف</div>
-  {/* <div className="search-input">
-        <input
-          type="text"
-          placeholder="Find your winning gear!"
-          value={searchQuery}
-          onChange={(e) => handleSearch(e.target.value)}
-        />
-        <Link to={`/search?query=${searchQuery}`}>
-        <button onClick={handleSearch}>🔍</button>
-        </Link>
-      </div> */}
-      
+  <div className="search-input">
+  <input
+    type="text"
+    placeholder="Find your winning gear!"
+    value={searchQuery}
+    onChange={(e) => handleSearch(e.target.value)}
+  />
+  <Link to={`/search?query=${searchQuery}`}>
+    <div className="search-icon" onClick={handleSearch}>
+      <SearchIcon />
+    </div>
+    <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
+        <MDBBtn color="unique" rounded size="sm" type="submit" className="mr-auto">
+          Search
+        </MDBBtn>
+  </Link>
+</div>
       
 </div>
     <div className='tabs'>

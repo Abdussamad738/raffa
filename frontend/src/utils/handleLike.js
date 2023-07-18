@@ -8,10 +8,17 @@ export default function HandleLike({ product }) {
   const dispatch = useDispatch();
 
   const handleLike = () => {
-    if (likedItems.includes(product)) {
+    console.log("liked items from handlelike:", likedItems);
+  
+    const isLiked = likedItems.some((likedItem) => likedItem._id === product._id);
+  
+    if (isLiked) {
       const updatedLikedItems = likedItems.filter(
-        (likedItem) => likedItem !== product
+        
+        (likedItem) => likedItem._id !== product._id
+       
       );
+      console.log("from isLiked,",JSON.stringify(updatedLikedItems))
       dispatch(updateLikedItems(updatedLikedItems));
     } else {
       const updatedLikedItems = [...likedItems, product];
@@ -21,13 +28,14 @@ export default function HandleLike({ product }) {
 
   // Store likedItems in local storage
   useEffect(() => {
-    localStorage.setItem('likedItems', JSON.stringify(likedItems));
+    console.log("likeditems useEffect",JSON.stringify(likedItems.includes(product)));
   }, [likedItems]);
 
   return (
     <div className='like'>
       <button className="btn btn-link float-right" onClick={handleLike}>
-        {likedItems.includes(product) ? (
+      {likedItems.some((likedItem) => likedItem._id === product._id) ? (
+          
           <HeartFill className="text-danger" />
         ) : (
           <Heart className="text-danger" />

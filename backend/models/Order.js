@@ -50,7 +50,15 @@ const orderSchema = new Schema({
         type: Number,
         required: true,
       },
-    },
+      name: {
+        type: String,
+        required: true,
+      },
+
+      Image: {
+        type: String,
+        required: true,
+      },    },
   ],
   status: {
     type: String,

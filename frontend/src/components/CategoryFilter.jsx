@@ -1,10 +1,20 @@
 import React from 'react';
+import { Box, IconButton, Typography, useTheme } from "@mui/material";
+import { tokens } from "../theme";
+import { NavigationBreadcrumbs } from './NavigationBreadcrumbs';
 import { useRef,useState,useEffect } from "react";
-const CategoryFilter = ({ onFilterChange,selectedCheckboxes, onCheckboxChange }) => {
+function CategoryFilter ({ onFilterChange,selectedCheckboxes, onCheckboxChange })  {
+
+  const theme = useTheme();
+  const colors = tokens(theme.palette.mode);
+
   
   
   return (
-    <section className="filters" aria-labelledby="filters-header">
+    <section className="filters" backgroundColor={colors.primary[100]}aria-labelledby="filters-header">
+      <div>
+          <NavigationBreadcrumbs/>
+        </div>
       <header id="filters-header">Filters</header>
 
       <ul>

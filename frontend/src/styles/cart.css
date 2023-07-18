@@ -8,10 +8,10 @@ body {
   }
   
   .container {
-    margin: 0 auto;
+    margin: 0 0;
     padding: 1rem;
     overflow-y: auto;
-    background-color: #bdbdbd;
+    background-color: #1F2A40;
   }
   
   /* Cart page styles */
@@ -171,9 +171,9 @@ body {
 .mb-4 {
     margin-bottom: 1rem;
     padding: 5%;
-    margin-top: 10%;
+    /* margin-top: 5%; */
     border-radius: 7px;
-    background-color: rgb(242, 248, 253);
+    background-color: rgb(108, 117, 124);
   }
   
   .mb-4 h4 {

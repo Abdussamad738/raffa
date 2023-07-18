@@ -38,7 +38,7 @@
 }
 @media (min-width: 1500px) {
   body {
-    padding: 0 10%; /* Adjust the padding values according to your needs */
+    padding: 0 5%; 
   }
 }
 
@@ -61,7 +61,7 @@ body::-moz-scrollbar-thumb {
 }
 
 .app__container {
-  width: 80%;
+  width: 100%;
   min-height: 80vh;
 }
 
@@ -91,3 +91,4 @@ html,body{
 .like{
   margin-right: 1px;
 }
+

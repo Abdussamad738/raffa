@@ -4,11 +4,12 @@ import axios from 'axios';
 export const SET_USER = "SET_USER";
 export const UPDATE_USER = "UPDATE_USER";
 export const REMOVE_USER = "REMOVE_USER";
+export const SET_ALL_USERS="SET_ALL_USERS";
 
 // Action creators
-export const setUser = (user) => ({
+export const setUser = (user,token) => ({
   type: SET_USER,
-  payload: user,
+  payload: user,token,
 });
 
 export const updateUser = (user) => ({
@@ -20,6 +21,10 @@ export const removeUser = () => ({
   type: REMOVE_USER,
 });
 
+export const setAllUsers = (users) => ({
+  type: SET_ALL_USERS,
+  payload: users,
+});
 export const updateDeliveryAddress = async (userId, deliveryAddress) => {
     try {
       // Make a POST request to the server endpoint

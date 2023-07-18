@@ -6,13 +6,14 @@
 
 }
 .filter{
-    flex: 0.6;
-    background-color: rgb(247 247 247);
+    width: 20%;
+    background-color: rgb(14, 23, 48);
     overflow-y: auto;
+    padding: 5% 2%;
 }
 .items{
-    background-color: #f7f8fa;
-    flex: 2;
+    background-color: #1F2A40;
+    width:80%;
     padding-bottom: 5%;
     padding-left: 2%;
     padding-right: 2%;
@@ -25,7 +26,7 @@ h2{
 }
 
 main{
-    background-color: #f7f8fa !important;
+    /* background-color: #f7f8fa !important; */
     font-size: 10px;
     
 }
@@ -33,6 +34,7 @@ main{
 .container {
     display: flex;
     height: 100vh;
+    /* background-color: #1ab333; */
   }
   
 
@@ -49,7 +51,7 @@ main{
   }
   
   .scrollbar::-webkit-scrollbar {
-    width: 8px;
+    width: 3px;
   }
   
   .scrollbar::-webkit-scrollbar-track {
@@ -74,8 +76,12 @@ main{
 
   .products{
     margin-top: 3% !important;
+    gap: 5%;
+    
   }
 
   .card:hover{
     box-shadow: 0 0 15px rgba(122, 120, 120, 0.938); /* Add a box shadow on hover */
   }
+
+ 

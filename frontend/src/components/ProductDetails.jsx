@@ -11,7 +11,6 @@ import ImageZoom from "react-image-zooom";
 import { Link} from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { Modal } from 'react-bootstrap';
-import CartPage from './Cart';
 export default function ProductDetails() {
   const dispatch = useDispatch();
   const history = createBrowserHistory();
@@ -100,11 +99,7 @@ useEffect(() => {
     console.log("from handleThumbnailClick:", JSON.stringify(currentImage))
   };
 
-  const handleGoToCart = () => {
-    setShowModal(false);
-    history.push('/Cart'); // Navigate to the cart page
-  };
-  
+
 
 
 //   const { Images, Name, Ratings, Actual_Price, Offer_Price, Colour, Description, Dimensions, Features } = product;
@@ -152,7 +147,7 @@ useEffect(() => {
       <div className="product-info">
         <div className='card-title'>
         <h3>{product.Name}</h3>
-        <HandleLike product={product._id} className="handle-like"/>
+        <HandleLike product={product} className="handle-like"/>
         </div>
         <div className="ratings">
           {/* Render stars based on ratings */}
@@ -234,7 +229,7 @@ useEffect(() => {
                 </div>
                 
               </div>
-              <Link to='/cart'><button  className="go-to-cart-btn">
+              <Link to='/user/cart'><button  className="go-to-cart-btn">
                 Go to Cart
               </button>
               </Link>

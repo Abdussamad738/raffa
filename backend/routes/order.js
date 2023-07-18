@@ -1,6 +1,7 @@
 import { Router } from 'express';
 import Order from '../models/Order.js';
-
+import User from '../models/User.js';
+import { authMiddleware,isAdmin } from '../middleware/auth.js';
 const router = Router();
 
 // Create a new order
@@ -96,6 +97,36 @@ router.delete('/:orderId', async (req, res) => {
     res.json({ message: 'Order deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: 'Failed to delete order', error });
+  }
+});
+router.get('/all', authMiddleware,isAdmin,async (req, res) => {
+  try {
+    console.log("from orders/all")
+    // Fetch all users with their orders
+    const users = await User.find({}, 'name email phone orderHistory');
+    console.log("from orders/all",JSON.stringify(users))
+    // Extract and format the order details
+    const orders = users.reduce((allOrders, user) => {
+      const userOrders = user.orderHistory.map((order) => ({
+        orderNumber: order.orderNumber,
+        userId: user._id,
+        customerName: user.name,
+        price: order.price,
+        transactionDate: order.transactionDate,
+        deliveryDate: order.deliveryDate,
+        shippingMethod: order.shippingMethod,
+        products: order.products,
+        status: order.status,
+        deliveryAddress: order.deliveryAddress,
+      }));
+
+      return allOrders.concat(userOrders);
+    }, []);
+
+    res.json(orders);
+  } catch (error) {
+    console.error('Error fetching orders:', error);
+    res.status(500).json({ message: 'Error fetching orders' });
   }
 });
 

@@ -11,11 +11,9 @@ import Checkout from './components/Checkout';
 import OrderConfirmation from './components/OrderConfirmation';
 import BulkOrderPage from './components/BulkOrderPage';
 import BulkOrderDetails from './components/BulkOrderDetails';
-import AdminDashboard from './components/AdminDashboard';
+import AdminDashboard from './admin';
 import Contact from './components/Contact';
-import UserDashboard from './components/UserDashboard';
 import Deals from './components/Deals';
-import Cart from './components/Cart'
 import Header from './components/Header';
 import OrderHistory from './components/OrderHistory';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -27,6 +25,16 @@ import { useNavigate } from "react-router-dom";
 import { RequireAuth } from "react-auth-kit";
 import ProtectedRoute from './components/ProtectedRoute';
 import { useIsAuthenticated } from 'react-auth-kit';
+
+import { ThemeProvider } from '@mui/material/styles';
+import theme from './theme';
+import { StyletronProvider } from 'styletron-react';
+import { CssBaseline } from '@mui/material';
+import { ColorModeContext, useMode } from "./theme";
+import AdminRoutes from './admin'
+import AdminAuthCheck from './components/AdminAuthCheck';
+import Wishlist from './components/Wishlist';
+import UserRoutes from './components/userDashboard/index.js';
 // function AuthenticatedRoute({ element: Component, ...rest }) {
 //   const { isAuthenticated } = useAuth();
 //   const navigate = useNavigate();
@@ -48,6 +56,8 @@ function App() {
   const handleSearch = (query) => {
     setSearchQuery(query);
   };
+  const [theme, colorMode] = useMode();
+  // const engine = new Styletron();
   // const ProtectedOrderHistory = () => {
   //   if (!isAuthenticated()) {
   //     navigate('/login');
@@ -58,7 +68,9 @@ function App() {
   // };
   
   return (
-    
+    <ColorModeContext.Provider value={colorMode}>
+      <ThemeProvider theme={theme}>
+        <CssBaseline/>
     
     <BrowserRouter>
       <Header onSearch={handleSearch}/>
@@ -75,11 +87,11 @@ function App() {
         <Route path="/confirmation" element={<OrderConfirmation/>} />
         <Route path="/bulkorder" element={<BulkOrderPage/>} />
         <Route path="/bulkorder/:orderId" element={<BulkOrderDetails/>} />
-        <Route path="/admin" element={<AdminDashboard/>} />
+        {/* <Route path="/admin" element={<AdminDashboard/>} /> */}
         <Route path="/contact" element={<Contact/>} />
-        <Route path="/user-dashboard" element={<UserDashboard/>} />
         <Route path="/deals" element={<Deals/>} />
-        <Route path="/cart" element={<Cart/>} />
+        
+        <Route path="/wishlist" element={<Wishlist/>}/>
         <Route
           path={'/orderhistory'}
           element={
@@ -98,10 +110,13 @@ function App() {
         /> */}
 
         <Route path="/login" element={<Login/>}/>
+        <Route path="/user/*" element={<UserRoutes/>}/>
         <Route path="/register" element={<Register/>}/>
-
+        <Route path="/admin/*" element={<AdminAuthCheck />} />
       </Routes>
     </BrowserRouter>
+    </ThemeProvider>
+    </ColorModeContext.Provider>
     
     
   );
