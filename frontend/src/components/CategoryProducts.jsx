@@ -5,6 +5,7 @@ import { StarFill, StarHalf, Star, HeartFill, Heart } from 'react-bootstrap-icon
 import { renderStars } from '../utils/renderStars';
 import { updateLikedItems } from '../utils/productActions';
 import HandleLike from '../utils/handleLike';
+import Recommendation from './Recommendation';
 export default function CategoryProducts({ filteredItems }) {
   const [likedItems, setLikedItems] = useState([]);
   const [quantity, setQuantity] = useState(0);
@@ -50,16 +51,17 @@ export default function CategoryProducts({ filteredItems }) {
 
 
   return (
+    <div>
     
     <div className="products row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
       {filteredItems.map((item) => (
-        <div className="col mb-4" key={item._id}>
+        <div className="col mb-4 product-items" key={item._id}>
             
           <div className="card">
           <Link to={{ pathname: `/product/${item._id}`, state: { likedItems } }}>
           {/* <Link to={`/product/${item._id}`, state: { likedItems }}> */}
             <img
-              src={require(`../assets/${item.Image[0]}`)}
+              src={`https://raffasports.s3.ca-central-1.amazonaws.com/${item.image[0]}`}
               className="card-img-top"
               alt={item.Name}
             />
@@ -79,22 +81,22 @@ export default function CategoryProducts({ filteredItems }) {
                   )}
                 </button> */}
 
-<HandleLike product={item} className="handle-like"/>
+              <HandleLike product={item} className="handle-like"/>
 
 
               </h6>
-              {item.Offer_Price ? (
+              {item.offerPrice ? (
                 <div>
-                  <span className="text-muted">AED {item.Actual_Price}</span>{' '}
-                  <del>AED {item.Offer_Price}</del>
+                  <span className="text-muted">AED {item.offerPrice}</span>{' '}
+                  <del>AED {item.actualPrice}</del>
                 </div>
               ) : (
-                <div>AED {item.Actual_Price}</div>
+                <div>AED {item.actualPrice}</div>
               )}
               <div className="rating">
-                {renderStars(item.Ratings[0])}
+                {renderStars(item.ratings[0])}
                 <span className="text-muted">
-                  ({item.Ratings[1]} ratings)
+                  ({item.ratings[1]} ratings)
                 </span>
               </div>
               {/* <div className="quantity-buttons">
@@ -124,6 +126,11 @@ export default function CategoryProducts({ filteredItems }) {
           </div>
         </div>
       ))}
+    </div>
+    {/* <div>
+      <Recommendation/>
+
+    </div> */}
     </div>
   );
 }

@@ -3,32 +3,74 @@ import mongoose from "mongoose";
 const productSchema = new Schema({
     category: {
         type: [String],
-        required: true
+        required: true,
       },
   Name: {
     type: String,
     required: true
   },
-  Image: {
+  description: {
+    type: String,
+    required: true
+  },
+  image: {
     type: [String],
+    required:true,
 },
-  Description: String,
-  Features: [String],
-  Dimensions: {
-    width: String,
-    height: String,
-    depth: String
+  features: {
+    type:[String],
+    required:false,
   },
-  Specifications: {
-    type: Map,
-    of: String
+  dimensions: {
+    type: String,
+    required: false,
   },
-  Ratings: [Number],
-  Actual_Price: Number,
-  Offer_Price: Number,
-  Quantity_in_Stock: Number,
-  Colour: String,
-  Delivery_Time: String
+  specifications: {
+    type:String,
+    required:false,
+  },
+  ratings: {
+    type:[Number],
+    required:true,
+  },
+  actualPrice: {
+    type:Number,
+    required:false,
+  },
+  offerPrice: {
+    type:Number,
+    required:false,
+  },
+  sizes: [
+    {
+      key: {
+        type: String,
+        required: false,
+      },
+      value: {
+        type: Number,
+        required: false,
+      },
+    }],
+  
+  quantityInStock: {
+    type:Number,
+    required:true,
+  },
+  colour: {
+    type:[String],
+    required:false,
+  },
+  deliveryTime: {
+    type:Number,
+    reuired:true,
+  },
+  instorePickupTime:{
+    type:Number,
+    required:true,
+  },
+
+  
 },{ collection: "products" });
 
 const Product = mongoose.model('Product', productSchema);

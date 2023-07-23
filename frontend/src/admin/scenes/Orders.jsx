@@ -8,6 +8,8 @@ import Header from '../components/Header';
 import '../index.css'
 function Orders() {
   const theme = useTheme();
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const colors = tokens(theme.palette.mode);
   const { user, token } = useSelector((state) => state.user);
   console.log("from orders.jsx",token)
@@ -16,7 +18,7 @@ function Orders() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const response = await fetch('http://localhost:9000/admin/orders', {
+        const response = await fetch(`${backendUrl}/admin/orders`, {
             headers: {
               Authorization: `Bearer ${token}`,
             },

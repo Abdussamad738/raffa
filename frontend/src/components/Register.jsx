@@ -18,18 +18,27 @@ import {
 function Register() {
   const [error, setError] = useState("");
   const navigate = useNavigate();
+  const [showOtpInput, setShowOtpInput] = useState(false);
+  const [otp, setOtp] = useState('');
+  const [otpdb,setOtpdb]=useState('');
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const onSubmit = async (values) => {
     setError("");
-
+    
+  
     try {
       const response = await axios.post(
-        "http://localhost:9000/users/register",
+        `${backendUrl}/users/register`,
         values
       );
+      console.log(JSON.stringify(response.data))
+      setOtpdb(response.data.user.otp);
+      setShowOtpInput(true);
+      
 
       // Redirect the user after successful registration (optional)
-      navigate("/login"); // Replace '/login' with the desired route for the login page
+       // Replace '/login' with the desired route for the login page
     } catch (err) {
       if (err && err instanceof AxiosError)
         setError(err.response?.data.message);
@@ -48,9 +57,23 @@ function Register() {
     onSubmit,
   });
 
+  const handleOtpSubmit = (e) => {
+    e.preventDefault();
+    // Perform OTP validation logic here
+    // If OTP is valid, redirect to the desired page
+    if (otp === otpdb) {
+      // OTP is valid, redirect to the desired page
+      navigate('/login'); // Replace '/user' with your desired route
+    } else {
+      // OTP is invalid, handle the error or display an error message
+      console.log('Invalid OTP');
+    } // Replace '/dashboard' with your desired route
+  };
+
   return (
     <Container>
       <InnerContainer>
+      {!showOtpInput ? (
         <form onSubmit={formik.handleSubmit}>
           <HeadingXXLarge>Register</HeadingXXLarge>
           {error && <ErrorText>{error}</ErrorText>}
@@ -93,6 +116,23 @@ function Register() {
             Register
           </Button>
         </form>
+        ) : (
+          <form onSubmit={handleOtpSubmit}>
+            <HeadingXXLarge>Verify OTP</HeadingXXLarge>
+            <Input
+              value={otp}
+              onChange={(e) => setOtp(e.target.value)}
+              placeholder="Enter OTP"
+              clearOnEscape
+              size="large"
+              type="text"
+              required
+            />
+            <Button size="large" kind="primary" type="submit">
+              Verify OTP
+            </Button>
+          </form>
+        )}
       </InnerContainer>
     </Container>
   );

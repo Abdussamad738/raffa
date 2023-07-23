@@ -17,12 +17,16 @@ const userSchema = new Schema({
   phone: {
     type: String,
     required: false,
-    
+    unique:false,
     trim: true,
   },
   password: {
     type: String,
     required: true,
+  },
+  otp: {
+    type: String, // or Number, depending on your preference
+    default: null,
   },
   role: {
     type: String,
@@ -136,35 +140,35 @@ const userSchema = new Schema({
       deliveryAddress: {
         name: {
           type: String,
-          required: true,
+          required: false,
         },
         buildingName: {
           type: String,
-          required: true,
+          required: false,
         },
         suiteNo: {
           type: String,
-          required: true,
+          required: false,
         },
         street: {
           type: String,
-          required: true,
+          required: false,
         },
         state: {
           type: String,
-          required: true,
+          required: false,
         },
         postalCode: {
           type: String,
-          required: true,
+          required: false,
         },
         country: {
           type: String,
-          required: true,
+          required: false,
         },
         phoneNo: {
           type: String,
-          required: true,
+          required: false,
         },
       },
       // Add any other order-related fields you want to store.
@@ -181,6 +185,7 @@ const userSchema = new Schema({
         imageUrl: [String],
         price: Number,
         quantity: Number,
+        quantityInStock:Number,
       },
       
     },

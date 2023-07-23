@@ -1,28 +1,55 @@
+import dotenv from 'dotenv';
 import { Router } from 'express';
 import { checkAccess } from '../controllers/admin.js';
 import User from '../models/User.js';
 import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { authMiddleware, isAdmin } from '../middleware/auth.js';
+import sgMail from '@sendgrid/mail'
+dotenv.config();
 const router = Router();
+
+
+const SENDGRID_API_KEY=process.env.SENDGRID_API_KEY
+sgMail.setApiKey(SENDGRID_API_KEY)
 
 // Route for user registration
 router.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
-    console.log("from user.js",JSON.stringify(name,email,password))
+    console.log("from user.js",JSON.stringify(name))
+    console.log("from user.js",JSON.stringify(email))
+    console.log("from user.js",JSON.stringify(password))
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
       return res.status(400).json({ message: 'Email already exists' });
     }
+    // Generate OTP
+    const otp = Math.floor(100000 + Math.random() * 900000);
 
     const user = new User({
       name,
       email,
       password,
+      otp,
     });
 
     await user.save();
+    const msg = {
+      to: email, // Change to your recipient
+      from: 'samadbinabdulla123@gmail.com', // Change to your verified sender
+      subject: 'Registration OTP',
+      text: `Your OTP is: ${otp}`,
+      html: `<strong>Your OTP is: ${otp}</strong>`,
+    }
+    sgMail
+      .send(msg)
+      .then(() => {
+        console.log('Email sent')
+      })
+      .catch((error) => {
+        console.error(error)
+      })
 
     const token = jwt.sign({ user_id: user._id }, 'your-secret-key', {
       expiresIn: '1h',

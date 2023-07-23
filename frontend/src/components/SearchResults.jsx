@@ -22,7 +22,7 @@ export default function SearchResults() {
     const matchedItems = products.filter(
       (item) =>
         item.Name.toLowerCase().includes(query.toLowerCase()) ||
-        item.Description.toLowerCase().includes(query.toLowerCase())
+        item.description.toLowerCase().includes(query.toLowerCase())
     );
     console.log("matched items :",matchedItems)
     setFilteredItems(matchedItems);

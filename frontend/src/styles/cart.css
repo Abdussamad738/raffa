@@ -28,13 +28,13 @@ body {
   
   /* Section 3: Items details */
   .cart-item {
-    border: 1px solid #ccc;
+    border: 1px solid #302e2ed8;
     padding: 1rem;
     display: flex;
     flex-direction: row;
   }
   .item-image{
-    width: 80%;
+    width: 50%;
     height: 80%;
   }
   @media (min-width:700px) {
@@ -68,7 +68,7 @@ body {
   .item-header{
     display: flex;
     flex-direction: column;
-    padding: 5px;
+    padding: 0 3%;
     border-color: #1b1010;
   }
   .item-header p{
@@ -159,6 +159,7 @@ body {
   }
   .label {
     font-weight: 500;
+    margin-left: 2%;
   }
   
   
@@ -170,7 +171,7 @@ body {
   /* Styles for the shipping method section */
 .mb-4 {
     margin-bottom: 1rem;
-    padding: 5%;
+    padding: 5% 5%;
     /* margin-top: 5%; */
     border-radius: 7px;
     background-color: rgb(108, 117, 124);
@@ -195,10 +196,7 @@ body {
     cursor: pointer;
   }
   
-  .d-flex input[type="radio"] {
-    margin-right: 0.5rem;
-    cursor: pointer;
-  }
+ 
   
   /* Custom radio button styles */
   .d-flex input[type="radio"] {
@@ -210,10 +208,11 @@ body {
     width: 1.4rem;
     height: 1.4rem;
     border-radius: 50%;
-    border: 2px solid #007bff;
+    border: 2px solid #03503f;
     position: relative;
     margin: 0;
     cursor: pointer;
+    margin-right: 5px;
   }
   
   .d-flex input[type="radio"]:checked::before {
@@ -226,7 +225,7 @@ body {
     width: 0.6rem;
     height: 0.6rem;
     border-radius: 50%;
-    background-color: #007bff;
+    background-color: #10c4a6;
   }
   
   /* Bootstrap utility class for radio button label color */

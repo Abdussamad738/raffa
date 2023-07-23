@@ -1,154 +1,210 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { Box, Button, TextField } from '@mui/material';
 import { useFormik } from 'formik';
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
+import * as yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
-import { setUser, updateUser, removeUser } from "../utils/userActions";
+import { setUser, updateUser, removeUser } from '../utils/userActions';
 import { clearCart } from '../utils/productActions';
-import {updateDeliveryAddress} from '../utils/userActions'
+import { updateDeliveryAddress } from '../utils/userActions';
 
-export default function DeliveryAddressForm ({ setOrderDeliveryAddressInCart  })  {
+function DeliveryAddressForm  ({ setOrderDeliveryAddressInCart })  {
   const user = useSelector((state) => state.user.user);
-    const dispatch = useDispatch();
-    const deliveryAddressFormik = useFormik({
-        initialValues: {
-          name:  '', // Set the initial value for each field from orderDeliveryAddress
-      buildingName:  '',
-      suiteNo:  '',
-      street:  '',
-      city:  '',
-      state:  '',
-      phoneNo:  '',
-      postalCode:'',
-      country:  'UAE',
-        },
-        onSubmit: (values) => {
-          // Call the callback function to set the order.deliveryAddress in the parent component
+  const dispatch = useDispatch();
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [submittedData, setSubmittedData] = useState({});
+  const checkoutSchema = yup.object().shape({
+    name: yup.string().required('required'),
+    buildingName: yup.string().required('required'),
+    suiteNo: yup.string().required('required'),
+    street: yup.string().required('required'),
+    state: yup.string().required('required'),
+    phoneNo: yup.string().required('required'),
+    country: yup.string().required('required'),
+  });
+  console.log("from DeliveryAddressForm:",isSubmitted)
+  const deliveryAddressFormik = useFormik({
+    initialValues: {
+      name: '',
+      phoneNo: '',
+      buildingName: '',
+      suiteNo: '',
+      street: '',
+      state: 'Dubai',
+      country: 'UAE',
+    },
+    validationSchema: checkoutSchema,
+    onSubmit: (values) => {
+      setSubmittedData(values);
+      setIsSubmitted(true);
+      console.log("isSubmitted:",isSubmitted)
+      // Call the callback function to set the order.deliveryAddress in the parent component
       setOrderDeliveryAddressInCart(values);
-        dispatch(updateUser(values));
-        updateDeliveryAddress(user.user._id, values);
-          // Handle form submission for delivery address insertion
-          console.log('Delivery address form submitted', values);
-          // Call API or dispatch Redux action to insert delivery address
-        },
-      });
+      dispatch(updateUser(values));
+      updateDeliveryAddress(user.user._id, values);
+      // Handle form submission for delivery address insertion
+      console.log('Delivery address form submitted', values);
       
+      
+      
+      // Call API or dispatch Redux action to insert delivery address
+    },
+  });
+
   return (
-    <div>
-         <Form onSubmit={deliveryAddressFormik.handleSubmit}>
-          <Form.Group as={Row} controlId="formAddressName">
-            <Form.Label column sm={2}>
-              Name
-            </Form.Label>
-            <Col sm={10}>
-              <Form.Control
-                type="text"
-                name="name"
-                value={deliveryAddressFormik.values.name}
-                onChange={deliveryAddressFormik.handleChange}
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="formAddressBuildingName">
-            <Form.Label column sm={2}>
-             Apt/Bldg Name
-            </Form.Label>
-            <Col sm={10}>
-              <Form.Control
-                type="text"
-                name="buildingName"
-                value={deliveryAddressFormik.values.buildingName}
-                onChange={deliveryAddressFormik.handleChange}
-              />
-            </Col>
-          </Form.Group>
-          <Form.Group as={Row} controlId="formAddressSuiteNo">
-            <Form.Label column sm={2}>
-             Apt/Suite No 
-            </Form.Label>
-            <Col sm={10}>
-              <Form.Control
-                type="text"
-                name="suiteNo"
-                value={deliveryAddressFormik.values.suiteNo}
-                onChange={deliveryAddressFormik.handleChange}
-              />
-            </Col>
-          </Form.Group>
+    <Box>
+      
+      {isSubmitted ? ( // Display the submitted data if the form is submitted
+        
+        <div>
+          <Box>
+          {/* <h3>Submitted Data:</h3> */}
+          <p>Name: {submittedData.name}</p>
+          <p>Phone No: {submittedData.phoneNo}</p>
+          <p>Apt/Suite No: {submittedData.suiteNo}</p>
+          <p>Apt/Bldg Name: {submittedData.buildingName}</p>
+          
+          <p>Street: {submittedData.street}</p>
+          <p>Dubai, UAE</p>
+          {/* Display other submitted data here... */}
+          <Button // Add a button to reset the form and enter new data
+            variant="contained"
+            color="primary"
+            onClick={() => {
+              setIsSubmitted(false);
+              setSubmittedData({});
+              deliveryAddressFormik.resetForm();
+            }}
+          >
+            Edit Address
+          </Button>
+          </Box>
+        </div>
+        
+      ) : (
+      <form onSubmit={deliveryAddressFormik.handleSubmit}>
+        <Box sx={{ marginBottom: '20px' }}>
+          <TextField
+            fullWidth
+            variant="filled"
+            type="text"
+            label="Name"
+            onBlur={deliveryAddressFormik.handleBlur}
+            onChange={deliveryAddressFormik.handleChange}
+            value={deliveryAddressFormik.values.name}
+            name="name"
+            error={!!deliveryAddressFormik.touched.name && !!deliveryAddressFormik.errors.name}
+            helperText={deliveryAddressFormik.touched.name && deliveryAddressFormik.errors.name}
+          />
+        </Box>
+        <Box sx={{ marginBottom: '20px' }}>
+          <TextField
+            fullWidth
+            variant="filled"
+            type="text"
+            label="Phone Number"
+            onBlur={deliveryAddressFormik.handleBlur}
+            onChange={deliveryAddressFormik.handleChange}
+            value={deliveryAddressFormik.values.phoneNo}
+            name="phoneNo"
+            error={
+              !!deliveryAddressFormik.touched.phoneNo && !!deliveryAddressFormik.errors.phoneNo
+            }
+            helperText={
+              deliveryAddressFormik.touched.phoneNo && deliveryAddressFormik.errors.phoneNo
+            }
+          />
+        </Box>
+        <Box sx={{ marginBottom: '20px' }}>
+          <TextField
+            fullWidth
+            variant="filled"
+            type="text"
+            label="Apt/Suite No"
+            onBlur={deliveryAddressFormik.handleBlur}
+            onChange={deliveryAddressFormik.handleChange}
+            value={deliveryAddressFormik.values.suiteNo}
+            name="suiteNo"
+            error={!!deliveryAddressFormik.touched.suiteNo && !!deliveryAddressFormik.errors.suiteNo}
+            helperText={deliveryAddressFormik.touched.suiteNo && deliveryAddressFormik.errors.suiteNo}
+          />
+        </Box>
+        <Box sx={{ marginBottom: '20px' }}>
+          <TextField
+            fullWidth
+            variant="filled"
+            type="text"
+            label="Apt/Bldg Name"
+            onBlur={deliveryAddressFormik.handleBlur}
+            onChange={deliveryAddressFormik.handleChange}
+            value={deliveryAddressFormik.values.buildingName}
+            name="buildingName"
+            error={
+              !!deliveryAddressFormik.touched.buildingName && !!deliveryAddressFormik.errors.buildingName
+            }
+            helperText={
+              deliveryAddressFormik.touched.buildingName && deliveryAddressFormik.errors.buildingName
+            }
+          />
+        </Box>
+        
+        <Box sx={{ marginBottom: '20px' }}>
+          <TextField
+            fullWidth
+            variant="filled"
+            type="text"
+            label="Street Name"
+            onBlur={deliveryAddressFormik.handleBlur}
+            onChange={deliveryAddressFormik.handleChange}
+            value={deliveryAddressFormik.values.street}
+            name="street"
+            error={
+              !!deliveryAddressFormik.touched.street && !!deliveryAddressFormik.errors.street
+            }
+            helperText={
+              deliveryAddressFormik.touched.street && deliveryAddressFormik.errors.street
+            }
+          />
+        </Box>
+        <Box>
+        <TextField
+          fullWidth
+          variant="filled"
+          type="text"
+          label="State"
+          onBlur={deliveryAddressFormik.handleBlur}
+          onChange={deliveryAddressFormik.handleChange}
+          value={deliveryAddressFormik.values.state}
+          name="state"
+          error={!!deliveryAddressFormik.touched.state && !!deliveryAddressFormik.errors.state}
+          helperText={deliveryAddressFormik.touched.state && deliveryAddressFormik.errors.state}
+          disabled // Disable the State field
+        />
+        <TextField
+          fullWidth
+          variant="filled"
+          type="text"
+          label="Country"
+          onBlur={deliveryAddressFormik.handleBlur}
+          onChange={deliveryAddressFormik.handleChange}
+          value={deliveryAddressFormik.values.country}
+          name="country"
+          error={!!deliveryAddressFormik.touched.country && !!deliveryAddressFormik.errors.country}
+          helperText={deliveryAddressFormik.touched.country && deliveryAddressFormik.errors.country}
+          disabled // Disable the Country field
+        />
+          </Box>
+     
+        
+        
+        {/* Add other form fields here... */}
+        <Button variant="contained" color="primary" type="submit">
+          Add Delivery Address
+        </Button>
+      </form>
+      )}
+    </Box>
+    
+  );
+};
 
-          <Form.Group as={Row} controlId="formStreet">
-            <Form.Label column sm={2}>
-              Street
-            </Form.Label>
-            <Col sm={10}>
-              <Form.Control
-                type="text"
-                name="street"
-                value={deliveryAddressFormik.values.street}
-                onChange={deliveryAddressFormik.handleChange}
-              />
-            </Col>
-          </Form.Group>
-
-          {/* <Form.Group as={Row} controlId="formCity">
-            <Form.Label column sm={2}>
-              City
-            </Form.Label>
-            <Col sm={10}>
-              <Form.Control
-                type="text"
-                name="city"
-                value={deliveryAddressFormik.values.city}
-                onChange={deliveryAddressFormik.handleChange}
-              />
-            </Col>
-          </Form.Group> */}
-
-          <Form.Group as={Row} controlId="formState">
-            <Form.Label column sm={2}>
-              State
-            </Form.Label>
-            <Col sm={10}>
-              <Form.Control
-                type="text"
-                name="state"
-                value={deliveryAddressFormik.values.state}
-                onChange={deliveryAddressFormik.handleChange}
-              />
-            </Col>
-          </Form.Group>
-
-          <Form.Group as={Row} controlId="formPhoneNumber">
-            <Form.Label column sm={2}>
-              Phone Number
-            </Form.Label>
-            <Col sm={10}>
-              <Form.Control
-                type="tel"
-                name="phoneNo"
-                value={deliveryAddressFormik.values.phoneNo}
-                onChange={deliveryAddressFormik.handleChange}
-              />
-            </Col>
-          </Form.Group>
-
-          <Form.Group as={Row} controlId="formPostalCode">
-            <Form.Label column sm={2}>
-              Postal Code
-            </Form.Label>
-            <Col sm={10}>
-              <Form.Control
-                type="text"
-                name="postalCode"
-                value={deliveryAddressFormik.values.postalCode}
-                onChange={deliveryAddressFormik.handleChange}
-              />
-            </Col>
-          </Form.Group>
-
-          <Button variant="primary" type="submit">
-              Add Delivery Address
-            </Button>
-          </Form>
-    </div>
-  )
-}
+export default DeliveryAddressForm;

@@ -28,10 +28,10 @@ function UserRoutes  () {
   const user = useSelector((state) => state.user);
   const token = sessionStorage.getItem("token");
   console.log("user from index.js:",JSON.stringify(user,token))
-  if (!user || !token) {
-    // If user or token is missing, redirect to login page or desired route
-    return <Navigate to="/login" />;
-  }
+  // if (!user || !token) {
+  //   // If user or token is missing, redirect to login page or desired route
+  //   return <Navigate to="/login" />;
+  // }
 
   return (
     
@@ -41,16 +41,6 @@ function UserRoutes  () {
             {/* <Topbar setIsSidebar={setIsSidebar} /> */}
     <Routes>
       <Route path="/" element={<Dashboard />} />
-      {/* <Route path="/team" element={<Team />} />
-      <Route path="/contacts" element={<Contacts />} />
-      <Route path="/invoices" element={<Invoices />} />
-      <Route path="/form" element={<Form />} />
-      <Route path="/bar" element={<Bar />} />
-       <Route path="/pie" element={<Pie />} />
-       <Route path="/line" element={<Line />} />
-       <Route path="/faq" element={<FAQ />} />
-      <Route path="/calendar" element={<Calendar />} />
-      <Route path="/users" element={<Users />} /> */}
       <Route path="/orders" element={<Order/>}/>
       <Route path="/wishlist" element={<Wishlist />} />
       <Route path="/dashboard" element={<Dashboard/>}/>

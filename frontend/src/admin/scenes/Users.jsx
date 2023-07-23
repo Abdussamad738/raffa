@@ -16,6 +16,8 @@ import React, { useEffect, useState } from 'react';
 const Users = () => {
   const dispatch = useDispatch();
   const theme = useTheme();
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const colors = tokens(theme.palette.mode);
   const { user, token } = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
@@ -40,7 +42,7 @@ const Users = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch('http://localhost:9000/users/all', {
+        const response = await fetch(`${backendUrl}/users/all`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },

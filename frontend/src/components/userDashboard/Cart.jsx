@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import '../../styles/cart.css';
 import { useNavigate } from 'react-router-dom';
@@ -7,19 +7,41 @@ import { decreaseQuantity, increaseQuantity } from '../../utils/productActions';
 import {FaTrash} from 'react-icons/fa'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap';
 import { useFormik } from 'formik';
+import { Box, Typography } from '@mui/material';
+
 import { setUser, updateUser, removeUser } from "../../utils/userActions";
 import {updateDeliveryAddress} from '../../utils/userActions'
 import axios, { AxiosError } from "axios";
 import DeliveryAddressForm from '../DeliveryAddressForm';
 import { clearCart } from '../../utils/productActions';
+import { deleteFromCart } from '../../utils/cartReducer';
 export default function Cart() {
   const cartItems = useSelector((state) => state.cart.cart ?? []);
-  const navigate = useNavigate();
-  console.log("cart :",JSON.stringify(cartItems))
-  const [shippingMethod, setShippingMethod] = useState('instorePickup');
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const [showWarning, setShowWarning] = useState(false);
+  console.log("cart :",JSON.stringify(cartItems))
+  const [shippingMethod, setShippingMethod] = useState('');
   const handleShippingMethodChange = (event) => {
-    setShippingMethod(event.target.value);
+    const selectedMethod = event.target.value;
+    console.log("from handleShipping:",selectedMethod)
+  if (selectedMethod === 'deliverToHome' && subtotal < 100) {
+    setShowWarning(true);
+    console.log("from handleShipping if :",selectedMethod)
+  } else if(selectedMethod === 'deliverToHome' && subtotal > 100){
+    setShippingMethod(selectedMethod);
+    
+    setShowWarning(false);
+    console.log("from handleShipping if else:",shippingMethod,selectedMethod)
+  }
+  else{
+    setShippingMethod(selectedMethod);
+  }
+  };
+  const handleDeleteItem = (productId) => {
+    // Filter out the item with the given productId and update the cartItems state
+    // const updatedCartItems = cartItems.filter((item) => item.productDetails.productId !== productId);
+    dispatch(deleteFromCart(productId));
   };
   const handleDecreaseQuantity = (productId) => {
     const item = cartItems.find((item) => item.productDetails.productId === productId);
@@ -28,9 +50,24 @@ export default function Cart() {
       dispatch(decreaseQuantity(productId));
     }
   };
-
+  useEffect(() => {
+    setOrder((prevOrder) => ({
+      ...prevOrder,
+      shippingMethod: shippingMethod, // Update the 'shippingMethod' property in the 'order' state
+    }));
+    console.log('Shipping method updated:', shippingMethod);
+  }, [shippingMethod]);
   const handleIncreaseQuantity = (productId) => {
-    dispatch(increaseQuantity(productId));
+    const product = cartItems.find((item) => item.productDetails.productId === productId);
+    if (product) {
+      // Check if the current quantity is less than productDetails.quantityInStock
+      if (product.productDetails.quantity < product.productDetails.quantityInStock) {
+        dispatch(increaseQuantity(productId));
+      } else {
+        // Show a warning or notification that the quantity cannot be increased further
+        console.log("Cannot increase quantity further. Quantity in stock reached.");
+      }
+    }
   };
 
   // Calculate the total price for each item (price * quantity)
@@ -91,7 +128,7 @@ const [showForm, setShowForm] = useState(false);
     deliveryDate: delivery_time, // Logic to set the delivery date goes here
       status: 'Pending', // Value passed from cart component
       price: subtotal.toFixed(2),
-      shippingMethod,
+      shippingMethod:shippingMethod,
       productRating: 0, // Value passed from cart component
       shippingRating: 0, // Value passed from cart component
       products: cartItems.map((item) => ({
@@ -104,20 +141,8 @@ const [showForm, setShowForm] = useState(false);
     // Other order properties
     deliveryAddress: userDeliveryAddress || null,
   });
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
-  // const [orderDeliveryAddress, setOrderDeliveryAddress] = useState({
-  //   values: {
-  //     name: '',
-  //     buildingName:'',
-  //     suiteNo:'',
-  //     street:'',
-  //     state:'',
-  //     phoneNo:'',
-  //     postalCode:'',
-  //     country:'UAE'
-  //     // Other delivery address values...
-  //   },
-  // });
 
   const handleCheckout = async (orderDeliveryAddress) => {
     
@@ -129,7 +154,7 @@ const [showForm, setShowForm] = useState(false);
     
     console.log("order from handlecheckout",order)
     try {
-      const response = await axios.post('http://localhost:9000/users/updateOrderHistory', {
+      const response = await axios.post(`${backendUrl}/users/updateOrderHistory`, {
         userId: user._id,
         order,
       });
@@ -169,8 +194,9 @@ const [showForm, setShowForm] = useState(false);
               type="radio"
               name="shippingMethod"
               value="deliverToHome"
-              checked={shippingMethod === 'deliverToHome'}
+              checked={subtotal >= 100 && shippingMethod === 'deliverToHome'}
               onChange={handleShippingMethodChange}
+              // disabled={subtotal.toFixed(2) < 100}
             />
                Deliver to Home
           </label>
@@ -185,7 +211,10 @@ const [showForm, setShowForm] = useState(false);
             In-store Pickup
           </label>
         </div>
-      </div>
+        {showWarning && (
+          <h6 style={{ color: 'rgb(64, 13, 13)' }}>Delivery is only available for orders above 100 AED.</h6>
+          )}
+    </div>
       <div className='total-price'>
             <h3>Overall Total Price: {(subtotal + shippingCharge).toFixed(2)} AED</h3>
             {/* Place your shipping method content here */}
@@ -203,7 +232,7 @@ const [showForm, setShowForm] = useState(false);
                     <div className="cart-item">
                       <div className="item-image">
                         {console.log(JSON.stringify(item.productDetails.imageUrl[0]))}
-                      <img src={require(`../../assets/${item.productDetails.imageUrl[0]}`)} alt={item.productDetails.name} />
+                      <img src={`https://raffasports.s3.ca-central-1.amazonaws.com/${item.productDetails.imageUrl[0]}`} />
                       </div>
                       <div className="item-info">
                         <div className="item-header">
@@ -217,8 +246,8 @@ const [showForm, setShowForm] = useState(false);
                           <span>{item.productDetails.quantity}</span>
                           <button className="btn btn-sm btn-primary"onClick={() => handleIncreaseQuantity(item.productDetails.productId)}>+</button>
                           <div className='price'>
-                          <p><span className="label">Price:</span> AED{item.productDetails.price}</p>
-    <p><span className="label">Total Price:</span> AED{(item.productDetails.quantity * item.productDetails.price).toFixed(2)}</p>
+                          <p><span className="label">Price:</span> {item.productDetails.price}</p>
+    <p><span className="label">Total Price:</span> {(item.productDetails.quantity * item.productDetails.price).toFixed(2)}</p>
                           </div>
                         </div>
                         
@@ -227,7 +256,8 @@ const [showForm, setShowForm] = useState(false);
                       
                     </div>
                     
-                    <button className="btn btn-sm"><FaTrash  /></button>
+                    <button className="btn btn-sm" onClick={() => handleDeleteItem(item.productDetails.productId)}>
+                      <FaTrash  /></button>
                   </div>
                 ))}
               </div>
@@ -256,7 +286,7 @@ const [showForm, setShowForm] = useState(false);
         {shippingMethod === 'deliverToHome' ? (
         <div className='delivery'>
         <h3>Delivery Address</h3>
-        {user.deliveryAddress && !showForm ? (
+        {user?.deliveryAddress && !showForm ? (
           <div>
                 {/* Render the existing address */}
                 <h4>Existing Address:</h4>
@@ -284,7 +314,18 @@ const [showForm, setShowForm] = useState(false);
       
         ) : (
           <div className='store-pickup'>
-            <h3>Store Pickup Location</h3>
+            <Box sx={{ marginBottom: '20px' }}>
+      <Typography variant="h5" sx={{ color: 'primary.main' }}>
+        Store Pickup Location
+      </Typography>
+      <Box sx={{ color: 'text.primary', fontFamily: 'Arial, sans-serif', fontSize: '16px' }}>
+          <Box>Bur Dubai, Al Raffa Road,</Box>
+          <Box> Gateway Hotel Building, Shop No:121</Box> 
+          <Box>Dubai - United Arab Emirates</Box>
+           
+      </Box>
+    </Box>
+            
             {/* Add the content for store pickup location */}
           </div>
         )}

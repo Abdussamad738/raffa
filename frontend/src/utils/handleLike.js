@@ -8,7 +8,7 @@ export default function HandleLike({ product }) {
   const dispatch = useDispatch();
 
   const handleLike = () => {
-    console.log("liked items from handlelike:", likedItems);
+    console.log("liked items from handlelike:", product);
   
     const isLiked = likedItems.some((likedItem) => likedItem._id === product._id);
   
@@ -27,9 +27,9 @@ export default function HandleLike({ product }) {
   };
 
   // Store likedItems in local storage
-  useEffect(() => {
-    console.log("likeditems useEffect",JSON.stringify(likedItems.includes(product)));
-  }, [likedItems]);
+  // useEffect(() => {
+  //   console.log("likeditems useEffect",JSON.stringify(likedItems.includes(product)));
+  // }, [likedItems,product]);
 
   return (
     <div className='like'>

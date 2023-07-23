@@ -5,10 +5,17 @@ export const INCREASE_QUANTITY = 'INCREASE_QUANTITY';
 export const CLEAR_CART ='CLEAR_CART'
 export const FETCH_CART_SUCCESS = "FETCH_CART_SUCCESS";
 export const FETCH_CART_FAILURE = "FETCH_CART_FAILURE";
+// cartActionTypes.js
+export const DELETE_FROM_CART = 'DELETE_FROM_CART';
 const initialState = {
     cart: [],
   };
-  
+  export const deleteFromCart = (productId) => {
+    return {
+      type: DELETE_FROM_CART,
+      payload: productId,
+    };
+  };
  
 const cartReducer = (state = initialState, action) => {
     switch (action.type) {
@@ -16,6 +23,12 @@ const cartReducer = (state = initialState, action) => {
       return {
         ...state,
         cart: [],
+      };
+
+      case DELETE_FROM_CART:
+      return {
+        ...state,
+        cart: state.cart.filter((item) => item.productDetails.productId !== action.payload),
       };
     
   

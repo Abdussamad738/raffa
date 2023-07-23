@@ -5,15 +5,17 @@ import AdminRoutes from '../admin';
 
 const AdminAuthCheck = () => {
   const navigate = useNavigate();
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const { user, token } = useSelector((state) => state.user); // Access user and token from the Redux store
-  console.log("from AdminAuthCheck")
+  console.log("from AdminAuthCheck",backendUrl)
   useEffect(() => {
     console.log("from useEffect")
     // Check if user is authenticated and has admin access
     const checkAdminAccess = async () => {
       try {
         // Send a request to your backend to verify the user's access level
-        const response = await fetch('http://localhost:9000/admin/check-access', {
+        const response = await fetch(`${backendUrl}/admin/check-access`, {
           method: 'GET',
           headers: {
             Authorization: `Bearer ${token}`,

@@ -11,3 +11,11 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Custom CSS to override max-width */
+@media (min-width: 1400px) {
+  /* Target the container class at the same breakpoint */
+  .container {
+    max-width: 1600px; /* Your desired max-width value */
+  }
+}

@@ -13,14 +13,18 @@ import { Box, Typography,TextField } from '@mui/material';
 import '../../styles/userdashboard.css'; 
 import { insertCartItems } from '../../utils/userActions';
 import {updateDeliveryAddress} from '../../utils/userActions'
+import DeliveryAddressForm from '../DeliveryAddressForm';
 export default function UserDashboard () {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user.user); // Assuming user data is stored in Redux state
   console.log("from user-dashboard,",JSON.stringify(user))
   const navigate = useNavigate();
   const signIn = useSignIn();
-  const orders = user.orderHistory;
+  // const orders = user.orderHistory;
   const cartItems = useSelector((state) => state.cart.cart);
+  
+
+  
   const token = sessionStorage.getItem("token");
   console.log("token",token)
   // useEffect(() => {
@@ -33,24 +37,24 @@ export default function UserDashboard () {
   // }, []);
   
   // Formik form values and handlers for the delivery address section
-  const deliveryAddressFormik = useFormik({
-    initialValues: {
-      name: '',
-      street: '',
-      city:'',
-      state: '',
-      phoneNumber: '',
-      postalCode: '',
-    },
-    onSubmit: (values) => {
+  // const deliveryAddressFormik = useFormik({
+  //   initialValues: {
+  //     name: '',
+  //     street: '',
+  //     city:'',
+  //     state: '',
+  //     phoneNumber: '',
+  //     postalCode: '',
+  //   },
+  //   onSubmit: (values) => {
       
-    dispatch(updateUser(values));
-    updateDeliveryAddress(user._id, values);
-      // Handle form submission for delivery address insertion
-      console.log('Delivery address form submitted', values);
-      // Call API or dispatch Redux action to insert delivery address
-    },
-  });
+  //   dispatch(updateUser(values));
+  //   updateDeliveryAddress(user._id, values);
+  //     // Handle form submission for delivery address insertion
+  //     console.log('Delivery address form submitted', values);
+  //     // Call API or dispatch Redux action to insert delivery address
+  //   },
+  // });
 
   // Mocked order history data
   const orderHistory = [
@@ -102,8 +106,8 @@ export default function UserDashboard () {
   const handleRemoveUser = () => {
     dispatch(removeUser());
   };
-  const [phone, setPhone] = useState(user.phone || '');
-  const [deliveryAddress, setDeliveryAddress] = useState(user.deliveryAddress || '');
+  const [phone, setPhone] = useState(user?.phone || '');
+  const [deliveryAddress, setDeliveryAddress] = useState(user?.deliveryAddress || '');
 
   const handlePhoneChange = (e) => {
     setPhone(e.target.value);
@@ -118,6 +122,16 @@ export default function UserDashboard () {
     console.log('Phone:', phone);
     console.log('Delivery Address:', deliveryAddress);
   };
+  useEffect(() => {
+    if (!user) {
+      // Redirect to login page if user is null
+      navigate('/login');
+    }
+  }, [user, navigate]);
+  if (!user) {
+    // Show a loading spinner or message if user is null
+    return <div>Loading...</div>;
+  }
 
 
   
@@ -163,24 +177,12 @@ export default function UserDashboard () {
         />
       )}
     </div>
-    <div>
+    <div className="delivery-address">
       <label>Delivery Address:</label>
-      {user.deliveryAddress ? (
-        <Typography sx={{ color: '#ffc8c8' }}>
-        {Object.values(user.deliveryAddress).join(', ')}
-      </Typography>
-      ) : (
-        <TextField
-          value={deliveryAddress}
-          onChange={handleAddressChange}
-          label="Delivery Address"
-          variant="outlined"
-          fullWidth
-        />
-      )}
+      <DeliveryAddressForm/>
     </div>
 
-    <Button variant="contained" color="primary" onClick={handleUpdateDetails}>
+    <Button variant="contained" color="secondary" onClick={handleUpdateDetails}>
       Update Details
     </Button>
   </Container>

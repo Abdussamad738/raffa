@@ -1,9 +1,21 @@
-import React from 'react'
+import React , { useEffect }from 'react'
+import { useNavigate } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
 import { Box, Typography } from '@mui/material';
 export default function Order() {
     const user = useSelector((state) => state.user.user); // Assuming user data is stored in Redux state
-    
+    const navigate = useNavigate();
+    useEffect(() => {
+      if (!user) {
+        // Redirect to login page if user is null
+        navigate('/login');
+      }
+    }, [user, navigate]);
+    if (!user) {
+      // Show a loading spinner or message if user is null
+      return <div>Loading...</div>;
+    }
+  
     const orders = user.orderHistory;
     
     console.log("orders from user/order.jsx",JSON.stringify(orders))
@@ -40,7 +52,7 @@ export default function Order() {
             <Typography sx={{
                 color: "#fffffff0",
                 }}>
-                <strong>Customer Name:</strong> {order.customerName}
+                <strong>Customer Name:</strong> {order.deliveryAddress?.name}
             </Typography>
             <Typography sx={{
                 color: "#fffffff0",
@@ -72,7 +84,7 @@ export default function Order() {
                 <Box display="flex" flexDirection="column"  mb={2}>
                 
                 <img 
-                    src={require(`../../assets/${product.image}`)} 
+                    src={`https://raffasports.s3.ca-central-1.amazonaws.com/${product.image}`}
                     alt={product.productName}
                     style={{ width: "100px", height: "100px", marginRight: "10px" }} />
                 
@@ -101,7 +113,13 @@ export default function Order() {
             <Typography>
                 <strong>Delivery Address:</strong>
                 <br />
-                {Object.values(order.deliveryAddress).join(", ")}
+                <div>
+                  {order.shippingMethod === 'instorePickup' ? (
+                    <p>Shipping method: In-store Pickup</p>
+                  ) : (
+                    <p>{Object.values(order.deliveryAddress).join(", ")}</p>
+                  )}
+                </div>
             </Typography>
             {/* <Typography>
               <strong>Shipping Method:</strong> {order.shippingMethod}

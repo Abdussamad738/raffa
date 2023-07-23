@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react';
 import { Link,useLocation } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
 import { FaBars, FaUser, FaShoppingCart } from 'react-icons/fa';
-import logo from '../assets/logo.PNG';
+import logo from '../assets/logo.png';
 import '../styles/header.css'; 
 import Badge from '@mui/material/Badge';
 import { styled } from '@mui/material/styles';

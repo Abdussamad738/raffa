@@ -92,3 +92,7 @@ html,body{
   margin-right: 1px;
 }
 
+.card_rec {
+  display: flex;
+  flex-direction: row;
+}

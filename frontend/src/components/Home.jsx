@@ -3,7 +3,7 @@ import { useRef,useState,useEffect } from "react";
 import Header from './Header'
 import '../styles/home.css'; 
 import MovingComponent from 'react-moving-text'
-import logo from '../assets/logo.PNG';
+import logo from '../assets/logo.png';
 import BulkOrderPage from './BulkOrderPage';
 import { Link } from 'react-router-dom';
 import firsttab from '../assets/firsttab.jpg'
@@ -13,7 +13,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {FaAngleDown} from 'react-icons/fa'
 import ShopByCategory from './ShopByCategory';
 import SearchIcon from '@mui/icons-material/Search';
-import { MDBCol, MDBFormInline, MDBBtn } from "mdbreact";
 export default function Home({onSearch}) {
 
   const [searchQuery, setSearchQuery] = useState('');
@@ -82,10 +81,7 @@ export default function Home({onSearch}) {
     <div className="search-icon" onClick={handleSearch}>
       <SearchIcon />
     </div>
-    <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" />
-        <MDBBtn color="unique" rounded size="sm" type="submit" className="mr-auto">
-          Search
-        </MDBBtn>
+    
   </Link>
 </div>
       

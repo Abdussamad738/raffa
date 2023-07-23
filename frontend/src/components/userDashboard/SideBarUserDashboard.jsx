@@ -54,17 +54,24 @@ export default function SideBarUserDashboard()  {
   const cartItems = useSelector((state) => state.cart.cart);
   const user = useSelector((state) => state.user.user); // Assuming user data is stored in Redux state
   const navigate = useNavigate();
-
+  
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [selected, setSelected] = useState("Dashboard");
   
-  const userName = user.name;
+  const userName = user?.name|| 'Guest';
 const initials = userName
   .split(' ')
   .map((name) => name[0].toUpperCase())
   .join('');
-
+  const handleItemClick = () => {
+    console.log("from HAndleitemclick")
+    if (user === null) {
+      navigate('/login');
+    } else {
+      navigate('/user');
+    }
+  };
   const handleLogout = () => {
     let cart=[]
     const carts= cartItems.map((item)=>(
@@ -185,7 +192,7 @@ const initials = userName
                   fontWeight="bold"
                   sx={{ m: "10px 0 0 0" }}
                 >
-                  {user.name}
+                  {user?user.name:userName}
                 </Typography>
                 {/* <Typography variant="h5" color={colors.greenAccent[500]}>
                   VP Fancy Admin
@@ -210,20 +217,15 @@ const initials = userName
             >
               Data
             </Typography>
-            <Item
+            {/* <Item
               title="Profile"
               to="/user"
               icon={<PersonIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
-            {/* <Item
-              title="Orders"
-              to="/user"
-              icon={<PeopleIcon />}
-              selected={selected}
-              setSelected={setSelected}
+              onClick={handleItemClick}
             /> */}
+
             <Item
               title="Orders"
               to="/user/orders"
@@ -269,7 +271,7 @@ const initials = userName
             /> */}
             <Item
               title="Contact Us"
-              to="/admin/faq"
+              to="/footer"
               icon={<HelpOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}

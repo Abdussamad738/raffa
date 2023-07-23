@@ -1,8 +1,7 @@
 import React, { useState, useEffect }  from 'react'
 import '../styles/shop.css'; 
-import { Box,useTheme, useMediaQuery } from "@mui/material";
+import { Box,useTheme, useMediaQuery,Typography } from "@mui/material";
 import { ColorModeContext, tokens } from "./../theme";
-
 import { useSelector, useDispatch } from 'react-redux';
 import { useLocation,useParams } from "react-router-dom";
 import CategoryFilter from './CategoryFilter';
@@ -11,6 +10,7 @@ import fitness from '../assets/fitness.png';
 import CategoryProducts from './CategoryProducts'
 import { fetchProducts } from '../utils/productActions';
 import { NavigationBreadcrumbs } from './NavigationBreadcrumbs';
+import Footer from './Footer'
 export default function ShopByCategory({filteredItems}) {
   const [filterOptions, setFilterOptions] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState('');
@@ -110,37 +110,31 @@ useEffect(()=>{
   }, [dispatch]);
 
   return (
-    <div className='main' backgroundColor={colors.primary[400]}>
-        
-        
-        <h2>Shop By Category</h2>
-        
-        <div className='container sub'>
-        
-        <div className='filter scrollbar'>
-            {/* <h4>Categories</h4> */}
-            <CategoryFilter
+    <Box className='main' sx={{ backgroundColor: colors.primary[400] }}>
+      <Typography variant="h3">Shop By Category</Typography>
+
+      <Box className='container sub' display='flex'>
+        <Box className='filter scrollbar'>
+          {/* <h4>Categories</h4> */}
+          <CategoryFilter
             onFilterChange={handleFilterChange}
             selectedCheckboxes={selectedCheckboxes}
             onCheckboxChange={handleCheckboxChange}
             backgroundColor={colors.primary[400]}
           />
+        </Box>
 
-        
-        </div>
-        <div className='items scrollbar'>
+        <Box className='items scrollbar'>
           {items.length > 0 ? (
             <CategoryProducts filteredItems={items} />
           ) : (
-            <Layout onCategoryClick={handleCategoryClick}/>
+            <Layout onCategoryClick={handleCategoryClick} />
           )}
-        </div>
-        </div>
-        {/* <img src={fitness } alt='fitness'></img> */}
+        </Box>
+      </Box>
+      {/* <img src={fitness } alt='fitness'></img> */}
+      
+    </Box>
     
-    
-    
-    
-    </div>
   )
-}
+};

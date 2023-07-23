@@ -5,26 +5,33 @@ import { useSelector, useDispatch } from 'react-redux';
 import { addToCart ,fetchProduct } from '../utils/productActions';
 import '../styles/productdetails.css'; 
 import { renderStars } from '../utils/renderStars';
+import { TextField, MenuItem, Box, Typography, Button} from '@mui/material';
 import { useLocation } from 'react-router-dom';
 import HandleLike from '../utils/handleLike';
 import ImageZoom from "react-image-zooom";
 import { Link} from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import { Modal } from 'react-bootstrap';
+import { useFormik } from 'formik';
+import { Field, Form, Formik } from 'formik';
+import Recommendation from './Recommendation';
 export default function ProductDetails() {
   const dispatch = useDispatch();
   const history = createBrowserHistory();
   const { productId } = useParams();
   const [quantity, setQuantity] = useState(1);
-//   const location = useLocation();
-//   const { likedItems } = location.state;
+
 const [showModal, setShowModal] = useState(false);
+const [selectedSize, setSelectedSize] = useState('');
 
-// const handleModalShow = () => {
-//   dispatch(addToCart(productId, quantity));
-//   setShowModal(true);
-// };
-
+const formik = useFormik({
+  initialValues: {
+    size: '',
+    colour:'',
+    // Other initial values...
+  },
+  // Other formik configurations...
+});
 const handleModalHide = () => {
   setShowModal(false);
 };
@@ -33,22 +40,15 @@ const handleModalHide = () => {
   }, [dispatch, productId]);
   const [showZoom, setShowZoom] = useState(false);
   const product = useSelector((state) => state.products.products.find((p) => p._id === productId));
+  const [price, setPrice] = useState(product.offerPrice || product.actualPrice);
   console.log("from product details:",JSON.stringify(product))
   const likedItems = useSelector((state) => state.products.likedItems);
 const [currentImage, setCurrentImage] = useState(0);
-const imageUrls = product.Image.map((imageName) => require(`../assets/${imageName}`));
+const imageUrls = product.image.map((imageName) => `https://raffasports.s3.ca-central-1.amazonaws.com/${imageName}`);
 
 // console.log("imageUrls :",JSON.stringify(imageUrls))
 
-  const handlePrevImage = () => {
-    console.log("from handlprevImage :",currentImage)
-    setCurrentImage((prevImage) => (prevImage === 0 ? imageUrls.length - 1 : prevImage - 1));
-  };
 
-  const handleNextImage = () => {
-    console.log("from handlNextImage ",currentImage)
-    setCurrentImage((prevImage) => (prevImage === imageUrls.length - 1 ? 0 : prevImage + 1));
-  };
 // Store likedItems in local storage
 useEffect(() => {
     localStorage.setItem('likedItems', JSON.stringify(likedItems));
@@ -65,15 +65,13 @@ useEffect(() => {
   };
 
   const handleIncreaseQuantity = () => {
-    setQuantity(quantity + 1);
+    if(quantity<product.quantityInStock)
+    {
+      setQuantity(quantity + 1);
+    }
   };
   
 
-
-  const handleBuyNow = () => {
-    // Logic to navigate to checkout page
-    console.log(`Buy Now clicked for product ${productId}`);
-  };
 
   const handleAddToCart = () => {
     // Logic to add product to cart with quantity
@@ -81,12 +79,14 @@ useEffect(() => {
     const productDetails = {
       productId: productId,
       name: product.Name,
-      description: product.Description,
-      color: product.Colour,
-      size: product.Size,
-      imageUrl: product.Image,
+      description: product.description,
+      color: formik.values.colour,
+      size: formik.values.size,
+      sizes:product.sizes||null,
+      imageUrl: product.image,
       quantity: quantity, // You can set the initial quantity here, and later increase/decrease it if needed.
-      price: product.Offer_Price?product.Offer_Price:product.Actual_Price,
+      price: price,
+      quantityInStock:product.quantityInStock,
     };
     dispatch(addToCart(productDetails));
     setShowModal(true);
@@ -102,14 +102,15 @@ useEffect(() => {
 
 
 
-//   const { Images, Name, Ratings, Actual_Price, Offer_Price, Colour, Description, Dimensions, Features } = product;
+//   const { Images, Name, Ratings, actualPrice, offerPrice, colour, Description, Dimensions, Features } = product;
 
   return (
+    <Box>
     <div className="product-details">
       <div className="image-container">
       <div className='thumbnail'>
         {/* Show other images */}
-        {product.Image && (
+        {product.image && (
           <div className="other-images">
             {imageUrls.map((image, index) => (
               <img
@@ -152,93 +153,147 @@ useEffect(() => {
         <div className="ratings">
           {/* Render stars based on ratings */}
           <div className="stars">
-          {renderStars(product.Ratings[0])}
+          {renderStars(product.ratings[0])}
           </div>
           <span className="rating-text">
-            ({product.Ratings[1]} ratings)
+            ({product.ratings[1]} ratings)
           </span>
         </div>
-        <div className="price">
-          {product.Offer_Price ? (
-            <div>
-              <span className="text-muted">AED{product.Actual_Price}</span>{' '}
-              <del>AED{product.Offer_Price}</del>
-            </div>
-          ) : (
-            <div>AED{product.Actual_Price}</div>
-          )}
+        <Formik
+        initialValues={{
+          // Other initial values...
+          colour: '',
+          size: '',
+        }}
+        onSubmit={handleAddToCart} // The function to handle form submission
+      >
+        {({ values, handleChange }) => (
+          <Form>
+        {/* Select size */}
+        {/* Select colour */}
+        <Box sx={{ marginBottom: '20px' }}>
+              <TextField
+                select
+                label="Select Colour"
+                name="colour"
+                value={formik.values.colour}
+                onChange={formik.handleChange}
+                variant="filled"
+                sx={{ width: '50%' }}
+              >
+                {product.colour.map((colourOption) => (
+                  <MenuItem key={colourOption} value={colourOption}>
+                    {colourOption}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Box>
+            
+            {/* Select size */}
+            {product.sizes && product.sizes.length > 0 ? (
+    <>
+      <Field
+        as={TextField}
+        select
+        label="Select Size"
+        name="size"
+        value={formik.values.size}
+        onChange={(e) => {
+          const selectedSize = e.target.value;
+          formik.setFieldValue("size", selectedSize);
+          const selectedSizeObject = product.sizes.find((size) => size.key === selectedSize);
+          if (selectedSizeObject) {
+            setPrice(selectedSizeObject.value);
+          } else {
+            setPrice(0);
+          }
+        }}
+        variant="filled"
+        sx={{ width: '50%' }}
+      >
+        <MenuItem value="">Select Size</MenuItem>
+        {product.sizes.map((size) => (
+          <MenuItem key={size._id} value={size.key}>
+            {size.key}
+          </MenuItem>
+        ))}
+      </Field>
+      {formik.values.size && price > 0 && (
+        <div>
+          <p>Selected Size: {formik.values.size}</p>
+          <p>Price: AED {price}</p>
         </div>
-        <div className="details">
-          <div className="detail-item">
-            <label>Color:</label>
-            <span>{product.Colour}</span>
-          </div>
+      )}
+    </>
+  ) : (
+    <p>Price: AED {price}</p>
+  )}
+              
           <div className="detail-item">
             <label>Description:</label>
-            <p>{product.Description}</p>
+            <p>{product.description}</p>
           </div>
-          <div className="detail-item">
-            <label>Specifications:</label>
-            <ul>
-              {Object.entries(product.Dimensions).map(([key, value]) => (
-                <li key={key}>
-                  <strong>{key}:</strong> {value}
-                </li>
-              ))}
-            </ul>
-          </div>
+
           <div className="detail-item">
             <label>Features:</label>
             <ul>
-              {product.Features.map((feature, index) => (
+              {product.features.map((feature, index) => (
                 <li key={index}>{feature}</li>
               ))}
             </ul>
           </div>
-        </div>
+       
        {/* Quantity */}
-       <div className="quantity">
-          <button className="btn btn-primary quantity-btn" onClick={handleDecreaseQuantity}>
+       <Box className="quantity">
+          <Button className="btn btn-primary quantity-btn" onClick={handleDecreaseQuantity}>
             -
-          </button>
+          </Button>
           <span className="quantity-value">{quantity}</span>
-          <button className="btn btn-primary quantity-btn" onClick={handleIncreaseQuantity}>
+          <Button className="btn btn-primary quantity-btn" onClick={handleIncreaseQuantity}>
             +
-          </button>
-        </div>
+          </Button>
+        </Box>
 
         {/* Buy Now and Add to Cart buttons */}
-        <div className="action-buttons">
-          
-          <button className=" add-to-cart-btn" onClick={handleAddToCart}>
-            Add to Cart
-          </button>
+        <Box className="action-buttons">
+              <Button type="submit" variant="contained" color="primary">
+                Add to Cart
+              </Button>
+              </Box>
+          </Form>
+        )}
+      </Formik>
+      </div>
+      
           <Modal show={showModal} onHide={handleModalHide} centered={true}>
           <Modal.Header closeButton>
             <Modal.Title>Cart</Modal.Title>
           </Modal.Header>
           <Modal.Body>
+            <Box>
             {/* Modal content */}
-            <div className="modal-content">
-              <p>Item added to cart successfully!</p>
-              <div className="item-info">
-                <img src={imageUrls[currentImage]} alt={product.Name} />
-                <div className="item-details">
-                  <p className="item-name">{product.Name}</p>
-                  {/* Add any other item details you want to show */}
-                </div>
-                
-              </div>
-              <Link to='/user/cart'><button  className="go-to-cart-btn">
-                Go to Cart
-              </button>
-              </Link>
-              
-            </div>
+            <Typography variant="body1">Item added to cart successfully!</Typography>
+          <Box display="flex" alignItems="center" mb={2}>
+            <img src={imageUrls[currentImage]} alt={product.Name} />
+            <Box ml={2}>
+              <Typography variant="body1" className="item-name">
+                {product.Name}
+              </Typography>
+              {/* Add any other item details you want to show */}
+            </Box>
+          </Box>
+          <Link to='/user/cart'>
+            <Button variant="contained" color="primary">
+              Go to Cart
+            </Button>
+          </Link>
+          </Box>
           </Modal.Body>
         </Modal>
         </div>
-      </div>
-    </div>
+      
+      
+    {/* <Recommendation handleThumbnailClick={handleThumbnailClick}/> */}
+    </Box>
   );
 }

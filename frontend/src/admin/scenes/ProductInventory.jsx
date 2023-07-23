@@ -8,12 +8,16 @@ import { Formik } from "formik";
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import '../index.css'
+import { useFormik } from "formik";
+import { AxiosError } from "axios";
+
 import { fetchProducts } from '../../utils/productActions';
 import Header from "../components/Header";
-const ProductInventory = () => {
+export default function ProductInventory ()  {
 //   const [products, setProducts] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const theme = useTheme();
+  const [error, setError] = useState("");
   const colors = tokens(theme.palette.mode);
   const [newProduct, setNewProduct] = useState({
     _id: '',
@@ -61,63 +65,84 @@ const ProductInventory = () => {
       ),
     },
   ];
+
+  
 //   const dispatch = useDispatch();
 //   useEffect(() => {
 //     dispatch(fetchProducts());
 
 //   }, [dispatch]);
+
   const products = useSelector((state) => state.products.products);
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const formattedProducts = products.map((product) => ({
     id: product._id,
     Name: product.Name,
-    actualPrice: product.Actual_Price||null,
-    offerPrice:product.Offer_Price||null,
+    actualPrice: product.actualPrice||null,
+    offerPrice:product.offerPrice||null,
     sizes: product.sizes||null,
-    color: product.Colour||null,
-    description: product.Description||null,
-    dimension: product.Dimensions||null,
-    features:product.Features||null,
-    image: product.Image||null,
+    color: product.colour||null,
+    description: product.description||null,
+    dimension: product.dimensions||null,
+    features:product.features||null,
+    image: product.image||null,
     category: product.category||null,
-    ratings: product.Ratings||null,
-    specifications: product.Specifications||null,
-    quantityInStock:product.Quantity_in_Stock||null,
-    deliveryTime: product.Delivery_Time||null,
+    ratings: product.ratings||null,
+    specifications: product.specifications||null,
+    quantityInStock:product.quantityInStock||null,
+    deliveryTime: product.deliveryTime||null,
   }));
-
-  
-//   useEffect(() => {
-//     fetchProducts();
-//   }, []);
-
-//   const fetchProducts = async () => {
-//     try {
-//       const response = await axios.get('//products');
-//       setProducts(response.data);
-//     } catch (error) {
-//       console.error('Error fetching products:', error);
-//     }
-//   };
-console.log("products from productInventory:",formattedProducts)
-  const handleEditProduct = (productId) => {
-    // Implement edit product logic here
-    console.log('Editing product with ID:', productId);
+  const [sizes, setSizes] = useState([{ key: 'S', value: '100' }]);
+  const handleAddSize = () => {
+    setSizes([...sizes, { key: '', value: '' }]);
   };
 
-  const handleAddProduct = () => {
-    // Implement add product logic here
-    console.log('Adding a new product:', newProduct);
-    // Reset the newProduct state and close the modal
-    setNewProduct({
-      id: '',
-      name: '',
+  const handleRemoveSize = (index) => {
+    const updatedSizes = [...sizes];
+    updatedSizes.splice(index, 1);
+    setSizes(updatedSizes);
+  };
+  
+  const onSubmit = async (values) => {
+    console.log("from onSubmit",JSON.stringify(values))
+    setError("");
+    const categoriesArray = values.category.split(',').map((category) => category.trim());
+    
+    const coloursArray = values.colour.split(',').map((colour) => colour.trim());
+    // Handle features as an array of objects
+    const featuresString = values.features.split(',').map((feature) => feature.trim());
+    const updatedValues = { ...values,features: featuresString, category: categoriesArray, colour: coloursArray };
+    try {
+      const response = await axios.post(
+        `${backendUrl}/products/`,
+        updatedValues
+      );
+      console.log(JSON.stringify(updatedValues))
+      
+      
+
+      // Redirect the user after successful registration (optional)
+       // Replace '/login' with the desired route for the login page
+    } catch (err) {
+      if (err && err instanceof AxiosError)
+        setError(err.response?.data.message);
+      else if (err && err instanceof Error) setError(err.message);
+
+      console.log("Error: ", err);
+    }
+  };
+  
+  
+  const formik = useFormik({
+    initialValues: {
+      Name: '',
       actualPrice: '',
       offerPrice: '',
-      sizes: '',
-      color: '',
+      sizes: [],
+      colour: '',
       description: '',
-      dimension: '',
+      dimensions: '',
       features: '',
       image: '',
       category: '',
@@ -125,10 +150,18 @@ console.log("products from productInventory:",formattedProducts)
       specifications: '',
       quantityInStock: '',
       deliveryTime: '',
-    });
-    setOpenModal(false);
+      instorePickupTime:'',
+    },
+    onSubmit,
+  });
+
+// console.log("products from productInventory:",formattedProducts)
+  const handleEditProduct = (productId) => {
+    // Implement edit product logic here
+    console.log('Editing product with ID:', productId);
   };
 
+  
   const handleModalClose = () => {
     setOpenModal(false);
   };
@@ -178,20 +211,20 @@ console.log("products from productInventory:",formattedProducts)
   <Box m="20px">
       <Header title="Add Product" subtitle="Add a New Product to the Inventory" />
 
-    <Formik
+    {/* <Formik
       onSubmit={handleAddProduct}
       initialValues={initialValues}
       validationSchema={validationSchema}
     >
       {({
         values,
-        errors,
+        // errors,
         touched,
         handleBlur,
-        handleChange,
+        formik.handleChange,
         handleSubmit,
-      }) => (
-        <form onSubmit={handleSubmit}>
+      }) => ( */}
+        <form onSubmit={formik.handleSubmit} >
     <Box
               display="grid"
               gap="30px"
@@ -199,143 +232,178 @@ console.log("products from productInventory:",formattedProducts)
               sx={{
                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
               }}
-            ></Box>
-    <TextField
+            >
+    {/* <TextField
       label="ID"
       value={values.id}
-      onChange={handleChange}
+      onChange={formik.handleChange}
       onBlur={handleBlur}
       name="id"
-      error={touched.id && errors.id}
-      helperText={touched.id && errors.id}
-    />
+      // // error={touched.id && errors.id}
+      // helperText={touched.id && errors.id}
+    /> */}
     <TextField
       label="Name"
-      value={values.Name}
-      onChange={handleChange}
-      onBlur={handleBlur}
+      value={formik.values.Name}
+      onChange={formik.handleChange}
       name="Name"
-      error={touched.Name && errors.Name}
-      helperText={touched.Name && errors.Name}
+      
     />
     <TextField
       label="Actual Price"
-      value={values.actualPrice}
-      onChange={handleChange}
-      onBlur={handleBlur}
+      value={formik.values.actualPrice}
+      onChange={formik.handleChange}
+      // onBlur={handleBlur}
       name="actualPrice"
-      error={touched.actualPrice && errors.actualPrice}
-      helperText={touched.actualPrice && errors.actualPrice}
+      // // error={touched.actualPrice && errors.actualPrice}
+      // helperText={touched.actualPrice && errors.actualPrice}
     />
     <TextField
       label="Offer Price"
-      value={values.offerPrice}
-      onChange={handleChange}
-      onBlur={handleBlur}
+      value={formik.values.offerPrice}
+      onChange={formik.handleChange}
+      // onBlur={handleBlur}
       name="offerPrice"
-      error={touched.offerPrice && errors.offerPrice}
-      helperText={touched.offerPrice && errors.offerPrice}
+      // // error={touched.offerPrice && errors.offerPrice}
+      // helperText={touched.offerPrice && errors.offerPrice}
     />
-    <TextField
+    {/* <TextField
       label="Sizes"
-      value={values.sizes}
-      onChange={handleChange}
+      value={formik.values.sizes}
+      onChange={formik.handleChange}
       onBlur={handleBlur}
       name="sizes"
-      error={touched.sizes && errors.sizes}
-      helperText={touched.sizes && errors.sizes}
-    />
+      // // error={touched.sizes && errors.sizes}
+      // helperText={touched.sizes && errors.sizes}
+    /> */}
+    
     <TextField
-      label="Color"
-      value={values.color}
-      onChange={handleChange}
-      onBlur={handleBlur}
-      name="color"
-      error={touched.color && errors.color}
-      helperText={touched.color && errors.color}
+      label="Colour"
+      value={formik.values.colour}
+      onChange={formik.handleChange}
+      // onBlur={handleBlur}
+      name="colour"
+      // // error={touched.color && errors.color}
+      // helperText={touched.color && errors.color}
     />
     <TextField
       label="Description"
-      value={values.description}
-      onChange={handleChange}
-      onBlur={handleBlur}
+      value={formik.values.description}
+      onChange={formik.handleChange}
+      // onBlur={handleBlur}
       name="description"
-      error={touched.description && errors.description}
-      helperText={touched.description && errors.description}
+      // // error={touched.description && errors.description}
+      // helperText={touched.description && errors.description}
     />
     <TextField
       label="Dimension"
-      value={values.dimension}
-      onChange={handleChange}
-      onBlur={handleBlur}
+      value={formik.values.dimensions}
+      onChange={formik.handleChange}
+      // onBlur={handleBlur}
       name="dimension"
-      error={touched.dimension && errors.dimension}
-      helperText={touched.dimension && errors.dimension}
+      // // error={touched.dimension && errors.dimension}
+      // helperText={touched.dimension && errors.dimension}
     />
     <TextField
       label="Features"
-      value={values.features}
-      onChange={handleChange}
-      onBlur={handleBlur}
+      value={formik.values.features}
+      onChange={formik.handleChange}
+      // onBlur={handleBlur}
       name="features"
-      error={touched.features && errors.features}
-      helperText={touched.features && errors.features}
+      // // error={touched.features && errors.features}
+      // helperText={touched.features && errors.features}
     />
     <TextField
       label="Image"
-      value={values.image}
-      onChange={handleChange}
-      onBlur={handleBlur}
+      value={formik.values.image}
+      onChange={formik.handleChange}
+      // onBlur={handleBlur}
       name="image"
-      error={touched.image && errors.image}
-      helperText={touched.image && errors.image}
+      // // error={touched.image && errors.image}
+      // helperText={touched.image && errors.image}
     />
     <TextField
       label="Category"
-      value={values.category}
-      onChange={handleChange}
-      onBlur={handleBlur}
+      value={formik.values.category}
+      onChange={formik.handleChange}
+      // onBlur={handleBlur}
       name="category"
-      error={touched.category && errors.category}
-      helperText={touched.category && errors.category}
+      // // error={touched.category && errors.category}
+      // helperText={touched.category && errors.category}
     />
+
     <TextField
       label="Ratings"
-      value={values.ratings}
-      onChange={handleChange}
-      onBlur={handleBlur}
+      value={formik.values.ratings}
+      onChange={formik.handleChange}
+      // onBlur={handleBlur}
       name="ratings"
-      error={touched.ratings && errors.ratings}
-      helperText={touched.ratings && errors.ratings}
+      // // error={touched.ratings && errors.ratings}
+      // helperText={touched.ratings && errors.ratings}
     />
     <TextField
       label="Specifications"
-      value={values.specifications}
-      onChange={handleChange}
-      onBlur={handleBlur}
+      value={formik.values.specifications}
+      onChange={formik.handleChange}
+      // onBlur={handleBlur}
       name="specifications"
-      error={touched.specifications && errors.specifications}
-      helperText={touched.specifications && errors.specifications}
+      // // error={touched.specifications && errors.specifications}
+      // helperText={touched.specifications && errors.specifications}
     />
     <TextField
       label="Quantity In Stock"
-      value={values.quantityInStock}
-      onChange={handleChange}
-      onBlur={handleBlur}
+      value={formik.values.quantityInStock}
+      onChange={formik.handleChange}
+      // onBlur={handleBlur}
       name="quantityInStock"
-      error={touched.quantityInStock && errors.quantityInStock}
-      helperText={touched.quantityInStock && errors.quantityInStock}
+      // // error={touched.quantityInStock && errors.quantityInStock}
+      // helperText={touched.quantityInStock && errors.quantityInStock}
     />
     <TextField
       label="Delivery Time"
-      value={values.deliveryTime}
-      onChange={handleChange}
-      onBlur={handleBlur}
+      value={formik.values.deliveryTime}
+      onChange={formik.handleChange}
+      // onBlur={handleBlur}
       name="deliveryTime"
-      error={touched.deliveryTime && errors.deliveryTime}
-      helperText={touched.deliveryTime && errors.deliveryTime}
+      // // error={touched.deliveryTime && errors.deliveryTime}
+      // helperText={touched.deliveryTime && errors.deliveryTime}
     />
-    
+    <TextField
+      label="Instore Pick-up Time"
+      value={formik.values.instorePickupTime}
+      onChange={formik.handleChange}
+      // onBlur={handleBlur}
+      name="instorePickupTime"
+      // // error={touched.deliveryTime && errors.deliveryTime}
+      // helperText={touched.deliveryTime && errors.deliveryTime}
+    />
+    {sizes.map((size, index) => (
+    <div key={index}>
+      <TextField
+        label={`Size ${index + 1} `}
+        name={`sizes.${index}.key`}
+        value={formik.values.sizes.key}
+        onChange={formik.handleChange}
+        // onBlur={handleBlur}
+        // // error={touched.sizes&& errors.sizes}
+      // helperText={touched.sizes && errors.sizes}
+      />
+      <TextField
+        label={`Price ${index + 1} `}
+        name={`sizes.${index}.value`}
+        value={formik.values.sizes[index]  === undefined ? '' : formik.values.sizes[index].value}
+        onChange={formik.handleChange}
+        // onBlur={handleBlur}
+      />
+      <button type="button" onClick={() => handleRemoveSize(index)}>
+        Remove Size
+      </button>
+    </div>
+  ))}
+  <button type="button" onClick={handleAddSize}>
+    Add Size
+  </button>
+    </Box>
     <Box display="flex" justifyContent="end" mt="20px">
     <Button type="submit" color="secondary" variant="contained">
       Add the product
@@ -343,8 +411,8 @@ console.log("products from productInventory:",formattedProducts)
   </Box>
    
     </form>
-    )}
-  </Formik>
+    {/* )}
+  </Formik> */}
  
   </Box>
   </div>
@@ -367,13 +435,6 @@ const validationSchema = yup.object().shape({
   address1: yup.string().required("required"),
   address2: yup.string().required("required"),
 });
-const initialValues = {
-  firstName: "",
-  lastName: "",
-  email: "",
-  contact: "",
-  address1: "",
-  address2: "",
-};
 
-export default ProductInventory;
+
+

@@ -10,15 +10,9 @@ import productRouter from "./routes/product.js";
 import userRouter from "./routes/user.js"
 import orderRouter from './routes/order.js'
 import adminRouter from './routes/admin.js'
-// import productRoutes from "./routes/product.js";
-// import transactionRoutes from "./routes/transaction.js";
-// import KPI from "./models/KPI.js";
-// import Product from "./models/Product.js";
-// import Transaction from "./models/Transaction.js";
-// import { kpis, products, transactions } from "./data/data.js";
-
+import dotenv from 'dotenv';
 /* CONFIGURATIONS */
-
+dotenv.config();
 const app = express(); 
 app.use(express.json());
 app.use(helmet());
@@ -34,10 +28,9 @@ app.use('/users',userRouter);
 app.use('/products', productRouter);
 app.use('/orders', orderRouter);
 app.use('/admin', adminRouter);
-
 /* MONGOOSE SETUP */
-const PORT = 9000;
-const MONGO_URL='mongodb+srv://samadbinabdulla3738:6FU4BilsWHS5b4ak@cluster0.nztxfep.mongodb.net/?retryWrites=true&w=majority'
+const PORT = process.env.PORT;
+const MONGO_URL= process.env.MONGO_URL
 mongoose
   .connect(MONGO_URL, {
     useNewUrlParser: true,

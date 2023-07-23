@@ -2,14 +2,16 @@
     background-color: rgb(224, 222, 218);
     display: flex;
     flex-direction: row;
+    max-width:90%!important;
   
 
 }
 .filter{
-    width: 20%;
-    background-color: rgb(14, 23, 48);
+    width: 25%;
+    background-color: rgba(92, 96, 109, 0.6);
     overflow-y: auto;
-    padding: 5% 2%;
+    padding: 2% 2%;
+    border-radius: 5px;
 }
 .items{
     background-color: #1F2A40;
@@ -25,9 +27,11 @@ h2{
     font-size: 10px;
 }
 
-main{
+.main h3{
     /* background-color: #f7f8fa !important; */
-    font-size: 10px;
+    margin-top: 5px;
+    margin-left: 8px;
+
     
 }
 
@@ -38,11 +42,11 @@ main{
   }
   
 
-  @media (min-width: 1500px) {
+  /* @media (min-width: 1500px) {
     .container {
-      padding: 0 calc((100vw - 1500px) / 2); /* Equal padding on the left and right for screens greater than 1500px */
+      padding: 0 calc((100vw - 1500px) / 2); 
     }
-  }
+  } */
 
   
   .scrollbar {
@@ -77,6 +81,7 @@ main{
   .products{
     margin-top: 3% !important;
     gap: 5%;
+    margin-left: 2%;
     
   }
 
@@ -84,4 +89,45 @@ main{
     box-shadow: 0 0 15px rgba(122, 120, 120, 0.938); /* Add a box shadow on hover */
   }
 
- 
+ /* Category Filter*/
+ ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+li {
+  margin-bottom: 10px;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+}
+
+.MuiTypography-body1 {
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.MuiTypography-body2 {
+  font-size: 14px;
+}
+
+.MuiCheckbox-root {
+  color: #2196f3;
+}
+
+.MuiCheckbox-colorSecondary.Mui-checked {
+  color: #798b76;
+}
+
+.MuiTypography-colorTextPrimary {
+  color: #333;
+}
+
+.product-items{
+  padding:5px!important;
+
+}

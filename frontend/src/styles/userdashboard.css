@@ -51,3 +51,7 @@
   .order-details p {
     margin-bottom: 5px;
   }
+
+  .delivery-address{
+    width: 50%;
+  }

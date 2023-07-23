@@ -20,6 +20,8 @@ import {
     StyledInput,
   } from "../utils/commons";
 function Login() {
+  const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
   const [error, setError] = useState("");
   const signIn = useSignIn();
   const navigate = useNavigate();
@@ -32,7 +34,7 @@ function Login() {
 
     try {
       const response = await axios.post(
-        "http://localhost:9000/users/login",
+        `${backendUrl}/users/login`,
         values
       );
       console.log("from login, ",JSON.stringify(response.data))

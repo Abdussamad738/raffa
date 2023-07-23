@@ -3,12 +3,15 @@ export const FETCH_PRODUCTS_SUCCESS = 'FETCH_PRODUCTS_SUCCESS';
 export const ADD_TO_CART = 'ADD_TO_CART';
 export const DECREASE_QUANTITY = 'DECREASE_QUANTITY';
 export const INCREASE_QUANTITY = 'INCREASE_QUANTITY';
-export const CLEAR_CART ='CLEAR_CART'
+export const CLEAR_CART ='CLEAR_CART';
+export const UPDATE_LIKED_ITEMS='UPDATE_LIKED_ITEMS';
 // Action creator to fetch product details
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
+
 export const fetchProducts = () => {
   return async (dispatch) => {
     try {
-      const response = await fetch('http://localhost:9000/products');
+      const response = await fetch(`${backendUrl}/products`);
       const data = await response.json();
       dispatch({
         type: FETCH_PRODUCTS_SUCCESS,
@@ -24,7 +27,7 @@ export const fetchProducts = () => {
 export const fetchProduct = (productId) => {
     return async (dispatch) => {
       try {
-        const response = await fetch(`http://localhost:9000/product/${productId}`);
+        const response = await fetch(`${backendUrl}/product/${productId}`);
         const data = await response.json();
         dispatch({
           type: FETCH_PRODUCTS_SUCCESS,
@@ -45,8 +48,9 @@ const initialState = {
 };
 
 export const updateLikedItems = (likedItems) => {
-    return {
-      type: 'UPDATE_LIKED_ITEMS',
+  console.log("from updateLikedItems:-",likedItems)  
+  return {
+      type: UPDATE_LIKED_ITEMS,
       payload: likedItems,
     };
   };
@@ -85,7 +89,7 @@ const productReducer = (state = initialState, action) => {
         ...state,
         products: action.payload,
       };
-      case 'UPDATE_LIKED_ITEMS':
+      case UPDATE_LIKED_ITEMS:
       return {
         ...state,
         likedItems: action.payload,

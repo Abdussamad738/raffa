@@ -5,6 +5,7 @@ export const SET_USER = "SET_USER";
 export const UPDATE_USER = "UPDATE_USER";
 export const REMOVE_USER = "REMOVE_USER";
 export const SET_ALL_USERS="SET_ALL_USERS";
+const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 // Action creators
 export const setUser = (user,token) => ({
@@ -28,7 +29,7 @@ export const setAllUsers = (users) => ({
 export const updateDeliveryAddress = async (userId, deliveryAddress) => {
     try {
       // Make a POST request to the server endpoint
-      const response = await axios.post('http://localhost:9000/users/updateaddress', {
+      const response = await axios.post(`${backendUrl}/users/updateaddress`, {
         userId,
         deliveryAddress,
       });
