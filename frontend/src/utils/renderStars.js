@@ -1,3 +1,4 @@
+import React from 'react'
 import { StarFill, StarHalf, Star, HeartFill, Heart } from 'react-bootstrap-icons';
 
 export function renderStars(rating) {
