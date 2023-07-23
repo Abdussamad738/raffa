@@ -9,7 +9,6 @@ var _react = _interopRequireWildcard(require("react"));
 var _reactRouterDom = require("react-router-dom");
 var _reactRedux = require("react-redux");
 var _fa = require("react-icons/fa");
-var _logo = _interopRequireDefault(require("../assets/logo.png"));
 require("../styles/header.css");
 var _Badge = _interopRequireDefault(require("@mui/material/Badge"));
 var _styles = require("@mui/material/styles");
@@ -72,7 +71,8 @@ function Header(_ref) {
   }, /*#__PURE__*/_react.default.createElement(_reactRouterDom.Link, {
     to: "/"
   }, /*#__PURE__*/_react.default.createElement("img", {
-    src: _logo.default,
+    src: "/assets/logo.png",
+    alt: "Logo",
     className: "header-logo"
   }))), isSmallScreen ? /*#__PURE__*/_react.default.createElement("div", {
     className: "expand-button"
