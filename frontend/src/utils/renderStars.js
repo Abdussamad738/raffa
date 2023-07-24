@@ -1,5 +1,5 @@
 import React from 'react'
-import { StarFill, StarHalf, Star, HeartFill, Heart } from 'react-bootstrap-icons';
+import { StarFill, StarHalf, Star } from 'react-bootstrap-icons';
 
 export function renderStars(rating) {
     const fullStars = Math.floor(rating);

@@ -7,8 +7,7 @@ import store from '../src/utils/store';
 import { Provider as StyletronProvider } from "styletron-react";
 import { Client as Styletron } from "styletron-engine-atomic";
 import reportWebVitals from './reportWebVitals';
-import { ThemeProvider } from '@mui/material/styles';
-import theme from './theme';
+
 import { AuthProvider } from "react-auth-kit";
 const root = ReactDOM.createRoot(document.getElementById('root'));
 const engine = new Styletron();

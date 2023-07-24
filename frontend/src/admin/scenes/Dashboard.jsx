@@ -24,7 +24,7 @@ export default function Dashboard ()  {
     dispatch(fetchProducts());
 
   }, [dispatch]);
-  const products = useSelector((state) => state.products.products);
+  // const products = useSelector((state) => state.products.products);
   const data=[
     {
       txId: "01e4dsa",

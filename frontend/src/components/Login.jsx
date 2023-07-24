@@ -3,15 +3,13 @@ import { Input } from "baseui/input";
 import { HeadingXXLarge } from "baseui/typography";
 import { setUser } from "../utils/userActions";
 import { useDispatch,useSelector } from 'react-redux';
-import { useSignIn,useIsAuthenticated } from "react-auth-kit";
+import { useSignIn } from "react-auth-kit";
 import { useFormik } from "formik";
 import axios, { AxiosError } from "axios";
 import React,{ useState } from "react";
 import { useNavigate } from "react-router-dom";
-import styled from "styled-components";
 import '../styles/login.css'
-import { fetchCart } from "../utils/cartReducer";
-import { addToCart ,fetchProduct } from '../utils/productActions';
+import { addToCart } from '../utils/productActions';
 import {
     Container,
     ErrorText,
@@ -25,7 +23,6 @@ function Login() {
   const [error, setError] = useState("");
   const signIn = useSignIn();
   const navigate = useNavigate();
-  const cartItems = useSelector((state) => state.cart);
   
   const dispatch = useDispatch();
   console.log("from login.jsx")

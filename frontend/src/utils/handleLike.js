@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { StarFill, StarHalf, Star, HeartFill, Heart } from 'react-bootstrap-icons';
+import React from 'react';
+import { HeartFill, Heart } from 'react-bootstrap-icons';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateLikedItems } from '../utils/productActions';
 

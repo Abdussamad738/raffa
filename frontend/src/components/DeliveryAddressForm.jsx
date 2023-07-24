@@ -4,7 +4,6 @@ import { useFormik } from 'formik';
 import * as yup from 'yup';
 import { useSelector, useDispatch } from 'react-redux';
 import { setUser, updateUser, removeUser } from '../utils/userActions';
-import { clearCart } from '../utils/productActions';
 import { updateDeliveryAddress } from '../utils/userActions';
 
 function DeliveryAddressForm  ({ setOrderDeliveryAddressInCart })  {

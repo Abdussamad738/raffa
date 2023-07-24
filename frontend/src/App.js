@@ -10,7 +10,6 @@ import ProductDetails from './components/ProductDetails';
 import OrderConfirmation from './components/OrderConfirmation';
 import BulkOrderPage from './components/BulkOrderPage';
 import BulkOrderDetails from './components/BulkOrderDetails';
-import AdminDashboard from './admin';
 import Contact from './components/Contact';
 import Deals from './components/Deals';
 import Header from './components/Header';
@@ -18,18 +17,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchResults from './components/SearchResults';
 import Login from './components/Login';
 import Register from './components/Register'
-import {  Navigate } from "react-router-dom";
-import { useNavigate } from "react-router-dom";
-import { RequireAuth } from "react-auth-kit";
-import ProtectedRoute from './components/ProtectedRoute';
+
 import { useIsAuthenticated } from 'react-auth-kit';
 import Footer from './components/Footer';
 import { ThemeProvider } from '@mui/material/styles';
-import theme from './theme';
-import { StyletronProvider } from 'styletron-react';
 import { CssBaseline } from '@mui/material';
 import { ColorModeContext, useMode } from "./theme";
-import AdminRoutes from './admin'
 import AdminAuthCheck from './components/AdminAuthCheck';
 import UserRoutes from './components/userDashboard/index.js';
 // function AuthenticatedRoute({ element: Component, ...rest }) {
@@ -48,7 +41,6 @@ import UserRoutes from './components/userDashboard/index.js';
 
 function App() {
   const [searchQuery, setSearchQuery] = useState('');
-  const isAuthenticated = useIsAuthenticated();
   // const navigate = useNavigate();
   const handleSearch = (query) => {
     setSearchQuery(query);

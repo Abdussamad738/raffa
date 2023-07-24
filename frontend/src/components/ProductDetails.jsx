@@ -1,28 +1,22 @@
 import React,{useState,useEffect}from 'react';
 import { useParams } from 'react-router-dom';
-import { BsArrowLeft, BsArrowRight } from 'react-icons/bs';
 import { useSelector, useDispatch } from 'react-redux';
 import { addToCart ,fetchProduct } from '../utils/productActions';
 import '../styles/productdetails.css'; 
 import { renderStars } from '../utils/renderStars';
 import { TextField, MenuItem, Box, Typography, Button} from '@mui/material';
-import { useLocation } from 'react-router-dom';
 import HandleLike from '../utils/handleLike';
 import ImageZoom from "react-image-zooom";
 import { Link} from 'react-router-dom';
-import { createBrowserHistory } from 'history';
 import { Modal } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { Field, Form, Formik } from 'formik';
-import Recommendation from './Recommendation';
 export default function ProductDetails() {
   const dispatch = useDispatch();
-  const history = createBrowserHistory();
   const { productId } = useParams();
   const [quantity, setQuantity] = useState(1);
 
 const [showModal, setShowModal] = useState(false);
-const [selectedSize, setSelectedSize] = useState('');
 
 const formik = useFormik({
   initialValues: {
@@ -38,7 +32,6 @@ const handleModalHide = () => {
   useEffect(() => {
     dispatch(fetchProduct(productId));
   }, [dispatch, productId]);
-  const [showZoom, setShowZoom] = useState(false);
   const product = useSelector((state) => state.products.products.find((p) => p._id === productId));
   const [price, setPrice] = useState(product.offerPrice || product.actualPrice);
   console.log("from product details:",JSON.stringify(product))

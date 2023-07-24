@@ -2,15 +2,14 @@ import React, { useState,useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import '../../styles/cart.css';
 import { useNavigate } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { decreaseQuantity, increaseQuantity } from '../../utils/productActions';
 import {FaTrash} from 'react-icons/fa'
-import { Container, Row, Col, Form, Button } from 'react-bootstrap';
-import { useFormik } from 'formik';
+import {  Button } from 'react-bootstrap';
+
 import { Box, Typography } from '@mui/material';
 
-import { setUser, updateUser, removeUser } from "../../utils/userActions";
-import {updateDeliveryAddress} from '../../utils/userActions'
+// import { setUser, updateUser, removeUser } from "../../utils/userActions";
+// import {updateDeliveryAddress} from '../../utils/userActions'
 import axios, { AxiosError } from "axios";
 import DeliveryAddressForm from '../DeliveryAddressForm';
 import { clearCart } from '../../utils/productActions';
@@ -77,9 +76,9 @@ export default function Cart() {
   };
 
   // Calculate the overall total price (sum of all items)
-  const calculateOverallTotalPrice = () => {
-    return cartItems.reduce((total, item) => total + calculateTotalPrice(item), 0);
-  };
+  // const calculateOverallTotalPrice = () => {
+  //   return cartItems.reduce((total, item) => total + calculateTotalPrice(item), 0);
+  // };
 
   // Calculate the subtotal
   const subtotal = cartItems.reduce(

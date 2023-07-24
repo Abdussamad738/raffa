@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import CategoryFilter from './CategoryFilter';
-import CategoryProducts from './CategoryProducts';
 import ShopByCategory from './ShopByCategory';
 import { useLocation } from 'react-router-dom';
 

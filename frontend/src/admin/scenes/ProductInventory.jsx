@@ -4,14 +4,14 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Box,Button, Modal, TextField,useTheme } from '@mui/material';
 import { tokens } from "../../theme";
 import axios from 'axios';
-import { Formik } from "formik";
+
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import '../index.css'
 import { useFormik } from "formik";
 import { AxiosError } from "axios";
 
-import { fetchProducts } from '../../utils/productActions';
+// import { fetchProducts } from '../../utils/productActions';
 import Header from "../components/Header";
 export default function ProductInventory ()  {
 //   const [products, setProducts] = useState([]);
@@ -19,23 +19,23 @@ export default function ProductInventory ()  {
   const theme = useTheme();
   const [error, setError] = useState("");
   const colors = tokens(theme.palette.mode);
-  const [newProduct, setNewProduct] = useState({
-    _id: '',
-    name: '',
-    actualPrice: '',
-    offerPrice: '',
-    sizes: '',
-    color: '',
-    description: '',
-    dimension: '',
-    features: '',
-    image: '',
-    category: '',
-    ratings: '',
-    specifications: '',
-    quantityInStock: '',
-    deliveryTime: '',
-  });
+  // const [newProduct, setNewProduct] = useState({
+  //   _id: '',
+  //   name: '',
+  //   actualPrice: '',
+  //   offerPrice: '',
+  //   sizes: '',
+  //   color: '',
+  //   description: '',
+  //   dimension: '',
+  //   features: '',
+  //   image: '',
+  //   category: '',
+  //   ratings: '',
+  //   specifications: '',
+  //   quantityInStock: '',
+  //   deliveryTime: '',
+  // });
   const isNonMobile = useMediaQuery("(min-width:600px)");
   
 

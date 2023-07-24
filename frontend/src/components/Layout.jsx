@@ -1,35 +1,22 @@
 import { Box,useTheme, useMediaQuery } from "@mui/material";
 import React, { useState } from 'react'
 import activewear from '../assets/activewear.png'
-import badminton from '../assets/badminton.png'
 import billiards from '../assets/billiards.png'
-import cards from '../assets/cards.png'
-import carroms from '../assets/carroms.png'
-import clothing from '../assets/clothing.png'
-import combat from '../assets/combat.jpg'
+
 import cricket from '../assets/cricket.png'
 import fitness from '../assets/fitness.png'
 import football from '../assets/football.png'
-import footwear from '../assets/footwear.png'
 import games from '../assets/games.png'
-import others from '../assets/others.png'
 import racket from '../assets/racket.png'
-import roller from '../assets/roller.png'
-import skateboards from '../assets/skateboards.jpg'
 import skating from '../assets/skating.png'
-import squash from '../assets/squash.jpg'
-import tabletennis from '../assets/tabletennis.png'
-import teamsports from '../assets/teamsports.jpg'
-import tennis from '../assets/tennis.png'
 import trophies from '../assets/trophies.png'
 import volleyball from '../assets/volleyball.png'
 import water from '../assets/water.png'
 import basketball from '../assets/basketball.png'
 import '../styles/layout.css'; 
-import { ColorModeContext, tokens } from "./../theme";
+import { tokens } from "./../theme";
 
 import { useNavigate  } from 'react-router-dom';
-import CategoryProducts from "./CategoryProducts";
 import { useSelector, useDispatch } from 'react-redux';
 // const gridTemplateLargeScreens = `
 //   "a a d d k k o p"
@@ -115,7 +102,7 @@ export default function Layout({  onCategoryClick }) {
   const isAboveMediumScreens = useMediaQuery("(min-width: 1500px)");
     const navigate = useNavigate();
     const data = useSelector((state) => state.products.products);
-    const [filteredItems, setFilteredItems] = useState([]);
+    
   const handleCategoryClick = (category) => {
     console.log("from handleCategoryClick",JSON.stringify(category))
     // const matchedItems = data.filter((item) => item.category === category.name);

@@ -2,7 +2,6 @@ import React from 'react';
 import { Box, IconButton,  useTheme } from "@mui/material";
 import { tokens } from "../theme";
 import { NavigationBreadcrumbs } from './NavigationBreadcrumbs';
-import { useRef,useState,useEffect } from "react";
 import Checkbox from '@mui/material/Checkbox';
 import Typography from '@mui/material/Typography';
 import '../styles/shop.css'

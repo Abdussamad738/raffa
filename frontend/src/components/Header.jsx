@@ -1,16 +1,14 @@
 import React, { useState,useEffect } from 'react';
 import { Link,useLocation } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
-import { FaBars, FaUser, FaShoppingCart } from 'react-icons/fa';
+import { FaBars, FaUser } from 'react-icons/fa';
 
 import '../styles/header.css'; 
 import Badge from '@mui/material/Badge';
-import { styled } from '@mui/material/styles';
 import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { fetchProducts } from '../utils/productActions';
 
-import SearchTwoToneIcon from '@mui/icons-material/SearchTwoTone';
 import {HeartFill} from 'react-bootstrap-icons'
 export default function Header({onSearch }) {
   const location = useLocation();

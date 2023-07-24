@@ -1,15 +1,12 @@
 import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch,useSelector  } from 'react-redux';
-import { StarFill, StarHalf, Star, HeartFill, Heart } from 'react-bootstrap-icons';
+import { useDispatch  } from 'react-redux';
 import { renderStars } from '../utils/renderStars';
-import { updateLikedItems } from '../utils/productActions';
 import HandleLike from '../utils/handleLike';
-import Recommendation from './Recommendation';
 export default function CategoryProducts({ filteredItems }) {
   const [likedItems, setLikedItems] = useState([]);
   const [quantity, setQuantity] = useState(0);
-  const dispatch = useDispatch();
+  
   
 //   const handleLikeItem = (item) => {
 //     // Get the current likedItems state from the Redux store

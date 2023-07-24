@@ -6,18 +6,13 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useLocation,useParams } from "react-router-dom";
 import CategoryFilter from './CategoryFilter';
 import Layout from './Layout';
-import fitness from '../assets/fitness.png';
 import CategoryProducts from './CategoryProducts'
 import { fetchProducts } from '../utils/productActions';
-import { NavigationBreadcrumbs } from './NavigationBreadcrumbs';
-import Footer from './Footer'
+
 export default function ShopByCategory({filteredItems}) {
-  const [filterOptions, setFilterOptions] = useState([]);
   const [selectedFilter, setSelectedFilter] = useState('');
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
-  const [selectedCategories, setSelectedCategories] = useState([]);
-  const location = useLocation();
   const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
@@ -66,7 +61,6 @@ export default function ShopByCategory({filteredItems}) {
     // setSearchQuery('');
   };
 
-  const [data, setData] = useState(null);
 useEffect(()=>{
   const filteredItems = products.filter((item) =>
           

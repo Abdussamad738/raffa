@@ -1,22 +1,19 @@
 import React from 'react'
 import { useRef,useState,useEffect } from "react";
-import Header from './Header'
+
 import '../styles/home.css'; 
 import MovingComponent from 'react-moving-text'
 import logo from '../assets/logo.png';
-import BulkOrderPage from './BulkOrderPage';
+
 import { Link } from 'react-router-dom';
 import firsttab from '../assets/firsttab.jpg'
 import secondtab from '../assets/secondtab.jpg'
-import { FaIoIosArrowDropdown } from 'react-icons/fa';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+
 import {FaAngleDown} from 'react-icons/fa'
-import ShopByCategory from './ShopByCategory';
 import SearchIcon from '@mui/icons-material/Search';
 export default function Home({onSearch}) {
 
   const [searchQuery, setSearchQuery] = useState('');
-  const [showShopByCategory, setShowShopByCategory] = useState(false);
   const handleSearch = (query) => {
     setSearchQuery(query);
   };
