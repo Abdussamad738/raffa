@@ -16,8 +16,7 @@ import basketball from '../assets/basketball.png'
 import '../styles/layout.css'; 
 import { tokens } from "./../theme";
 
-import { useNavigate  } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+
 // const gridTemplateLargeScreens = `
 //   "a a d d k k o p"
 //   "a a e e k k q r"

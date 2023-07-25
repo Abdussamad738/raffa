@@ -24,6 +24,7 @@ import {useSelector } from 'react-redux';
 // import Orders from './scenes/Orders';
 // import ProductInventory from './scenes/ProductInventory';
 function UserRoutes  () {
+   // eslint-disable-next-line
   const [isSidebar, setIsSidebar] = useState(true);
   const user = useSelector((state) => state.user);
   const token = sessionStorage.getItem("token");

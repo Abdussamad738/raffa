@@ -1,5 +1,5 @@
 import React from 'react'
-import { Box, Typography, useTheme } from "@mui/material";
+import { Box, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 // import { mockDataInvoices } from "../data/mockData";
 import Header from "../components/Header";

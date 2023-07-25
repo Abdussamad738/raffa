@@ -15,7 +15,8 @@ function Orders() {
   console.log("from orders.jsx",user,token)
   const [orders, setOrders] = useState([]);
 //   const  orderHistory  = useSelector((state) => state.user.users);
-  useEffect(() => {
+  
+useEffect(() => {
     const fetchOrders = async () => {
       try {
         const response = await fetch(`${backendUrl}/admin/orders`, {
@@ -32,6 +33,7 @@ function Orders() {
     };
 
     fetchOrders();
+     // eslint-disable-next-line
   }, []);
   
     console.log("orderhISTORY:",JSON.stringify(orders))

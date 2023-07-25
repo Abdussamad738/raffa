@@ -10,8 +10,7 @@ import {
   Container,
   ErrorText,
   InnerContainer,
-  InputWrapper,
-  StyledInput,
+  
 } from "../utils/commons";
 
 function Register() {

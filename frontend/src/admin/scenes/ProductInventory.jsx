@@ -17,6 +17,7 @@ export default function ProductInventory ()  {
 //   const [products, setProducts] = useState([]);
   const [openModal, setOpenModal] = useState(false);
   const theme = useTheme();
+   // eslint-disable-next-line
   const [error, setError] = useState("");
   const colors = tokens(theme.palette.mode);
   // const [newProduct, setNewProduct] = useState({
@@ -118,7 +119,7 @@ export default function ProductInventory ()  {
         `${backendUrl}/products/`,
         updatedValues
       );
-      console.log(JSON.stringify(updatedValues))
+      console.log(JSON.stringify(response,updatedValues))
       
       
 

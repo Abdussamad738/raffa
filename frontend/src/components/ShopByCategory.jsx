@@ -67,7 +67,7 @@ useEffect(()=>{
         );
         setItems(filteredItems);
         console.log("filtered item from useeffect:",JSON.stringify(filteredItems))
-
+ // eslint-disable-next-line
 },[selectedCheckboxes])
 
   // useEffect(()=>{

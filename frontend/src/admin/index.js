@@ -2,7 +2,7 @@ import React, { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom';
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
-import Dashboard from "./scenes/Dashboard";
+
 import Invoices from "./scenes/Invoices";
 import Bar from "./scenes/Bar";
 import Form from "./scenes/Form";

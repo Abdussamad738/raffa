@@ -103,6 +103,7 @@ export default function UserDashboard () {
   //   dispatch(removeUser());
   // };
   const [phone, setPhone] = useState(user?.phone || '');
+   // eslint-disable-next-line
   const [deliveryAddress, setDeliveryAddress] = useState(user?.deliveryAddress || '');
 
   const handlePhoneChange = (e) => {

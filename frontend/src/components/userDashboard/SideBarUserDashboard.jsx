@@ -65,6 +65,7 @@ const initials = userName
   // };
   const handleLogout = () => {
     let cart=[]
+     // eslint-disable-next-line
     const carts= cartItems.map((item)=>(
       cart.push(item)
     ));

@@ -13,7 +13,7 @@ export default function SearchResults() {
     const query = searchParams.get('query');
     
     filterItemsBySearchQuery(query);
-    
+     // eslint-disable-next-line
   }, [location]);
 
   const filterItemsBySearchQuery = (query) => {
