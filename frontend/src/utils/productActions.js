@@ -13,7 +13,7 @@ export const fetchProducts = () => {
     try {
       const response = await fetch(`${backendUrl}/products`);
       const data = await response.json();
-      console.log("fetchproducts:",data)
+      // console.log("fetchproducts:",data)
       dispatch({
         type: FETCH_PRODUCTS_SUCCESS,
         payload: data,
