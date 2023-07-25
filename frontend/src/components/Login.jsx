@@ -2,7 +2,7 @@ import { Button } from "baseui/button";
 import { Input } from "baseui/input";
 import { HeadingXXLarge } from "baseui/typography";
 import { setUser } from "../utils/userActions";
-import { useDispatch,useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useSignIn } from "react-auth-kit";
 import { useFormik } from "formik";
 import axios, { AxiosError } from "axios";

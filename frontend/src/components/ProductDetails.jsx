@@ -109,7 +109,7 @@ useEffect(() => {
               <img
                 key={index}
                 src={imageUrls[index]}
-                alt={`Image ${index + 1}`}
+                alt={` ${index + 1}`}
                 className="thumbnail-image"
                 onClick={() => handleThumbnailClick(index)}
               />

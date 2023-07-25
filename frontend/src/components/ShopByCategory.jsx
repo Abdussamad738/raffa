@@ -1,9 +1,8 @@
 import React, { useState, useEffect }  from 'react'
 import '../styles/shop.css'; 
-import { Box,useTheme, useMediaQuery,Typography } from "@mui/material";
-import { ColorModeContext, tokens } from "./../theme";
+import { Box,useTheme,Typography } from "@mui/material";
+import { tokens } from "./../theme";
 import { useSelector, useDispatch } from 'react-redux';
-import { useLocation,useParams } from "react-router-dom";
 import CategoryFilter from './CategoryFilter';
 import Layout from './Layout';
 import CategoryProducts from './CategoryProducts'

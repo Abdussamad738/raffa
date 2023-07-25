@@ -1,34 +1,37 @@
-import React from 'react'
+import React, { lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom';
 import Topbar from "./scenes/global/Topbar";
 import Sidebar from "./scenes/global/Sidebar";
 import Dashboard from "./scenes/Dashboard";
-import Team from "./scenes/Team";
 import Invoices from "./scenes/Invoices";
-import Contacts from "./scenes/Contacts";
 import Bar from "./scenes/Bar";
 import Form from "./scenes/Form";
 import Line from "./scenes/Line";
 import Pie from "./scenes/Pie";
 import FAQ from "./scenes/Faq";
 import Calendar from "./scenes/Calendar";
-import Users from './scenes/Users'
 import { useState } from "react";
 import './index.css'
 import { Navigate } from 'react-router-dom';
 // ... other route components
-import { useDispatch,useSelector } from 'react-redux';
-import Orders from './scenes/Orders';
-import ProductInventory from './scenes/ProductInventory';
+import { useSelector } from 'react-redux';
 function AdminRoutes  () {
   const [isSidebar, setIsSidebar] = useState(true);
   const user = useSelector((state) => state.user);
   const token = sessionStorage.getItem("token");
   console.log("user from index.js:",JSON.stringify(user,token))
+  const LazyDashboard = lazy(() => import('./scenes/Dashboard'));
+const LazyTeam = lazy(() => import('./scenes/Team'));
+const LazyContacts = lazy(() => import('./scenes/Contacts'));
+const LazyUsers = lazy(() => import('./scenes/Users'));
+const LazyOrders = lazy(() => import('./scenes/Orders'));
+const LazyProductInventory = lazy(() => import('./scenes/ProductInventory'));
   if (!user || !token) {
     // If user or token is missing, redirect to login page or desired route
     return <Navigate to="/login" />;
   }
+
+
 
   return (
     
@@ -37,9 +40,9 @@ function AdminRoutes  () {
           <main className="content">
             <Topbar setIsSidebar={setIsSidebar} />
     <Routes>
-      <Route path="/" element={<Dashboard />} />
-      <Route path="/team" element={<Team />} />
-      <Route path="/contacts" element={<Contacts />} />
+    <Route path="/" element={<Suspense fallback={<div>Loading...</div>}><LazyDashboard /></Suspense>} />
+    <Route path="/team" element={<Suspense fallback={<div>Loading...</div>}><LazyTeam /></Suspense>} />
+    <Route path="/contacts" element={<Suspense fallback={<div>Loading...</div>}><LazyContacts /></Suspense>} />
       <Route path="/invoices" element={<Invoices />} />
       <Route path="/form" element={<Form />} />
       <Route path="/bar" element={<Bar />} />
@@ -47,9 +50,9 @@ function AdminRoutes  () {
        <Route path="/line" element={<Line />} />
        <Route path="/faq" element={<FAQ />} />
       <Route path="/calendar" element={<Calendar />} />
-      <Route path="/users" element={<Users />} />
-      <Route path="/orders" element={<Orders />} />
-      <Route path="/products" element={<ProductInventory/>}/>
+      <Route path="/users" element={<Suspense fallback={<div>Loading...</div>}><LazyUsers /></Suspense>} />
+          <Route path="/orders" element={<Suspense fallback={<div>Loading...</div>}><LazyOrders /></Suspense>} />
+          <Route path="/products" element={<Suspense fallback={<div>Loading...</div>}><LazyProductInventory /></Suspense>} />
     </Routes>
     </main>
         </div>

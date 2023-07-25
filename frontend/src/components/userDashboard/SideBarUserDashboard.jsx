@@ -6,7 +6,7 @@ import "react-pro-sidebar/dist/css/styles.css";
 import { tokens } from "../../theme";
 import {  Button } from 'react-bootstrap';
 import { useDispatch,useSelector } from 'react-redux';
-import { setUser, updateUser, removeUser } from "../../utils/userActions";
+import { removeUser } from "../../utils/userActions";
 import { clearCart } from '../../utils/productActions';
 import { insertCartItems } from '../../utils/userActions';
 import { useNavigate } from 'react-router-dom';
@@ -55,14 +55,14 @@ const initials = userName
   .split(' ')
   .map((name) => name[0].toUpperCase())
   .join('');
-  const handleItemClick = () => {
-    console.log("from HAndleitemclick")
-    if (user === null) {
-      navigate('/login');
-    } else {
-      navigate('/user');
-    }
-  };
+  // const handleItemClick = () => {
+  //   console.log("from HAndleitemclick")
+  //   if (user === null) {
+  //     navigate('/login');
+  //   } else {
+  //     navigate('/user');
+  //   }
+  // };
   const handleLogout = () => {
     let cart=[]
     const carts= cartItems.map((item)=>(

@@ -12,9 +12,9 @@ import LineChart from "../components/LineChart";
 import BarChart from "../components/BarChart";
 import StatBox from "../components/StatBox";
 import ProgressCircle from "../components/ProgressCircle";
-import { useSelector ,useDispatch} from 'react-redux';
+import { useDispatch} from 'react-redux';
 import { fetchProducts } from '../../utils/productActions';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 
 export default function Dashboard ()  {
   const theme = useTheme();

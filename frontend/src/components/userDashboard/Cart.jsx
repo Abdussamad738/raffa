@@ -10,7 +10,7 @@ import { Box, Typography } from '@mui/material';
 
 // import { setUser, updateUser, removeUser } from "../../utils/userActions";
 // import {updateDeliveryAddress} from '../../utils/userActions'
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import DeliveryAddressForm from '../DeliveryAddressForm';
 import { clearCart } from '../../utils/productActions';
 import { deleteFromCart } from '../../utils/cartReducer';
@@ -70,10 +70,10 @@ export default function Cart() {
   };
 
   // Calculate the total price for each item (price * quantity)
-  const calculateTotalPrice = (item) => {
+  // const calculateTotalPrice = (item) => {
 
-    return item.productDetails.quantity * item.productDetails.price;
-  };
+  //   return item.productDetails.quantity * item.productDetails.price;
+  // };
 
   // Calculate the overall total price (sum of all items)
   // const calculateOverallTotalPrice = () => {
@@ -231,7 +231,7 @@ const [showForm, setShowForm] = useState(false);
                     <div className="cart-item">
                       <div className="item-image">
                         {console.log(JSON.stringify(item.productDetails.imageUrl[0]))}
-                      <img src={`https://raffasports.s3.ca-central-1.amazonaws.com/${item.productDetails.imageUrl[0]}`} />
+                      <img src={`https://raffasports.s3.ca-central-1.amazonaws.com/${item.productDetails.imageUrl[0]}`} alt={item.productDetails.name}/>
                       </div>
                       <div className="item-info">
                         <div className="item-header">

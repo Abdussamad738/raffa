@@ -1,5 +1,5 @@
 import React from 'react'
-import { useRef,useState,useEffect } from "react";
+import { useState } from "react";
 
 import '../styles/home.css'; 
 import MovingComponent from 'react-moving-text'

@@ -20,7 +20,7 @@ import React,{ useState } from "react";
 import './index.css'
 // import { Navigate } from 'react-router-dom';
 // ... other route components
-import { useDispatch,useSelector } from 'react-redux';
+import {useSelector } from 'react-redux';
 // import Orders from './scenes/Orders';
 // import ProductInventory from './scenes/ProductInventory';
 function UserRoutes  () {

@@ -12,7 +12,7 @@ function Orders() {
 
   const colors = tokens(theme.palette.mode);
   const { user, token } = useSelector((state) => state.user);
-  console.log("from orders.jsx",token)
+  console.log("from orders.jsx",user,token)
   const [orders, setOrders] = useState([]);
 //   const  orderHistory  = useSelector((state) => state.user.users);
   useEffect(() => {

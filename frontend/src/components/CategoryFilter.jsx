@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, IconButton,  useTheme } from "@mui/material";
+import { Box,  useTheme } from "@mui/material";
 import { tokens } from "../theme";
 import { NavigationBreadcrumbs } from './NavigationBreadcrumbs';
 import Checkbox from '@mui/material/Checkbox';

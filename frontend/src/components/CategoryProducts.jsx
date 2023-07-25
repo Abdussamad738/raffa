@@ -1,11 +1,10 @@
 import React, { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useDispatch  } from 'react-redux';
 import { renderStars } from '../utils/renderStars';
 import HandleLike from '../utils/handleLike';
 export default function CategoryProducts({ filteredItems }) {
   const [likedItems, setLikedItems] = useState([]);
-  const [quantity, setQuantity] = useState(0);
+  // const [quantity, setQuantity] = useState(0);
   
   
 //   const handleLikeItem = (item) => {
@@ -23,12 +22,12 @@ export default function CategoryProducts({ filteredItems }) {
 //     }
 //   };
 
-  const handleQuantityChange = (item, increment) => {
-    const newQuantity = quantity + increment;
-    if (newQuantity >= 0 && newQuantity <= item.Quantity_in_Stock) {
-      setQuantity(newQuantity);
-    }
-  };
+  // const handleQuantityChange = (item, increment) => {
+  //   const newQuantity = quantity + increment;
+  //   if (newQuantity >= 0 && newQuantity <= item.Quantity_in_Stock) {
+  //     setQuantity(newQuantity);
+  //   }
+  // };
 
   // Retrieve likedItems from local storage
   useEffect(() => {
@@ -38,13 +37,13 @@ export default function CategoryProducts({ filteredItems }) {
     }
   }, []);
 
-  const handleLikeItem = (item) => {
-    if (likedItems.includes(item)) {
-      setLikedItems(likedItems.filter((likedItem) => likedItem !== item));
-    } else {
-      setLikedItems([...likedItems, item]);
-    }
-  };
+  // const handleLikeItem = (item) => {
+  //   if (likedItems.includes(item)) {
+  //     setLikedItems(likedItems.filter((likedItem) => likedItem !== item));
+  //   } else {
+  //     setLikedItems([...likedItems, item]);
+  //   }
+  // };
 
 
   return (

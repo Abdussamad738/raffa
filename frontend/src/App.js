@@ -1,7 +1,7 @@
-import logo from './logo.svg';
+
 import './App.css';
 import React, { useState } from 'react';
-import {  Router, Routes, Route } from 'react-router-dom';
+import {  Routes, Route } from 'react-router-dom';
 import { BrowserRouter } from 'react-router-dom';
 import Home from './components/Home'
 import ShopByCategory from './components/ShopByCategory';
@@ -18,7 +18,6 @@ import SearchResults from './components/SearchResults';
 import Login from './components/Login';
 import Register from './components/Register'
 
-import { useIsAuthenticated } from 'react-auth-kit';
 import Footer from './components/Footer';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';

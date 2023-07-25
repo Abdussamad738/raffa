@@ -1,15 +1,14 @@
 
 import React, { useState, useEffect } from 'react';
-import { useDispatch,useSelector } from 'react-redux';
+import {useSelector } from 'react-redux';
 import { Container,  Button } from 'react-bootstrap';
 
 import { useNavigate } from 'react-router-dom';
 
-import { Box, Typography,TextField } from '@mui/material';
+import { Typography,TextField } from '@mui/material';
 
 // import { updateUserPhoneNumber } from '../utils/userActions';
 import '../../styles/userdashboard.css'; 
-import { insertCartItems } from '../../utils/userActions';
 import DeliveryAddressForm from '../DeliveryAddressForm';
 export default function UserDashboard () {
   // const dispatch = useDispatch();
@@ -54,11 +53,11 @@ export default function UserDashboard () {
   // });
 
   // Mocked order history data
-  const orderHistory = [
-    { id: 1, productName: 'Product 1', quantity: 2, totalPrice: 100 },
-    { id: 2, productName: 'Product 2', quantity: 1, totalPrice: 50 },
-    // Add more order history data here...
-  ];
+  // const orderHistory = [
+  //   { id: 1, productName: 'Product 1', quantity: 2, totalPrice: 100 },
+  //   { id: 2, productName: 'Product 2', quantity: 1, totalPrice: 50 },
+  //   // Add more order history data here...
+  // ];
   // if (!user) {
   //   return null;
   // }

@@ -1,5 +1,5 @@
 import { Box,useTheme, useMediaQuery } from "@mui/material";
-import React, { useState } from 'react'
+import React from 'react'
 import activewear from '../assets/activewear.png'
 import billiards from '../assets/billiards.png'
 
@@ -17,7 +17,7 @@ import '../styles/layout.css';
 import { tokens } from "./../theme";
 
 import { useNavigate  } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 // const gridTemplateLargeScreens = `
 //   "a a d d k k o p"
 //   "a a e e k k q r"
@@ -100,8 +100,8 @@ export default function Layout({  onCategoryClick }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const isAboveMediumScreens = useMediaQuery("(min-width: 1500px)");
-    const navigate = useNavigate();
-    const data = useSelector((state) => state.products.products);
+    // const navigate = useNavigate();
+    // const data = useSelector((state) => state.products.products);
     
   const handleCategoryClick = (category) => {
     console.log("from handleCategoryClick",JSON.stringify(category))

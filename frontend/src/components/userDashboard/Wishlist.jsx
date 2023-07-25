@@ -1,7 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import CategoryProducts from '../CategoryProducts';
-import { useLocation } from 'react-router-dom';
 
 export default function Wishlist() {
   const likeditems = useSelector((state) => state.products.likedItems);
