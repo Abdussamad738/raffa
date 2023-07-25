@@ -2,7 +2,7 @@ import React, { useState,useEffect } from 'react';
 import { Link,useLocation } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
 import { FaBars, FaUser } from 'react-icons/fa';
-
+import logo from '../assets/logo.png';
 import '../styles/header.css'; 
 import Badge from '@mui/material/Badge';
 import IconButton from '@mui/material/IconButton';
@@ -44,7 +44,7 @@ const cartItemCount = cartItems.length;
         <div className='header-content'>
       <div className="logo">
         {/* Add your logo image or text here */}
-        <Link to="/"><img src="/assets/logo.png" alt="Logo" className='header-logo'/></Link>
+        <Link to="/"><img src={logo} alt="Logo" className='header-logo'/></Link>
       </div>
       {isSmallScreen ? (
         <div className="expand-button">
