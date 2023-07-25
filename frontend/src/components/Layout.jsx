@@ -29,24 +29,36 @@ import { tokens } from "./../theme";
 
 const gridTemplateLargeScreens = `
   "a b c d"
-  "a b c d"
-  "e f g h"
   "e f g h"
   "i j k l"
-  "i j k l"
+
 `;
 
 const gridTemplateMediumScreens = `
   "a b c "
-  "a b c "
+
   "d e f"
-  "d e f "
+
   "g h i "
-  "g h i "
+
   "j k l"
-  "j k l"
+
 `;
 
+const gridTemplateSmallScreens = `
+  "a b "
+  "a b "
+  "c d"
+  "c d"
+  "e f"
+  "e f"
+  "g h "
+  "g h "
+  "i j"
+  "i j"
+  "k l"
+  "k l"
+`;
 // const categories = [
 //     { name: 'Team Sports', area: 'a' ,img:teamsports},
 //     { name: 'Active wear', area: 'b' ,img:activewear},
@@ -99,7 +111,8 @@ export default function Layout({  onCategoryClick }) {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
   const isAboveMediumScreens = useMediaQuery("(min-width: 1500px)");
-    // const navigate = useNavigate();
+  const isSmallScreen = window.innerWidth <= 500;
+  // const navigate = useNavigate();
     // const data = useSelector((state) => state.products.products);
     
   const handleCategoryClick = (category) => {
@@ -132,14 +145,26 @@ export default function Layout({  onCategoryClick }) {
       sx={
         isAboveMediumScreens
           ? {
-              gridTemplateColumns: "repeat(3, minmax(250px, 1fr))",
-              gridTemplateRows: "repeat(10, minmax(60px, 1fr))",
+              gridTemplateColumns: "repeat(6, minmax(150px, 1fr))",
+              gridTemplateRows: "repeat(5, minmax(100px, 1fr))",
               gridTemplateAreas: gridTemplateLargeScreens,
+              gridAutoColumns: "1fr", // Make all items equally spaced
+              gridAutoRows: "1fr", // Make all items equally spaced
+            }
+          : isSmallScreen
+          ? {
+              gridTemplateColumns: "repeat(2, 1fr)",
+              gridTemplateRows: "repeat(12, minmax(80px, 1fr))",
+              gridTemplateAreas: gridTemplateSmallScreens,
+              gridAutoColumns: "1fr", // Make all items equally spaced
+              gridAutoRows: "1fr", // Make all items equally spaced
             }
           : {
-              gridAutoColumns: "1fr",
-              gridAutoRows: "80px",
+              gridTemplateColumns: "repeat(1, 1fr)",
+              gridTemplateRows: "repeat(12, minmax(80px, 1fr))",
               gridTemplateAreas: gridTemplateMediumScreens,
+              gridAutoColumns: "1fr", // Make all items equally spaced
+              gridAutoRows: "1fr", // Make all items equally spaced
             }
       }
     >

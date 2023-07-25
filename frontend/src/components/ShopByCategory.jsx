@@ -5,9 +5,10 @@ import { tokens } from "./../theme";
 import { useSelector, useDispatch } from 'react-redux';
 import CategoryFilter from './CategoryFilter';
 import Layout from './Layout';
+import {IconButton} from '@mui/material'
 import CategoryProducts from './CategoryProducts'
 import { fetchProducts } from '../utils/productActions';
-
+import FilterListIcon from '@mui/icons-material/FilterList';
 export default function ShopByCategory({filteredItems}) {
    // eslint-disable-next-line
   const [selectedFilter, setSelectedFilter] = useState('');
@@ -96,9 +97,13 @@ useEffect(()=>{
   //   handleSearch();
   // }, [searchQuery]);
 
-  
- 
+  const [showCategoryFilter, setShowCategoryFilter] = useState(false); // State for expanding/collapsing filter
 
+  const handleCategoryFilterClick = () => {
+    setShowCategoryFilter(!showCategoryFilter);
+  };
+ 
+  const isSmallScreen = window.innerWidth <= 500;
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
@@ -108,6 +113,29 @@ useEffect(()=>{
       <Typography variant="h3">Shop By Category</Typography>
 
       <Box className='container sub' display='flex'>
+      {isSmallScreen ? (
+          // Show the expand icon for smaller screens
+          
+          showCategoryFilter ? (
+            <Box>
+              <IconButton color="inherit" aria-label="expand" onClick={handleCategoryFilterClick}>
+              <FilterListIcon />
+            </IconButton>
+            <CategoryFilter
+              onFilterChange={handleFilterChange}
+              selectedCheckboxes={selectedCheckboxes}
+              onCheckboxChange={handleCheckboxChange}
+              backgroundColor={colors.primary[400]}
+            />
+            
+            </Box>
+          ) : (
+            <IconButton color="inherit" aria-label="expand" onClick={handleCategoryFilterClick}>
+              <FilterListIcon />
+            </IconButton>
+          )
+        
+        ) : (
         <Box className='filter scrollbar'>
           {/* <h4>Categories</h4> */}
           <CategoryFilter
@@ -117,6 +145,7 @@ useEffect(()=>{
             backgroundColor={colors.primary[400]}
           />
         </Box>
+        )}
 
         <Box className='items scrollbar'>
           {items.length > 0 ? (

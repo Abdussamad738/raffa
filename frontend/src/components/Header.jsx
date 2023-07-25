@@ -1,20 +1,36 @@
 import React, { useState,useEffect } from 'react';
 import { Link,useLocation } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
-import { FaBars, FaUser } from 'react-icons/fa';
+import {  FaUser } from 'react-icons/fa';
 import logo from '../assets/logo.png';
 import '../styles/header.css'; 
 import Badge from '@mui/material/Badge';
-import IconButton from '@mui/material/IconButton';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { fetchProducts } from '../utils/productActions';
-
 import {HeartFill} from 'react-bootstrap-icons'
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Box,
+  Menu,
+  MenuItem,
+ 
+} from '@mui/material';
+import { Category, Person, Search } from '@mui/icons-material';
+
 export default function Header({onSearch }) {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
   const [searchQuery, setSearchQuery] = useState('');
   const user = useSelector((state) => state.user.user);
+  const [showSearchMenu, setShowSearchMenu] = useState(false);
+  
+  
+  const handleSearchMenuClick = () => {
+    setShowSearchMenu(!showSearchMenu);
+  };
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
   };
@@ -40,105 +56,149 @@ const cartItemCount = cartItems.length;
 
     const isSmallScreen = window.innerWidth <= 500; // Adjust the breakpoint as needed
   return (
-    <header className="fixed-header">
-        <div className='header-content'>
-      <div className="logo">
-        {/* Add your logo image or text here */}
-        <Link to="/"><img src={logo} alt="Logo" className='header-logo'/></Link>
-      </div>
+    <Box>
       {isSmallScreen ? (
-        <div className="expand-button">
-          {/* Show the bar icon for small screens */}
-          <FaBars />
-        </div>
-      ) : (
-        <div className="header-links category-selector">
-          <div className='header-item home-header'>
-              <Link to="/">Home</Link>
-              </div>
-              <Link to='/shop'>
-              <div className='header-item categories-header'>
-                Categories
-              </div>
+        <AppBar position="static">
+          <Toolbar sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+        }}>
+            
+            {/* </Menu> */}
+            <Link to="/shop">
+              <Category/>
               </Link>
-              <Link to='/deals'>
-              <div className='header-item deals-header'>
-                Deals
-              </div>
-              </Link>
-              {user ? (
-              <Link to='/user/orders'>
-              <div className='header-item orders-header'>
-                My Orders
-              </div></Link>
-              ):(
-                <Link to="/login">
-                  <div className='header-item orders-header'>
-                My Orders
-              </div>
-                </Link>
 
-              )}
-          {/* Add your category selector component or expand button here */}
-          {/* <button>Expand</button> */}
-        </div>
-      )}
-      
-      
-      {!isHomePage && (
-      <div className="search-input">
-        <input
-          type="text"
-          placeholder="Search"
-          value={searchQuery}
-          onChange={handleSearchInputChange}
-        />
-        <Link to={`/search?query=${searchQuery}`}>
-        <button onClick={handleSearch}>
-        🔍
-          {/* <img src={SearchIcon} alt="Search" /> */}
-        </button>
-        </Link>
-        </div>
-      )}
-        
-        
-        <div className='header-icons'>
-
-        <Link to="user/wishlist">
-          <HeartFill className='text-danger'/>
-          </Link>
-      
-      <div className="user-icon">
-        {/* Add your user icon component or link to user dashboard here */}
-        {/* <Link to="/user-dashboard">
-          <FaUser />
-        </Link> */}
-        {user ? (
-        <Link to="/user">
-          <FaUser />
-        </Link>
-      ) : (
-        <Link to="/login">
-          <FaUser />
-        </Link>
-      )}
-      </div>
-      <div className="cart-icon">
-        {/* Add your cart icon component or link to cart page here */}
-        
-          <IconButton aria-label="cart">
-          <Link to="user/cart">
-            <Badge badgeContent={cartItemCount} color="secondary" >
-              <ShoppingCartIcon />
-            </Badge>
+            {/* Person Icon */}
+            <Link to="/user">
+              <IconButton color="inherit" aria-label="person">
+                <Person />
+              </IconButton>
             </Link>
-          </IconButton>
-        
-      </div>
-      </div>
-      </div>
-    </header>
+
+            {/* Logo */}
+            <Link to="/">
+              <img src={logo} alt="Logo" className="header-logo" />
+            </Link>
+
+            {/* Search Icon */}
+            <IconButton onClick={handleSearchMenuClick} color="inherit" aria-label="search">
+              <Search />
+            </IconButton>
+            <Menu
+              anchorEl={showSearchMenu}
+              anchorOrigin={{ vertical: 'top', horizontal:'center' }}
+              keepMounted
+              open={Boolean(showSearchMenu)}
+              onClose={() => setShowSearchMenu(false)}
+            >
+              {/* Add your search menu items here */}
+              <MenuItem onClick={() => setShowSearchMenu(false)}>
+              <input
+                type="text"
+                placeholder="Search"
+                value={searchQuery}
+                onChange={handleSearchInputChange}
+              />
+                <Link to={`/search?query=${searchQuery}`}><Search /></Link>
+              </MenuItem>
+              
+              {/* Add more menu items as needed */}
+            </Menu>
+
+            {/* Cart Icon */}
+            <Link to="/user/cart">
+              <IconButton color="inherit" aria-label="cart">
+              <Badge badgeContent={cartItemCount} color="secondary">
+                    <ShoppingCartIcon />
+                  </Badge>
+              </IconButton>
+            </Link>
+          </Toolbar>
+        </AppBar>
+      ) : (
+        <header className="fixed-header">
+        <div className="header-content">
+          <div className="logo">
+            {/* Add your logo image or text here */}
+            <Link to="/">
+              <img src={logo} alt="Logo" className="header-logo" />
+            </Link>
+          </div>
+          {/* Add your category selector component or expand button here */}
+          <div className="header-links category-selector">
+            <Typography className="header-item home-header">
+              <Link to="/">Home</Link>
+            </Typography>
+            <Link to="/shop">
+              <Typography className="header-item categories-header">
+                Categories
+              </Typography>
+            </Link>
+            <Link to="/deals">
+              <Typography className="header-item deals-header">
+                Deals
+              </Typography>
+            </Link>
+            {user ? (
+              <Link to="/user/orders">
+                <Typography className="header-item orders-header">
+                  My Orders
+                </Typography>
+              </Link>
+            ) : (
+              <Link to="/login">
+                <Typography className="header-item orders-header">
+                  My Orders
+                </Typography>
+              </Link>
+            )}
+          </div>
+          {!isHomePage && (
+            <div className="search-input">
+              <input
+                type="text"
+                placeholder="Search"
+                value={searchQuery}
+                onChange={handleSearchInputChange}
+              />
+              <Link to={`/search?query=${searchQuery}`}>
+                <button onClick={handleSearch}>
+                  <Search />
+                </button>
+              </Link>
+            </div>
+          )}
+          <div className="header-icons">
+            <Link to="user/wishlist">
+              <HeartFill className="text-danger" />
+            </Link>
+            <div className="user-icon">
+              {user ? (
+                <Link to="/user">
+                  <FaUser />
+                </Link>
+              ) : (
+                <Link to="/login">
+                  <FaUser />
+                </Link>
+              )}
+            </div>
+            <div className="cart-icon">
+              <IconButton aria-label="cart">
+                <Link to="user/cart">
+                  <Badge badgeContent={cartItemCount} color="secondary">
+                    <ShoppingCartIcon />
+                  </Badge>
+                </Link>
+              </IconButton>
+            </div>
+          </div>
+        </div>
+      </header>
+      )}
+    </Box>
   );
 };
 
