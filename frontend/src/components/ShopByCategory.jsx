@@ -9,6 +9,7 @@ import CategoryProducts from './CategoryProducts'
 import { fetchProducts } from '../utils/productActions';
 
 export default function ShopByCategory({filteredItems}) {
+   // eslint-disable-next-line
   const [selectedFilter, setSelectedFilter] = useState('');
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);

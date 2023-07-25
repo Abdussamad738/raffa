@@ -19,6 +19,7 @@ const Users = () => {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const colors = tokens(theme.palette.mode);
+   // eslint-disable-next-line
   const { user, token } = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
   const handleDeleteUser = async (id) => {
@@ -65,6 +66,7 @@ const Users = () => {
     };
 
     fetchUsers();
+     // eslint-disable-next-line
   }, [dispatch, token]);
 
  

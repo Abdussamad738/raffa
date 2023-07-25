@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { useNavigate, Outlet } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import AdminRoutes from '../admin';
 
@@ -42,6 +42,7 @@ const AdminAuthCheck = () => {
     } else {
       navigate('/login'); // If user is not authenticated, redirect to the login page
     }
+     // eslint-disable-next-line
   }, [user, token]);
 
   return <AdminRoutes />; // Render the nested routes inside the AdminRoutes

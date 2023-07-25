@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector ,useDispatch} from 'react-redux';
+import React, { useState } from 'react';
+import { useSelector} from 'react-redux';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box,Button, Modal, TextField,useTheme } from '@mui/material';
 import { tokens } from "../../theme";
@@ -424,7 +424,7 @@ export default function ProductInventory ()  {
 };
 const phoneRegExp =
   /^((\+[1-9]{1,4}[ -]?)|(\([0-9]{2,3}\)[ -]?)|([0-9]{2,4})[ -]?)*?[0-9]{3,4}[ -]?[0-9]{3,4}$/;
-
+ // eslint-disable-next-line
 const validationSchema = yup.object().shape({
   firstName: yup.string().required("required"),
   lastName: yup.string().required("required"),
