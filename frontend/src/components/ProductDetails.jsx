@@ -13,11 +13,23 @@ import { useFormik } from 'formik';
 import { Field, Form, Formik } from 'formik';
 import {PinchView} from 'react-pinch-zoom-pan'
 export default function ProductDetails() {
+ 
   const dispatch = useDispatch();
   const { productId } = useParams();
   const [quantity, setQuantity] = useState(1);
   const isSmallScreen = window.innerWidth <= 500;
 const [showModal, setShowModal] = useState(false);
+useEffect(() => {
+  dispatch(fetchProduct(productId));
+}, [dispatch, productId]);
+
+const product = useSelector((state) => state.products.products.find((p) => p._id === productId));
+useEffect(() => {
+  // Fetch the product data only if it doesn't exist in the store
+  if (!product) {
+    dispatch(fetchProduct(productId));
+  }
+}, [dispatch, productId, product]); // Add `product` as a dependency here
 
 const formik = useFormik({
   initialValues: {
@@ -30,17 +42,15 @@ const formik = useFormik({
 const handleModalHide = () => {
   setShowModal(false);
 };
-  useEffect(() => {
-    dispatch(fetchProduct(productId));
-  }, [dispatch, productId]);
-  const product = useSelector((state) => state.products.products.find((p) => p._id === productId));
-  const [price, setPrice] = useState(product.offerPrice || product.actualPrice);
-  console.log("from product details:",JSON.stringify(product))
+ 
+  const [price, setPrice] = useState(product?.offerPrice || product?.actualPrice);
+ 
   const likedItems = useSelector((state) => state.products.likedItems);
 const [currentImage, setCurrentImage] = useState(0);
-const imageUrls = product.image.map((imageName) => `https://raffasports.s3.ca-central-1.amazonaws.com/${imageName}`);
+const imageUrls = product?.image.map((imageName) => `https://raffasports.s3.ca-central-1.amazonaws.com/${imageName}`);
 
 // console.log("imageUrls :",JSON.stringify(imageUrls))
+
 
 
 // Store likedItems in local storage
