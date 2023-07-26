@@ -243,7 +243,44 @@ body {
     size: 10px;
   }
 
-  .first-tab{  }
-.first-tab:hover,.second-tab:hover { transform: scale(1.05); /* Scale the item on hover */
-  box-shadow: 0 0 15px rgba(223, 223, 223, 0.938); /* Add a box shadow on hover */
-  transition: transform 0.3s ease, box-shadow 0.3s ease; /* Add transitions for smooth animation */ }
+  .main{
+    width: 60%;
+    margin: 3% 20%;
+    border-radius:7px;
+  }
+
+
+
+  .centered-button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: rgba(213, 201, 201, 0.8); /* Adjust the background color and opacity as needed */
+    padding: 10px;
+    border-radius: 5px;
+  }
+  
+  .centered-button p {
+    margin: 0;
+    font-size: 18px; /* Adjust the font size as needed */
+    font-weight: bold;
+  }
+  
+  .centered-button .down {
+    font-size: 24px; /* Adjust the font size as needed */
+  }
+
+
+  @media (max-width: 500px) {
+    .centered-button{
+      height: 50%;
+    }
+    .centered-button .down {
+      font-size: 10px; /* Adjust the font size as needed */
+    }
+    .centered-button p {
+        font-size: 10px!important;
+    }
+  }

@@ -6,9 +6,8 @@ import MovingComponent from 'react-moving-text'
 import logo from '../assets/logo.png';
 import {Box,Typography,InputAdornment} from '@mui/material'
 import { Link } from 'react-router-dom';
-import firsttab from '../assets/firsttab.jpg'
-import secondtab from '../assets/secondtab.jpg'
 
+import main from '../assets/main.jpg'
 import {FaAngleDown} from 'react-icons/fa'
 import SearchIcon from '@mui/icons-material/Search';
 export default function Home({onSearch}) {
@@ -132,7 +131,7 @@ export default function Home({onSearch}) {
 </Box>
       
 </div>
-    <div className='tabs'>
+    {/* <div className='tabs'>
         
             
         <div className='first-tab'> 
@@ -153,7 +152,22 @@ export default function Home({onSearch}) {
             </Link>
         </div>
         
-    </div>
+    </div> */}
+    <Box 
+      sx={{
+        maxHeight:'50%',
+        margin: '10% 20%',
+        position: 'relative', 
+      }}
+    >
+      <Link to={{ pathname: "/shop" }}>
+        <img src={main} className='main'alt='main'></img>
+        <div className="centered-button">
+          <p>Shop by category</p>
+          <FaAngleDown className='down' />
+        </div>
+      </Link>
+    </Box>
     
     
 </div>
