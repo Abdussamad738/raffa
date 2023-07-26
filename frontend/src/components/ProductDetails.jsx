@@ -11,11 +11,12 @@ import { Link} from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { Field, Form, Formik } from 'formik';
+import {PinchView} from 'react-pinch-zoom-pan'
 export default function ProductDetails() {
   const dispatch = useDispatch();
   const { productId } = useParams();
   const [quantity, setQuantity] = useState(1);
-
+  const isSmallScreen = window.innerWidth <= 500;
 const [showModal, setShowModal] = useState(false);
 
 const formik = useFormik({
@@ -122,6 +123,18 @@ useEffect(() => {
 
         {/* Main image */}
         <div className="main-image-container">
+
+        {isSmallScreen?(
+            <PinchView  maxScale={4} containerRatio={((400 / 600) * 100)}>
+            <img src={imageUrls[currentImage]} className='main-image' alt={product.Name} style={{
+              
+              width: '100%',
+              height: '100%',
+              
+            }} />
+            </PinchView>
+
+          ):(
         
           <ImageZoom
             src={imageUrls[currentImage]}
@@ -131,12 +144,11 @@ useEffect(() => {
             zoom="250"
             isTouchEnabled={true}
           />
-          {/* <div className='next-arrows'>
-          <BsArrowLeft className="arrow-icon left-arrow" onClick={handlePrevImage} />
-        <BsArrowRight className="arrow-icon right-arrow" onClick={handleNextImage} />
-        </div> */}
+          )}
+          </div>
+         
     
-        </div>
+        
       </div>
 
       <div className="product-info">

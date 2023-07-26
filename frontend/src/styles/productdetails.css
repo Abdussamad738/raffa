@@ -58,6 +58,7 @@
     position: relative;
     overflow: hidden;
     flex: 3;
+    margin-top: 5%;
     margin-right: 5%;
     height: 80%;
     /* width: 60%; */
