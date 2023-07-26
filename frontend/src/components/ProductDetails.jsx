@@ -128,7 +128,8 @@ useEffect(() => {
             alt={product.Name}
             key={currentImage}
             className="main-image"
-            zoom="300"
+            zoom="250"
+            isTouchEnabled={true}
           />
           {/* <div className='next-arrows'>
           <BsArrowLeft className="arrow-icon left-arrow" onClick={handlePrevImage} />
@@ -164,6 +165,13 @@ useEffect(() => {
           <Form>
         {/* Select size */}
         {/* Select colour */}
+
+        {product.colour.length === 1 ? (
+      // If there is only one color, show the label and value
+      <Box sx={{ marginBottom: '20px' }}>
+        <p>Colour: {product.colour[0]}</p>
+      </Box>
+    ) : (
         <Box sx={{ marginBottom: '20px' }}>
               <TextField
                 select
@@ -181,9 +189,11 @@ useEffect(() => {
                 ))}
               </TextField>
             </Box>
-            
+    )}
+
+          
             {/* Select size */}
-            {product.sizes && product.sizes.length > 0 ? (
+            {product.sizes && product.sizes.length > 1 ? (
     <>
       <Field
         as={TextField}
