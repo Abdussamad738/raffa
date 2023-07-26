@@ -16,6 +16,12 @@
     margin-top: 5%;
     /* gap: 5%; */
   }
+  @media (max-width: 500px) {
+    .product-details {
+      display: flex;
+      flex-direction: column; 
+    }
+   } 
   
   .other-images {
     display: flex;

@@ -109,11 +109,12 @@ export default function ProductInventory ()  {
     console.log("from onSubmit",JSON.stringify(values))
     setError("");
     const categoriesArray = values.category.split(',').map((category) => category.trim());
-    
+    const imagesArray = values.image.split(',').map((image) => image.trim());
     const coloursArray = values.colour.split(',').map((colour) => colour.trim());
+    
     // Handle features as an array of objects
     const featuresString = values.features.split(',').map((feature) => feature.trim());
-    const updatedValues = { ...values,features: featuresString, category: categoriesArray, colour: coloursArray };
+    const updatedValues = { ...values,features: featuresString, category: categoriesArray, colour: coloursArray,image:imagesArray };
     try {
       const response = await axios.post(
         `${backendUrl}/products/`,
