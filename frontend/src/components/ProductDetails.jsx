@@ -125,7 +125,7 @@ useEffect(() => {
         <div className="main-image-container">
 
         {isSmallScreen?(
-            <PinchView  maxScale={4} containerRatio={((400 / 600) * 100)}>
+            <PinchView  maxScale={4} containerRatio={((400 / 400) * 100)}>
             <img src={imageUrls[currentImage]} className='main-image' alt={product.Name} style={{
               
               width: '100%',
