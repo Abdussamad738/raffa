@@ -260,11 +260,7 @@ router.post('/forgot-password', async (req, res) => {
     user.forgotPasswordOTP = otp;
     await user.save();
 
-    // Send the OTP via email
-    const transporter = nodemailer.createTransport({
-      // Configure the email transporter (SMTP details)
-    });
-
+    
     const mailOptions = {
       from: 'samadbinabdulla123@gmail.com',
       to: email,
@@ -274,7 +270,8 @@ router.post('/forgot-password', async (req, res) => {
     sgMail
       .send(mailOptions)
       .then(() => {
-        console.log('Email sent')
+        console.log('Email sent');
+        res.status(200).json({message:'Email SentSuccessfully'});
       })
       .catch((error) => {
         console.error(error)
