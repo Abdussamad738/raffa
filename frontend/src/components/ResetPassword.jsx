@@ -18,7 +18,7 @@ const ResetPassword = ({ email }) => {
 
     try {
       // Send a request to the backend to reset the password
-      await axios.post(`${backendUrl}/user/reset-password`, { email, password });
+      await axios.post(`${backendUrl}/users/reset-password`, { email, password });
       // Redirect the user to the login page or show a success message
     } catch (error) {
       console.log('An error occurred while resetting the password:', error);

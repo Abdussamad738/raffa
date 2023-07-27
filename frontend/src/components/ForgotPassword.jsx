@@ -15,7 +15,7 @@ const ForgotPassword = () => {
 
     try {
       // Send a request to the backend to initiate the forgot password process
-      await axios.post(`${backendUrl}/user/forgot-password`, { email });
+      await axios.post(`${backendUrl}/users/forgot-password`, { email });
       setOtpSent(true);
     } catch (error) {
       console.log('An error occurred while initiating forgot password:', error);

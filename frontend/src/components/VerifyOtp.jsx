@@ -15,7 +15,7 @@ const VerifyOtp = ({ email }) => {
 
     try {
       // Send a request to the backend to verify the OTP
-      await axios.post( `${backendUrl}/user/verify-otp`, { email, otp });
+      await axios.post( `${backendUrl}/users/verify-otp`, { email, otp });
       setOtpVerified(true);
     } catch (error) {
       console.log('OTP verification failed:', error);

@@ -272,7 +272,7 @@ router.post('/forgot-password', async (req, res) => {
       text: `Your OTP for resetting the password is: ${otp}`,
     };
     sgMail
-      .send(msg)
+      .send(mailOptions)
       .then(() => {
         console.log('Email sent')
       })
