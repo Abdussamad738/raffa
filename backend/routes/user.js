@@ -244,7 +244,7 @@ router.get('/:userId/cart', async (req, res) => {
 // Route for initiating the forgot password process
 router.post('/forgot-password', async (req, res) => {
   const { email } = req.body;
-
+  console.log("from  router forgot password")
   try {
     // Check if the email exists in the database
     const user = await User.findOne({ email });
