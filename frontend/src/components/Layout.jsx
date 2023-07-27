@@ -28,9 +28,12 @@ import { tokens } from "./../theme";
 // `;
 
 const gridTemplateLargeScreens = `
-  "a b c d"
-  "e f g h"
-  "i j k l"
+  "a a b b c c d d"
+  "a a b b c c d d"
+  "e e f f g g h h"
+  "e e f f g g h h"
+  "i i j j k k l l"
+  "i i j j k k l l"
 
 `;
 

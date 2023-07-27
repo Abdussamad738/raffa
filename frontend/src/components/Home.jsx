@@ -7,8 +7,6 @@ import logo from '../assets/logo.png';
 import {Box,Typography,InputAdornment} from '@mui/material'
 import { Link } from 'react-router-dom';
 
-import main from '../assets/main.jpg'
-import {FaAngleDown} from 'react-icons/fa'
 import SearchIcon from '@mui/icons-material/Search';
 export default function Home({onSearch}) {
   
@@ -109,6 +107,7 @@ export default function Home({onSearch}) {
         
         
         
+        
       }}>
   <input
         type="text"
@@ -153,7 +152,7 @@ export default function Home({onSearch}) {
         </div>
         
     </div> */}
-    <Box 
+    {/* <Box 
       sx={{
         maxHeight:'50%',
         margin: '10% 20%',
@@ -161,13 +160,13 @@ export default function Home({onSearch}) {
       }}
     >
       <Link to={{ pathname: "/shop" }}>
-        <img src={main} className='main'alt='main'></img>
+        <img src={main} className='home-main'alt='main'></img>
         <div className="centered-button">
           <p>Shop by category</p>
           <FaAngleDown className='down' />
         </div>
       </Link>
-    </Box>
+    </Box> */}
     
     
 </div>
