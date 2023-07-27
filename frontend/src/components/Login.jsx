@@ -7,7 +7,7 @@ import { useSignIn } from "react-auth-kit";
 import { useFormik } from "formik";
 import axios, { AxiosError } from "axios";
 import React,{ useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate,Link } from "react-router-dom";
 import '../styles/login.css'
 import { addToCart } from '../utils/productActions';
 import {
@@ -121,6 +121,8 @@ function Login() {
             Register
           </Button>
         </form>
+        <Link to="/forgot-password">Forgot Password?</Link>
+
       </InnerContainer>
     </Container>
   );

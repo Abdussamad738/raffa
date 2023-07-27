@@ -6,6 +6,7 @@ import jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import { authMiddleware, isAdmin } from '../middleware/auth.js';
 import sgMail from '@sendgrid/mail'
+import { v4 as uuidv4 } from 'uuid';
 dotenv.config();
 const router = Router();
 
@@ -235,6 +236,105 @@ router.get('/:userId/cart', async (req, res) => {
     res.json(cart);
   } catch (error) {
     res.status(500).json({ message: 'Error fetching cart data', error });
+  }
+});
+
+//Password Reset
+
+// Route for initiating the forgot password process
+router.post('/forgot-password', async (req, res) => {
+  const { email } = req.body;
+
+  try {
+    // Check if the email exists in the database
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Generate an OTP
+    const otp = uuidv4().slice(0, 6);
+
+    // Save the OTP to the user's document in the database
+    user.forgotPasswordOTP = otp;
+    await user.save();
+
+    // Send the OTP via email
+    const transporter = nodemailer.createTransport({
+      // Configure the email transporter (SMTP details)
+    });
+
+    const mailOptions = {
+      from: 'samadbinabdulla123@gmail.com',
+      to: email,
+      subject: 'Forgot Password - OTP Verification',
+      text: `Your OTP for resetting the password is: ${otp}`,
+    };
+    sgMail
+      .send(msg)
+      .then(() => {
+        console.log('Email sent')
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+
+   
+  } catch (error) {
+    console.log('Error in forgot password route:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// Route for verifying the OTP
+router.post('/verify-otp', async (req, res) => {
+  const { email, otp } = req.body;
+
+  try {
+    // Check if the email exists in the database
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Check if the OTP matches the one in the database
+    if (user.forgotPasswordOTP !== otp) {
+      return res.status(400).json({ message: 'Invalid OTP' });
+    }
+
+    // If OTP is verified, clear the OTP field in the user's document
+    user.forgotPasswordOTP = undefined;
+    await user.save();
+
+    res.status(200).json({ message: 'OTP verified successfully' });
+  } catch (error) {
+    console.log('Error in verify OTP route:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+});
+
+// Route for resetting the password
+router.post('/reset-password', async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    // Check if the email exists in the database
+    const user = await User.findOne({ email });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Update the user's password
+    user.password = password;
+    await user.save();
+
+    res.status(200).json({ message: 'Password reset successful' });
+  } catch (error) {
+    console.log('Error in reset password route:', error);
+    res.status(500).json({ message: 'Internal server error' });
   }
 });
 

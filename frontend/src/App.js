@@ -17,7 +17,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import SearchResults from './components/SearchResults';
 import Login from './components/Login';
 import Register from './components/Register'
-
+import ForgotPassword from './components/ForgotPassword';
 import Footer from './components/Footer';
 import { ThemeProvider } from '@mui/material/styles';
 import { CssBaseline } from '@mui/material';
@@ -102,6 +102,7 @@ function App() {
         <Route path="/login" element={<Login/>}/>
         <Route path="/user/*" element={<UserRoutes/>}/>
         <Route path="/register" element={<Register/>}/>
+        <Route path="/forgot-password" element={<ForgotPassword/>} />
         <Route path="/admin/*" element={<AdminAuthCheck />} />
       </Routes>
       {/* <ShopByCategory/> */}
