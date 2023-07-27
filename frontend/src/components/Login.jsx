@@ -121,8 +121,9 @@ function Login() {
             Register
           </Button>
         </form>
+        <div className="forgot-password" >
         <Link to="/forgot-password">Forgot Password?</Link>
-
+        </div>
       </InnerContainer>
     </Container>
   );

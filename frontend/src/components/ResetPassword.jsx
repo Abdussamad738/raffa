@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
+import { useNavigate } from 'react-router-dom';
 const ResetPassword = ({ email }) => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
+  const navigate = useNavigate();
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
   };
@@ -15,6 +16,7 @@ const ResetPassword = ({ email }) => {
 
   const handleResetPassword = async (e) => {
     e.preventDefault();
+    
 
     try {
       // Send a request to the backend to reset the password
@@ -23,6 +25,8 @@ const ResetPassword = ({ email }) => {
     } catch (error) {
       console.log('An error occurred while resetting the password:', error);
     }
+
+    navigate('/login');
   };
 
   return (

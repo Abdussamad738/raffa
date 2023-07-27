@@ -257,7 +257,7 @@ router.post('/forgot-password', async (req, res) => {
     const otp = uuidv4().slice(0, 6);
 
     // Save the OTP to the user's document in the database
-    user.forgotPasswordOTP = otp;
+    user.otp = otp;
     await user.save();
 
     
@@ -297,12 +297,12 @@ router.post('/verify-otp', async (req, res) => {
     }
 
     // Check if the OTP matches the one in the database
-    if (user.forgotPasswordOTP !== otp) {
+    if (user.otp !== otp) {
       return res.status(400).json({ message: 'Invalid OTP' });
     }
 
     // If OTP is verified, clear the OTP field in the user's document
-    user.forgotPasswordOTP = undefined;
+    user.otp = undefined;
     await user.save();
 
     res.status(200).json({ message: 'OTP verified successfully' });
@@ -315,6 +315,7 @@ router.post('/verify-otp', async (req, res) => {
 // Route for resetting the password
 router.post('/reset-password', async (req, res) => {
   const { email, password } = req.body;
+
 
   try {
     // Check if the email exists in the database

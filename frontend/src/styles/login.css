@@ -1,8 +1,17 @@
 .btn-login{
-    margin-right: 5%!important;
+    margin-right: 10%!important;
     margin-top: 5%!important;
+    border-radius: 8px!important;
 }
 .btn-register{
     
     margin-top: 5%!important;
+    border-radius: 8px!important;
+
+}
+
+.forgot-password{
+    text-align: end;
+    margin-left: 40%;
+    margin-top: 10%;
 }
