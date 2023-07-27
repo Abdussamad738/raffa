@@ -8,6 +8,7 @@ import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { fetchProducts } from '../utils/productActions';
 import {HeartFill} from 'react-bootstrap-icons'
+
 import {
   AppBar,
   Toolbar,

@@ -10,13 +10,17 @@ body {
     /* margin-bottom: 10%; */
 }
 
-@media (min-width:551px)and(max-width: 1200px) {
+@media (min-width:551px) and (max-width: 1200px) {
   .title,.left,.right,.arabic {
     font-size: 40px !important;
   }
   .home-page{
     padding-bottom: 10%!important;
   }
+  .tabs{
+    margin-top: 10%!important;
+  }
+  
 }
 
 @media(max-width:550px){
@@ -161,6 +165,21 @@ body {
     .search-input {
       margin-top: 10%;
     }
+
+    .tabs{
+      margin-top: 15%!important;
+    }
+
+    .first-tab{
+      padding: 5% 3%!important;
+      width: 25%!important;
+      margin-left: 15%!important;
+    }
+    .second-tab{
+      padding: 5% 3% !important;
+      width: 25%!important;
+      margin-right: 15%!important;
+    }
   }
 
   .search-input input[type=text]{
@@ -197,6 +216,7 @@ body {
 
   .tabs{
     display: flex;
+    margin-top: 5%;
     flex-direction: row;
     justify-content: space-between;
     background-color: #1a050515!important;
@@ -210,17 +230,20 @@ body {
     /* display: block; */
     background-repeat: no-repeat;
     background-size:contain;
-    color: black;
+    color: rgb(7, 5, 5);
     border-radius: 12px;
-    width: 40%;
+    width: 20%;
     height: 100%; 
-    margin-left: 10%;
+    cursor: pointer;
+    margin-left: 20%;
     margin-right: 5%;
     margin-top: 5%;
     margin-bottom: 5%;
+    padding: 3% 3%;
     transition: all .2s ease-in-out;
     
   }
+  
 
   .first-tab img{
     
@@ -242,14 +265,16 @@ body {
     background-color: rgba(250, 253, 253, 0.726);
     color: rgb(7, 5, 5);
     border-radius: 12px;
-    width: 40%;
+    width: 20%;
     height: 100%;
-    margin-right: 10%;
+    margin-right: 20%;
     margin-top: 5%;
+    cursor: pointer;
     margin-bottom: 5%;
     font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 22px;
     transition: all .2s ease-in-out;
+    padding: 3% 3%;
 
   }
 
@@ -262,6 +287,15 @@ body {
   .down{
     size: 10px;
   }
+
+  
+.first-tab:hover,
+.second-tab:hover {
+  border:solid 3px;
+  border-color: #3eb097; /* Change border color on hover */
+}
+
+
 
   /* .home-main{
     width: 60%;

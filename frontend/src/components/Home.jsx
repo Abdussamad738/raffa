@@ -1,13 +1,32 @@
 import React from 'react'
 import { useState } from "react";
-
+import { useNavigate } from 'react-router-dom';
 import '../styles/home.css'; 
 import MovingComponent from 'react-moving-text'
 import logo from '../assets/logo.png';
-import {Box,Typography,InputAdornment} from '@mui/material'
 import { Link } from 'react-router-dom';
-
+import PersonIcon from '@mui/icons-material/Person';
 import SearchIcon from '@mui/icons-material/Search';
+import { Box, Typography, InputAdornment} from '@mui/material';
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+
+// const StyledButtonBase = styled(ButtonBase)(({ theme }) => ({
+//   position: 'absolute',
+//   bottom: '30px',
+//   left: '50%',
+//   transform: 'translateX(-50%)',
+//   padding: '10px 20px',
+//   backgroundColor: theme.palette.primary.main,
+//   color: 'white',
+//   borderRadius: '4px',
+//   fontWeight: 'bold',
+//   fontSize: '16px',
+//   textAlign: 'center',
+//   textDecoration: 'none',
+//   '&:hover': {
+//     backgroundColor: theme.palette.primary.dark,
+//   },
+// }));
 export default function Home({onSearch}) {
   
   const [searchQuery, setSearchQuery] = useState('');
@@ -17,6 +36,14 @@ export default function Home({onSearch}) {
   // const handleSearchIconClick = () => {
   //   setShowShopByCategory(!showShopByCategory);
   // };
+  const navigate=useNavigate();
+
+  const handleSecondTab=()=>{
+    navigate('/shop');
+  };
+  const handleFirstTab=()=>{
+    navigate('/login');
+  };
 
     
 
@@ -130,28 +157,32 @@ export default function Home({onSearch}) {
 </Box>
       
 </div>
-    {/* <div className='tabs'>
+    <Box className='tabs'>
         
             
-        <div className='first-tab'> 
-        <Link to='/bulkorder'>
-        <img src={firsttab} alt='firsttab'></img>
-            <p> Shop for your team</p>
-            <FaAngleDown/>
-            </Link>
-        </div>
+        <Box className='first-tab' onClick={handleFirstTab}> 
+        {/* <Link to={{ pathname: "/login" }}> */}
+        {/* <img src={firsttab} alt='firsttab'></img> */}
+        
+          <Typography variant='h5'>Sign in</Typography> 
+          <PersonIcon className='icon' fontSize='large'/>
+            
+            {/* </Link> */}
+        </Box>
 
         
         
-        <div className='second-tab'>
-        <Link to={{ pathname: "/shop" }}>
-        <img src={secondtab} alt='secondtab'></img>
-            <p>Shop by category</p>
-            <FaAngleDown className='down'/>
-            </Link>
-        </div>
+        <Box className='second-tab' onClick={handleSecondTab}>
+        {/* <Link to={{ pathname: "/shop" }}> */}
+          {/* <img src={secondtab} alt='secondtab'  /> */}
+          
+          <Typography variant='h5'>Shop</Typography>  
+          <ShoppingBagIcon className='icon' fontSize='large'/>
+          
+        {/* </Link> */}
+      </Box>
         
-    </div> */}
+    </Box>
     {/* <Box 
       sx={{
         maxHeight:'50%',

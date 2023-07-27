@@ -148,7 +148,7 @@ export default function Layout({  onCategoryClick }) {
       sx={
         isAboveMediumScreens
           ? {
-              gridTemplateColumns: "repeat(6, minmax(150px, 1fr))",
+              gridTemplateColumns: "repeat(4, minmax(150px, 1fr))",
               gridTemplateRows: "repeat(5, minmax(100px, 1fr))",
               gridTemplateAreas: gridTemplateLargeScreens,
               gridAutoColumns: "1fr", // Make all items equally spaced

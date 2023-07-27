@@ -136,7 +136,7 @@ useEffect(()=>{
           )
         
         ) : (
-        <Box className='filter scrollbar'>
+        <Box className='filter scrollbar' style={{ flex: '25%' }}>
           {/* <h4>Categories</h4> */}
           <CategoryFilter
             onFilterChange={handleFilterChange}
@@ -147,7 +147,7 @@ useEffect(()=>{
         </Box>
         )}
 
-        <Box className='items scrollbar'>
+        <Box className='items scrollbar' style={{ flex: '75%' }}>
           {items.length > 0 ? (
             <CategoryProducts filteredItems={items} />
           ) : (

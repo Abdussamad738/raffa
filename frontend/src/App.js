@@ -104,7 +104,7 @@ function App() {
         <Route path="/register" element={<Register/>}/>
         <Route path="/admin/*" element={<AdminAuthCheck />} />
       </Routes>
-      <ShopByCategory/>
+      {/* <ShopByCategory/> */}
       
     </BrowserRouter>
     </ThemeProvider>
