@@ -62,6 +62,8 @@ function App() {
     
     <BrowserRouter>
       <Header onSearch={handleSearch}/>
+      
+      
      
 
       <Routes>
@@ -102,12 +104,13 @@ function App() {
         <Route path="/register" element={<Register/>}/>
         <Route path="/admin/*" element={<AdminAuthCheck />} />
       </Routes>
+      <ShopByCategory/>
       
     </BrowserRouter>
     </ThemeProvider>
     </ColorModeContext.Provider>
     
-    
+   
   );
 }
 
