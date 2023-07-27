@@ -295,23 +295,25 @@ useEffect(() => {
             <Modal.Title>Cart</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Box>
+            <Box display="flex" flexDirection="column" >
             {/* Modal content */}
             <Typography variant="body1">Item added to cart successfully!</Typography>
-          <Box display="flex" alignItems="center" mb={2}>
-            <img src={imageUrls[currentImage]} alt={product.Name} />
-            <Box ml={2}>
+          <Box display="flex" flexDirection="column"alignItems="center" mb={2}>
+            <img src={imageUrls[currentImage]} className='modal-image' alt={product.Name} />
+            <Box ml={2} >
               <Typography variant="body1" className="item-name">
                 {product.Name}
               </Typography>
               {/* Add any other item details you want to show */}
             </Box>
           </Box>
+          <Box>
           <Link to='/user/cart'>
             <Button variant="contained" color="primary">
               Go to Cart
             </Button>
           </Link>
+          </Box>
           </Box>
           </Modal.Body>
         </Modal>

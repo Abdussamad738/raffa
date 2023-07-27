@@ -209,7 +209,8 @@ export default function ProductInventory ()  {
     </Box>
       {/* <DataGrid rows={formattedProducts} columns={columns} /> */}
       <Modal open={openModal} onClose={handleModalClose}>
-  <div className='modal-product'>
+      <Box className="modal-container" >
+  <div className='modal-product'style={{ overflowY: 'auto' ,height: '80vh'}}>
   <Box m="20px">
       <Header title="Add Product" subtitle="Add a New Product to the Inventory" />
 
@@ -418,6 +419,7 @@ export default function ProductInventory ()  {
  
   </Box>
   </div>
+  </Box>
 </Modal>
 </div>
     

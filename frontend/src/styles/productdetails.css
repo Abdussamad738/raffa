@@ -300,6 +300,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 5px;
+    gap:5%;
     height: 50%;
     width: 70%;
     margin-right: 0;
@@ -307,6 +308,35 @@
     border-radius: 10px;
     background-color: #6d4b4bdc!important;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  }
+
+  @media(max-width:550px){
+    .modal-image{
+      
+      width: 50%;
+      margin-top: 5%;
+    }
+    .modal-content{
+      width: 100%!important;
+    }
+    .modal-content Button{
+      margin-left: 25%;
+    }
+  }
+
+  @media(min-width:551px) and (max-width:1250px){
+    .modal{
+      margin-bottom: 30%!important;
+    }
+    .modal-content{
+      height: 50%;
+    }
+    .modal-image{
+      
+      width: 50%;
+      
+      margin-top: 5%;
+    }
   }
   
   .item-info {
