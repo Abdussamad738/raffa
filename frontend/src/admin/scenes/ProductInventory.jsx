@@ -121,6 +121,7 @@ export default function ProductInventory ()  {
         updatedValues
       );
       console.log(JSON.stringify(response,updatedValues))
+      setOpenModal(false);
       
       
 

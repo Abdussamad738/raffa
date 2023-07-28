@@ -67,6 +67,9 @@ h2{
   .category h6{
     font-size: small!important;
   }
+  .category img{
+    padding: 0 3%!important;
+  }
   .main h3{
     /* background-color: #f7f8fa !important; */
     padding-top: 10%!important;
