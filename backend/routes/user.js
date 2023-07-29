@@ -17,9 +17,6 @@ sgMail.setApiKey(SENDGRID_API_KEY)
 // Route for user registration
 router.post('/register', async (req, res) => {
   const { name, email, password } = req.body;
-    console.log("from user.js",JSON.stringify(name))
-    console.log("from user.js",JSON.stringify(email))
-    console.log("from user.js",JSON.stringify(password))
   try {
     const existingUser = await User.findOne({ email });
     if (existingUser) {
@@ -38,7 +35,7 @@ router.post('/register', async (req, res) => {
     await user.save();
     const msg = {
       to: email, // Change to your recipient
-      from: 'samadbinabdulla123@gmail.com', // Change to your verified sender
+      from: 'raffasports313@gmail.com', // Change to your verified sender
       subject: 'Registration OTP',
       text: `Your OTP is: ${otp}`,
       html: `<strong>Your OTP is: ${otp}</strong>`,
@@ -262,7 +259,7 @@ router.post('/forgot-password', async (req, res) => {
 
     
     const mailOptions = {
-      from: 'samadbinabdulla123@gmail.com',
+      from: 'raffasports313@gmail.com',
       to: email,
       subject: 'Forgot Password - OTP Verification',
       text: `Your OTP for resetting the password is: ${otp}`,
