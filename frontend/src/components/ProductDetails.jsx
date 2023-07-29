@@ -85,6 +85,8 @@ useEffect(() => {
       name: product.Name,
       description: product.description,
       color: formik.values.colour,
+      deliveryTime:product.deliveryTime,
+      instorePickupTime:product.instorePickupTime,
       size: formik.values.size,
       sizes:product.sizes||null,
       imageUrl: product.image,

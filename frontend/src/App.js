@@ -10,7 +10,6 @@ import ProductDetails from './components/ProductDetails';
 import OrderConfirmation from './components/OrderConfirmation';
 import BulkOrderPage from './components/BulkOrderPage';
 import BulkOrderDetails from './components/BulkOrderDetails';
-import Contact from './components/Contact';
 import Deals from './components/Deals';
 import Header from './components/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -78,7 +77,7 @@ function App() {
         <Route path="/bulkorder" element={<BulkOrderPage/>} />
         <Route path="/bulkorder/:orderId" element={<BulkOrderDetails/>} />
         {/* <Route path="/admin" element={<AdminDashboard/>} /> */}
-        <Route path="/contact" element={<Contact/>} />
+       
         <Route path="/deals" element={<Deals/>} />
         <Route path='/footer' element={<Footer/>}/>
         

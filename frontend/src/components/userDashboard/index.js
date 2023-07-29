@@ -5,7 +5,8 @@ import Sidebar from "./SideBarUserDashboard";
 import Dashboard from "./DashBoard";
 import Wishlist from "./Wishlist";
 import Cart from './Cart';
-import Order from './Order.jsx'
+import Order from './Order.jsx';
+import Contact from './Contact.jsx'
 // import Team from "./scenes/Team";
 // import Invoices from "./scenes/Invoices";
 // import Contacts from "./scenes/Contacts";
@@ -46,6 +47,7 @@ function UserRoutes  () {
       <Route path="/wishlist" element={<Wishlist />} />
       <Route path="/dashboard" element={<Dashboard/>}/>
       <Route path="/cart" element={<Cart/>}/>
+      <Route path="/contact" element={<Contact/>}/>
     </Routes>
     </main>
         </div>

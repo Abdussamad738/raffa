@@ -263,18 +263,18 @@ const initials = userName
             /> */}
             <Item
               title="Contact Us"
-              to="/footer"
+              to="/user/contact"
               icon={<HelpOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
             />
-            <Item
+            {/* <Item
               title="FAQ Page"
-              to="/admin/faq"
+              to="/user/faq"
               icon={<HelpOutlineOutlinedIcon />}
               selected={selected}
               setSelected={setSelected}
-            />
+            /> */}
             <Button variant="secondary" onClick={handleLogout} className="logout-sidebar">
               Logout
             </Button>
