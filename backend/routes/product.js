@@ -71,16 +71,39 @@ router.patch('/:id', getProduct, async (req, res) => {
 });
 
 // Delete a product
-router.delete('/:id', getProduct, async (req, res) => {
-  try {
+// router.delete('/:id', getProduct, async (req, res) => {
+//   try {
     
-    // await res.product.remove();
-    res.json({ message: 'Product deleted' });
+//     // await res.product.remove();
+//     res.json({ message: 'Product deleted' });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// });
+
+
+// DELETE user by ID
+router.delete("/:id", authMiddleware, isAdmin, async (req, res) => {
+  console.log("from delete")
+  try {
+    const { id } = req.params;
+
+    // Find the user by ID
+    const product = await Product.findById(id);
+
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
+    // Delete the user
+    await product.remove();
+
+    res.json({ message: "Product deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Error deleting product:", error);
+    res.status(500).json({ message: "Error deleting product" });
   }
 });
-
 // Middleware function to get a specific product by ID
 async function getProduct(req, res, next) {
     try {

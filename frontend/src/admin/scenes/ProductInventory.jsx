@@ -73,7 +73,7 @@ export default function ProductInventory ()  {
     console.log("productId from productInventory:",productId)
     try {
       // Make a DELETE request to remove the product from the server
-      const response = await axios.delete(`${backendUrl}/admin/products/${productId}`);
+      const response = await axios.delete(`${backendUrl}/products/${productId}`);
       if (response.status === 200) {
         console.log('Product deleted successfully');
         dispatch(deleteProductSuccess(productId));
