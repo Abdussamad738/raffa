@@ -90,15 +90,11 @@ router.delete("/:id", authMiddleware, isAdmin, async (req, res) => {
     const { id } = req.params;
     console.log("from delete id is :",id)
     // Find the user by ID
-    const product = await Product.findById(id);
+    const product = await Product.findByIdAndRemove(id);
     console.log("from delete product is :",JSON.stringify(product))
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
-
-    // Delete the user
-    await product.remove();
-
     res.json({ message: "Product deleted successfully" });
   } catch (error) {
     console.error("Error deleting product:", error);

@@ -5,7 +5,7 @@ import { Box,Button, Modal, TextField,useTheme } from '@mui/material';
 import { tokens } from "../../theme";
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
-import { deleteProductSuccess } from '../../utils/productActions';
+import { deleteProductSuccess,fetchProducts } from '../../utils/productActions';
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import '../index.css'
@@ -83,6 +83,8 @@ export default function ProductInventory ()  {
       if (response.status === 200) {
         console.log('Product deleted successfully');
         dispatch(deleteProductSuccess(productId));
+        dispatch(fetchProducts());
+        window.alert("Succesfully deleted the product");
         // Refresh the products list after deletion
         // You may dispatch an action to fetch the updated products list
       } else {
