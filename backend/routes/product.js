@@ -1,6 +1,7 @@
 import { Router } from 'express';
 const router = Router();
 import Product from '../models/Product.js';
+import { authMiddleware, isAdmin } from '../middleware/auth.js';
 
 
 // Get all products

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useSelector} from 'react-redux';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box,Button, Modal, TextField,useTheme } from '@mui/material';
@@ -21,6 +21,8 @@ export default function ProductInventory ()  {
    // eslint-disable-next-line
   const [error, setError] = useState("");
   const colors = tokens(theme.palette.mode);
+  const [products, setProducts] = useState([]);
+  const {  token } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   // const [newProduct, setNewProduct] = useState({
   //   _id: '',
@@ -94,7 +96,7 @@ export default function ProductInventory ()  {
 
 //   }, [dispatch]);
 
-  const products = useSelector((state) => state.products.products);
+    
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const formattedProducts = products.map((product) => ({
@@ -124,6 +126,28 @@ export default function ProductInventory ()  {
     updatedSizes.splice(index, 1);
     setSizes(updatedSizes);
   };
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(`${backendUrl}/products/`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await response.json();
+        setProducts(data);
+        dispatch(products); // Dispatch the action to update the user state
+        console.log('products from productInventory.jsx:', JSON.stringify(data));
+        
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      }
+    };
+
+    fetchProducts();
+    // eslint-disable-next-line
+  }, [dispatch, token]);
   
   const onSubmit = async (values) => {
     console.log("from onSubmit",JSON.stringify(values))
