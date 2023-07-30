@@ -101,7 +101,7 @@ const gridTemplateSmallScreens = `
     { name: 'Volleyball', area: 'c' ,img:volleyball},
     { name: 'Cricket', area: 'b' ,img:cricket},
     { name: 'Water & Combats', area: 'l',img:water },
-    { name: 'Game Room', area: 'e' ,img:games},
+    { name: 'Games', area: 'e' ,img:games},
     { name: 'Racket', area: 'k' ,img:racket},
     { name: 'Skating', area: 'h' ,img:skating},
     { name: 'Billiards', area: 'f' ,img:billiards},
