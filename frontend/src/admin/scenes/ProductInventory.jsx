@@ -4,7 +4,8 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Box,Button, Modal, TextField,useTheme } from '@mui/material';
 import { tokens } from "../../theme";
 import axios from 'axios';
-
+import { useDispatch } from 'react-redux';
+import { deleteProductSuccess } from '../../utils/productActions';
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import '../index.css'
@@ -20,6 +21,7 @@ export default function ProductInventory ()  {
    // eslint-disable-next-line
   const [error, setError] = useState("");
   const colors = tokens(theme.palette.mode);
+  const dispatch = useDispatch();
   // const [newProduct, setNewProduct] = useState({
   //   _id: '',
   //   name: '',
@@ -60,13 +62,30 @@ export default function ProductInventory ()  {
       field: 'actions',
       headerName: 'Actions',
       renderCell: ({ row }) => (
-        <Button variant="contained" color="primary" onClick={() => handleEditProduct(row.id)}>
-          Edit
+        <Button variant="contained" color="secondary" onClick={() => handleDeleteProduct(row.id)}>
+          Delete
         </Button>
       ),
     },
   ];
 
+  const handleDeleteProduct = async (productId) => {
+    try {
+      // Make a DELETE request to remove the product from the server
+      const response = await axios.delete(`${backendUrl}/products/${productId}`);
+      if (response.status === 200) {
+        console.log('Product deleted successfully');
+        dispatch(deleteProductSuccess(productId));
+        // Refresh the products list after deletion
+        // You may dispatch an action to fetch the updated products list
+      } else {
+        console.log('Failed to delete product');
+        // Handle the error here
+      }
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
+  };
   
 //   const dispatch = useDispatch();
 //   useEffect(() => {
@@ -158,6 +177,7 @@ export default function ProductInventory ()  {
     onSubmit,
   });
 
+  
 // console.log("products from productInventory:",formattedProducts)
   const handleEditProduct = (productId) => {
     // Implement edit product logic here

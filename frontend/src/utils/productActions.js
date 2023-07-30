@@ -4,6 +4,7 @@ export const ADD_TO_CART = 'ADD_TO_CART';
 export const DECREASE_QUANTITY = 'DECREASE_QUANTITY';
 export const INCREASE_QUANTITY = 'INCREASE_QUANTITY';
 export const CLEAR_CART ='CLEAR_CART';
+export const DELETE_PRODUCT_SUCCESS = 'DELETE_PRODUCT_SUCCESS';
 export const UPDATE_LIKED_ITEMS='UPDATE_LIKED_ITEMS';
 // Action creator to fetch product details
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -40,6 +41,12 @@ export const fetchProduct = (productId) => {
     };
   };
   
+  export const deleteProductSuccess = (productId) => {
+    return {
+      type: DELETE_PRODUCT_SUCCESS,
+      payload: productId,
+    };
+  };
 
 // Reducer
 const initialState = {
@@ -94,6 +101,12 @@ const productReducer = (state = initialState, action) => {
       return {
         ...state,
         likedItems: action.payload,
+      };
+      case DELETE_PRODUCT_SUCCESS:
+      // Remove the deleted product from the state
+      return {
+        ...state,
+        products: state.products.filter((product) => product._id !== action.payload),
       };
   
 
