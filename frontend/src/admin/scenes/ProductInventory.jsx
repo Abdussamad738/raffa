@@ -178,11 +178,7 @@ export default function ProductInventory ()  {
   });
 
   
-// console.log("products from productInventory:",formattedProducts)
-  const handleEditProduct = (productId) => {
-    // Implement edit product logic here
-    console.log('Editing product with ID:', productId);
-  };
+
 
   
   const handleModalClose = () => {
