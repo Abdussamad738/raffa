@@ -85,13 +85,13 @@ router.patch('/:id', getProduct, async (req, res) => {
 
 // DELETE user by ID
 router.delete("/:id", authMiddleware, isAdmin, async (req, res) => {
-  console.log("from delete")
+  
   try {
     const { id } = req.params;
-
+    console.log("from delete id is :",id)
     // Find the user by ID
     const product = await Product.findById(id);
-
+    console.log("from delete product is :",JSON.stringify(product))
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
