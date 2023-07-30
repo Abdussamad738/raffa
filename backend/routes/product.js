@@ -73,7 +73,8 @@ router.patch('/:id', getProduct, async (req, res) => {
 // Delete a product
 router.delete('/:id', getProduct, async (req, res) => {
   try {
-    await res.product.remove();
+    
+    // await res.product.remove();
     res.json({ message: 'Product deleted' });
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -84,6 +85,7 @@ router.delete('/:id', getProduct, async (req, res) => {
 async function getProduct(req, res, next) {
     try {
       const product = await Product.findOne({ _id: req.params.id });
+      console.log("productId from getProduct:",product)
       if (product == null) {
         return res.status(404).json({ message: 'Product not found' });
       }
