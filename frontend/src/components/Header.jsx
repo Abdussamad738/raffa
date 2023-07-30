@@ -137,11 +137,7 @@ const cartItemCount = cartItems.length;
                 Categories
               </Typography>
             </Link>
-            <Link to="/deals">
-              <Typography className="header-item deals-header">
-                Deals
-              </Typography>
-            </Link>
+            
             {user ? (
               <Link to="/user/orders">
                 <Typography className="header-item orders-header">
@@ -155,6 +151,11 @@ const cartItemCount = cartItems.length;
                 </Typography>
               </Link>
             )}
+            <Link to="/user/contact">
+              <Typography className="header-item deals-header">
+                Contact us
+              </Typography>
+            </Link>
           </div>
           {!isHomePage && (
             <div className="search-input">
