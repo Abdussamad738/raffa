@@ -187,14 +187,15 @@ body {
 
   .search-input input[type=text]{
     text-align: center;
-    width: 60%;
+    width: 80%;
     margin-top: 5%;
-    margin-left: 20%;
+    margin-left: 22%;
     height: 50px;
     float:none;
     box-sizing: border-box;
     border-radius: 10px;
     border-color: rgb(196, 198, 199);
+    
     
   }
 
