@@ -65,7 +65,8 @@ export default function Home({onSearch}) {
           md: '48px', // Font size for medium screens (from 960px to 1280px)
           lg: '64px', // Font size for large screens (above 1280px)
         },
-        fontFamily: 'Arial, sans-serif', // Replace this with your desired font family
+        letterSpacing: '1px',
+        fontFamily:'-moz-initial', // Replace this with your desired font family
         fontWeight: 'bold', // You can adjust the font weight as well
       }}
     >
@@ -76,6 +77,8 @@ export default function Home({onSearch}) {
         src={logo}
         alt="Logo"
         style={{
+          boxShadow: 'rgba(219, 219, 219, 0.97) 2px 2px 4px',
+          borderRadius:'50%',
           width: '15%', // Adjust the width for different screen sizes
           height: 'auto', // Keeps the aspect ratio of the image
           display: 'block', // Ensures the image is centered within its container
@@ -104,10 +107,11 @@ export default function Home({onSearch}) {
           md: '48px', // Font size for medium screens (from 960px to 1280px)
           lg: '64px', // Font size for large screens (above 1280px)
         },
-        fontFamily: 'Arial, sans-serif', // Replace this with your desired font family
+        letterSpacing: '1px',
+        fontFamily:'-moz-initial', // Replace this with your desired font family
         fontWeight: 'bold', // You can adjust the font weight as well
       }}
-    >Sports</Typography>
+    >Sport</Typography>
     </MovingComponent>
     </Box>
     
@@ -115,30 +119,32 @@ export default function Home({onSearch}) {
   <div className='arabic'>ر افا لتجارة المعدات الرياضية ش.ذ.م.م</div>
   <Box className="search-input"sx={{
         display: 'flex',
-        alignItems: 'center',
-        
-        
-        
-        
+        alignItems:'baseline',
+        gap:'2%',    
       }}>
+        <Box sx={{width:'80%'}}> 
   <input
         type="text"
         placeholder="Find your winning gear!"
         value={searchQuery}
         onChange={(e) => handleSearch(e.target.value)}
         sx={{
+          
           width: '100%',
           height: '48px',
-          padding: '12px',
+          padding: '2px',
           borderRadius: '4px',
+          border:'1px solid #ccc'
          
         }}
-      />
+      /></Box>
+      <Box >
       <Link to={`/search?query=${searchQuery}`}>
-        <InputAdornment position="end" sx={{ cursor: 'pointer',marginTop:'5%'}}>
+        <InputAdornment  sx={{ cursor: 'pointer',marginLeft:'15%'}}>
           <SearchIcon onClick={handleSearch} sx={{ fontSize: '24px' }} />
         </InputAdornment>
       </Link>
+      </Box>
 </Box>
       
 </div>
