@@ -33,6 +33,7 @@ export default function Contact() {
         Store Address
       </Typography>
       <Box sx={{ color: 'text.primary', fontFamily: 'Arial, sans-serif', fontSize: '16px' }}>
+          <Box>Raffa Sport Equipment Trading L.L.C</Box>
           <Box>Bur Dubai, Al Raffa Road,</Box>
           <Box> Gateway Hotel Building, Shop No:121</Box> 
           <Box>Dubai - United Arab Emirates</Box>
