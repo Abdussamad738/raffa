@@ -362,6 +362,7 @@ const [showForm, setShowForm] = useState(false);
         Store Pickup Location
       </Typography>
       <Box sx={{ color: 'text.primary', fontFamily: 'Arial, sans-serif', fontSize: '16px' }}>
+          <Box>Raffa Sport</Box>
           <Box>Bur Dubai, Al Raffa Road,</Box>
           <Box> Gateway Hotel Building, Shop No:121</Box> 
           <Box>Dubai - United Arab Emirates</Box>
