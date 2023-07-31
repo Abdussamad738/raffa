@@ -313,7 +313,7 @@ useEffect(() => {
     display="flex"
     alignItems="self-end"
     justifyContent="flex-end"
-    marginTop="10%"
+    marginTop="5%"
    
   >
     <Typography variant="body1" sx={{ color:'#f7d6ad' ,fontSize: '1rem', fontWeight: 'normal',fontFamily:'cursive' }}>
