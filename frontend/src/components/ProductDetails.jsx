@@ -45,7 +45,7 @@ const handleModalHide = () => {
   setShowModal(false);
 };
  
-  const price = useState(product?.offerPrice || product?.actualPrice);
+  const price = product?.offerPrice || product?.actualPrice;
  
   const likedItems = useSelector((state) => state.products.likedItems);
 const [currentImage, setCurrentImage] = useState(0);
