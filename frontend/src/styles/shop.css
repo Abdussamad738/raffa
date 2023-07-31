@@ -63,6 +63,7 @@ h2{
   }
   .container,.items{
     padding-right: 0%!important;
+    margin:0 8%;
   }
   .category h6{
     font-size: small!important;
