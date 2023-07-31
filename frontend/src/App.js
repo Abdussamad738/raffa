@@ -80,23 +80,6 @@ function App() {
        
         <Route path="/deals" element={<Deals/>} />
         <Route path='/footer' element={<Footer/>}/>
-        
-        {/* <Route
-          path={'/orderhistory'}
-          element={
-            <RequireAuth loginPath={'/login'}>
-              <OrderHistory />
-            </RequireAuth>
-          }
-        /> */}
-        {/* <Route
-          path='/user-dashboard'
-          element={
-            <RequireAuth loginPath={'/login'}>
-              <UserDashboard />
-            </RequireAuth>
-          }
-        /> */}
 
         <Route path="/login" element={<Login/>}/>
         <Route path="/user/*" element={<UserRoutes/>}/>
