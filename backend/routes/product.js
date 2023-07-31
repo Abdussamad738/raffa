@@ -1,6 +1,7 @@
 import { Router } from 'express';
 const router = Router();
 import Product from '../models/Product.js';
+import { authMiddleware, isAdmin } from '../middleware/auth.js';
 
 
 // Get all products
@@ -71,19 +72,40 @@ router.patch('/:id', getProduct, async (req, res) => {
 });
 
 // Delete a product
-router.delete('/:id', getProduct, async (req, res) => {
+// router.delete('/:id', getProduct, async (req, res) => {
+//   try {
+    
+//     // await res.product.remove();
+//     res.json({ message: 'Product deleted' });
+//   } catch (error) {
+//     res.status(500).json({ message: error.message });
+//   }
+// });
+
+
+// DELETE user by ID
+router.delete("/:id", authMiddleware, isAdmin, async (req, res) => {
+  
   try {
-    await res.product.remove();
-    res.json({ message: 'Product deleted' });
+    const { id } = req.params;
+    console.log("from delete id is :",id)
+    // Find the user by ID
+    const product = await Product.findByIdAndRemove(id);
+    console.log("from delete product is :",JSON.stringify(product))
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+    res.json({ message: "Product deleted successfully" });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    console.error("Error deleting product:", error);
+    res.status(500).json({ message: "Error deleting product" });
   }
 });
-
 // Middleware function to get a specific product by ID
 async function getProduct(req, res, next) {
     try {
       const product = await Product.findOne({ _id: req.params.id });
+      console.log("productId from getProduct:",product)
       if (product == null) {
         return res.status(404).json({ message: 'Product not found' });
       }

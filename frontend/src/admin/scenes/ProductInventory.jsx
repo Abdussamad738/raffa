@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState,useEffect } from 'react';
 import { useSelector} from 'react-redux';
 import { DataGrid } from '@mui/x-data-grid';
 import { Box,Button, Modal, TextField,useTheme } from '@mui/material';
 import { tokens } from "../../theme";
 import axios from 'axios';
-
+import { useDispatch } from 'react-redux';
+import { deleteProductSuccess,fetchProducts } from '../../utils/productActions';
 import * as yup from "yup";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import '../index.css'
@@ -20,6 +21,9 @@ export default function ProductInventory ()  {
    // eslint-disable-next-line
   const [error, setError] = useState("");
   const colors = tokens(theme.palette.mode);
+  const [products, setProducts] = useState([]);
+  const {  token } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   // const [newProduct, setNewProduct] = useState({
   //   _id: '',
   //   name: '',
@@ -60,13 +64,37 @@ export default function ProductInventory ()  {
       field: 'actions',
       headerName: 'Actions',
       renderCell: ({ row }) => (
-        <Button variant="contained" color="primary" onClick={() => handleEditProduct(row.id)}>
-          Edit
+        <Button variant="contained" color="secondary" onClick={() => handleDeleteProduct(row.id)}>
+          Delete
         </Button>
       ),
     },
   ];
 
+  const handleDeleteProduct = async (productId) => {
+    console.log("productId from productInventory:",productId)
+    try {
+      // Make a DELETE request to remove the product from the server
+      const response = await axios.delete(`${backendUrl}/products/${productId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`, // Include the token in the request headers
+        },
+      });
+      if (response.status === 200) {
+        console.log('Product deleted successfully');
+        dispatch(deleteProductSuccess(productId));
+        dispatch(fetchProducts());
+        window.alert("Succesfully deleted the product");
+        // Refresh the products list after deletion
+        // You may dispatch an action to fetch the updated products list
+      } else {
+        console.log('Failed to delete product');
+        // Handle the error here
+      }
+    } catch (error) {
+      console.error('Error deleting product:', error);
+    }
+  };
   
 //   const dispatch = useDispatch();
 //   useEffect(() => {
@@ -74,7 +102,7 @@ export default function ProductInventory ()  {
 
 //   }, [dispatch]);
 
-  const products = useSelector((state) => state.products.products);
+    
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const formattedProducts = products.map((product) => ({
@@ -104,6 +132,28 @@ export default function ProductInventory ()  {
     updatedSizes.splice(index, 1);
     setSizes(updatedSizes);
   };
+
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(`${backendUrl}/products/`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const data = await response.json();
+        setProducts(data);
+        dispatch(products); // Dispatch the action to update the user state
+        console.log('products from productInventory.jsx:', JSON.stringify(data));
+        
+      } catch (error) {
+        console.error('Error fetching users:', error);
+      }
+    };
+
+    fetchProducts();
+    // eslint-disable-next-line
+  }, [dispatch, token]);
   
   const onSubmit = async (values) => {
     console.log("from onSubmit",JSON.stringify(values))
@@ -158,11 +208,8 @@ export default function ProductInventory ()  {
     onSubmit,
   });
 
-// console.log("products from productInventory:",formattedProducts)
-  const handleEditProduct = (productId) => {
-    // Implement edit product logic here
-    console.log('Editing product with ID:', productId);
-  };
+  
+
 
   
   const handleModalClose = () => {

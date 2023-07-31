@@ -10,23 +10,8 @@ import SearchIcon from '@mui/icons-material/Search';
 import { Box, Typography, InputAdornment} from '@mui/material';
 import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
 
-// const StyledButtonBase = styled(ButtonBase)(({ theme }) => ({
-//   position: 'absolute',
-//   bottom: '30px',
-//   left: '50%',
-//   transform: 'translateX(-50%)',
-//   padding: '10px 20px',
-//   backgroundColor: theme.palette.primary.main,
-//   color: 'white',
-//   borderRadius: '4px',
-//   fontWeight: 'bold',
-//   fontSize: '16px',
-//   textAlign: 'center',
-//   textDecoration: 'none',
-//   '&:hover': {
-//     backgroundColor: theme.palette.primary.dark,
-//   },
-// }));
+
+
 export default function Home({onSearch}) {
   
   const [searchQuery, setSearchQuery] = useState('');
@@ -127,7 +112,7 @@ export default function Home({onSearch}) {
     </Box>
     
   </div>
-  <div className='arabic'>تجارة المعدات الرياضية راف</div>
+  <div className='arabic'>ر افا لتجارة المعدات الرياضية ش.ذ.م.م</div>
   <Box className="search-input"sx={{
         display: 'flex',
         alignItems: 'center',
