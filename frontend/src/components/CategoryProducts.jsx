@@ -4,30 +4,7 @@ import { renderStars } from '../utils/renderStars';
 import HandleLike from '../utils/handleLike';
 export default function CategoryProducts({ filteredItems }) {
   const [likedItems, setLikedItems] = useState([]);
-  // const [quantity, setQuantity] = useState(0);
-  
-  
-//   const handleLikeItem = (item) => {
-//     // Get the current likedItems state from the Redux store
-    
 
-//     if (likedItems.includes(item)) {
-//       const updatedLikedItems = likedItems.filter(
-//         (likedItem) => likedItem !== item
-//       );
-//       dispatch(updateLikedItems(updatedLikedItems)); // Dispatch the updateLikedItems action
-//     } else {
-//       const updatedLikedItems = [...likedItems, item];
-//       dispatch(updateLikedItems(updatedLikedItems)); // Dispatch the updateLikedItems action
-//     }
-//   };
-
-  // const handleQuantityChange = (item, increment) => {
-  //   const newQuantity = quantity + increment;
-  //   if (newQuantity >= 0 && newQuantity <= item.Quantity_in_Stock) {
-  //     setQuantity(newQuantity);
-  //   }
-  // };
 
   // Retrieve likedItems from local storage
   useEffect(() => {
@@ -37,13 +14,7 @@ export default function CategoryProducts({ filteredItems }) {
     }
   }, []);
 
-  // const handleLikeItem = (item) => {
-  //   if (likedItems.includes(item)) {
-  //     setLikedItems(likedItems.filter((likedItem) => likedItem !== item));
-  //   } else {
-  //     setLikedItems([...likedItems, item]);
-  //   }
-  // };
+
 
 
   return (
@@ -66,16 +37,6 @@ export default function CategoryProducts({ filteredItems }) {
             <div className="card-body">
               <h6 className="card-title">
                 {item.Name}
-                {/* <button
-                  className="btn btn-link float-right"
-                  onClick={() => handleLikeItem(item)}
-                >
-                  {likedItems.includes(item) ? (
-                    <HeartFill className="text-danger" />
-                  ) : (
-                    <Heart className="text-danger" />
-                  )}
-                </button> */}
 
               <HandleLike product={item} className="handle-like"/>
 
@@ -95,38 +56,19 @@ export default function CategoryProducts({ filteredItems }) {
                   ({item.ratings[1]} ratings)
                 </span>
               </div>
-              {/* <div className="quantity-buttons">
-                <button
-                  className="btn btn-link btn-sm"
-                  onClick={() => handleQuantityChange(item, -1)}
-                  disabled={item.Quantity_in_Stock === 0}
-                >
-                  -
-                </button>
-                <span className="quantity">{quantity}</span>
-                <button
-                  className="btn btn-link btn-sm"
-                  onClick={() => handleQuantityChange(item, 1)}
-                  disabled={item.Quantity_in_Stock === 0}
-                >
-                  +
-                </button>
-              </div> */}
+
               <Link
                 to={`/product/${item._id}`}
                 className="btn btn-primary btn-block mt-3"
               >
-                Add to Cart
+                Buy Now
               </Link>
             </div>
           </div>
         </div>
       ))}
     </div>
-    {/* <div>
-      <Recommendation/>
 
-    </div> */}
     </div>
   );
 }
