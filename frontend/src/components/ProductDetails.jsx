@@ -12,7 +12,7 @@ import { Modal } from 'react-bootstrap';
 import { useFormik } from 'formik';
 import { Form, Formik } from 'formik';
 import WhatsAppIcon from '@mui/icons-material/WhatsApp'
-
+import BackButton from './BackButton';
 import {PinchView} from 'react-pinch-zoom-pan'
 export default function ProductDetails() {
  
@@ -114,7 +114,9 @@ useEffect(() => {
 
   return (
     <Box>
+      <BackButton />
     <div className="product-details">
+    
       <div className="image-container">
       <div className='thumbnail'>
         {/* Show other images */}
