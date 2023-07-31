@@ -10,7 +10,9 @@ import ImageZoom from "react-image-zooom";
 import { Link} from 'react-router-dom';
 import { Modal } from 'react-bootstrap';
 import { useFormik } from 'formik';
-import { Field, Form, Formik } from 'formik';
+import { Form, Formik } from 'formik';
+import WhatsAppIcon from '@mui/icons-material/WhatsApp'
+
 import {PinchView} from 'react-pinch-zoom-pan'
 export default function ProductDetails() {
  
@@ -43,7 +45,7 @@ const handleModalHide = () => {
   setShowModal(false);
 };
  
-  const [price, setPrice] = useState(product?.offerPrice || product?.actualPrice);
+  const price = useState(product?.offerPrice || product?.actualPrice);
  
   const likedItems = useSelector((state) => state.products.likedItems);
 const [currentImage, setCurrentImage] = useState(0);
@@ -217,7 +219,7 @@ useEffect(() => {
 
           
             {/* Select size */}
-            {product.sizes && product.sizes.length > 1 ? (
+            {/* {product.sizes && product.sizes.length > 1 ? (
     <>
       <Field
         as={TextField}
@@ -254,7 +256,22 @@ useEffect(() => {
     </>
   ) : (
     <p>Price: AED {price}</p>
-  )}
+  )} */}
+
+      {product.offerPrice ? (
+        <Box className="price-product">
+          <Typography variant="body1" color="textSecondary" sx={{ fontWeight: 'bold', fontSize:'large',color:'#fbde9b' }}>
+            AED {product.offerPrice}
+          </Typography>    
+          <Typography variant="body1" sx={{ textDecoration: 'line-through', color: 'text.disabled' }}>
+              AED {product.actualPrice}
+          </Typography>
+        </Box>
+      ) : (
+        <Typography variant="body1" sx={{ fontWeight: 'bold' }}>
+          AED {product.actualPrice}
+        </Typography>
+      )}
               
           <div className="detail-item">
             <label>Description:</label>
@@ -290,6 +307,26 @@ useEffect(() => {
           </Form>
         )}
       </Formik>
+
+      <Box
+    flexDirection="row"
+    display="flex"
+    alignItems="self-end"
+    justifyContent="flex-end"
+    marginTop="10%"
+   
+  >
+    <Typography variant="body1" sx={{ color:'#f7d6ad' ,fontSize: '1rem', fontWeight: 'normal',fontFamily:'cursive' }}>
+    Need Assistance?
+      <a href="https://wa.me/+9713569445532" style={{ cursor:'pointer',textDecoration: 'none', color: 'inherit' }}>
+        
+        
+        <WhatsAppIcon sx={{ marginBottom:"10%",color:'#5fc23c',fontSize: 30, marginLeft: '4px' }} />
+      </a>
+    </Typography>
+    
+  </Box>
+
       </div>
       
           <Modal show={showModal} onHide={handleModalHide} centered={true}>
