@@ -18,7 +18,7 @@ The Raffa Sport offers the following key functionalities:
     - Product Management
     - Order Management
     - Email Management
-
+![](https://github.com/Abdussamad738/raffa/frontend/public/admin.gif)
 # Technologies Used
 
   - Frontend: React, Redux, Material-UI, etc.
