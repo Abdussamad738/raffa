@@ -1,6 +1,7 @@
 # Raffa Sport 
 An E-commerce Website for Sporting Equipment
 [https://www.raffasports.com/]
+![admin](https://github.com/Abdussamad738/raffa/frontend/public/admin.gif)
 # Functionalities
 The Raffa Sport offers the following key functionalities:
 
@@ -18,7 +19,7 @@ The Raffa Sport offers the following key functionalities:
     - Product Management
     - Order Management
     - Email Management
-![](https://github.com/Abdussamad738/raffa/frontend/public/admin.gif)
+
 # Technologies Used
 
   - Frontend: React, Redux, Material-UI, etc.
