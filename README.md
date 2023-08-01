@@ -2,7 +2,7 @@
 An E-commerce Website for Sporting Equipment
 [https://www.raffasports.com/]
 
-![admin](./frontend/public/admin.gif)
+
 # Functionalities
 The Raffa Sport offers the following key functionalities:
 
@@ -21,6 +21,8 @@ The Raffa Sport offers the following key functionalities:
     - Order Management
     - Email Management
 
+      
+![admin](./frontend/public/admin.gif)
 # Technologies Used
 
   - Frontend: React, Redux, Material-UI, etc.
@@ -29,7 +31,8 @@ The Raffa Sport offers the following key functionalities:
   - Database: MongoDB is used for database collection storage.
   - State Management: Redux is used for state management.
   - Session Storage: Token is stored in session.
-  - Deployment: Netlify (Frontend), Fly.io (server)
+  - Deployment: Netlify (Frontend), Fly.io (server).
+  - Performance: React Lazy loading, Minimized bundle and css, etc.
     
 # Installation
 Clone the repository to your local machine.
