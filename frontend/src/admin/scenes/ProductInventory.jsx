@@ -24,26 +24,7 @@ export default function ProductInventory ()  {
   const [products, setProducts] = useState([]);
   const {  token } = useSelector((state) => state.user);
   const dispatch = useDispatch();
-  // const [newProduct, setNewProduct] = useState({
-  //   _id: '',
-  //   name: '',
-  //   actualPrice: '',
-  //   offerPrice: '',
-  //   sizes: '',
-  //   color: '',
-  //   description: '',
-  //   dimension: '',
-  //   features: '',
-  //   image: '',
-  //   category: '',
-  //   ratings: '',
-  //   specifications: '',
-  //   quantityInStock: '',
-  //   deliveryTime: '',
-  // });
   const isNonMobile = useMediaQuery("(min-width:600px)");
-  
-
   const columns = [
     { field: 'id', headerName: 'ID' },
     { field: 'Name', headerName: 'Name' },
@@ -72,7 +53,6 @@ export default function ProductInventory ()  {
   ];
 
   const handleDeleteProduct = async (productId) => {
-    console.log("productId from productInventory:",productId)
     try {
       // Make a DELETE request to remove the product from the server
       const response = await axios.delete(`${backendUrl}/products/${productId}`, {
@@ -96,11 +76,6 @@ export default function ProductInventory ()  {
     }
   };
   
-//   const dispatch = useDispatch();
-//   useEffect(() => {
-//     dispatch(fetchProducts());
-
-//   }, [dispatch]);
 
     
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
@@ -143,9 +118,7 @@ export default function ProductInventory ()  {
         });
         const data = await response.json();
         setProducts(data);
-        dispatch(products); // Dispatch the action to update the user state
-        console.log('products from productInventory.jsx:', JSON.stringify(data));
-        
+        dispatch(products); // Dispatch the action to update the user state        
       } catch (error) {
         console.error('Error fetching users:', error);
       }
@@ -156,7 +129,6 @@ export default function ProductInventory ()  {
   }, [dispatch, token]);
   
   const onSubmit = async (values) => {
-    console.log("from onSubmit",JSON.stringify(values))
     setError("");
     const categoriesArray = values.category.split(',').map((category) => category.trim());
     const imagesArray = values.image.split(',').map((image) => image.trim());
@@ -262,19 +234,7 @@ export default function ProductInventory ()  {
   <Box m="20px">
       <Header title="Add Product" subtitle="Add a New Product to the Inventory" />
 
-    {/* <Formik
-      onSubmit={handleAddProduct}
-      initialValues={initialValues}
-      validationSchema={validationSchema}
-    >
-      {({
-        values,
-        // errors,
-        touched,
-        handleBlur,
-        formik.handleChange,
-        handleSubmit,
-      }) => ( */}
+   
         <form onSubmit={formik.handleSubmit} >
     <Box
               display="grid"
@@ -284,15 +244,7 @@ export default function ProductInventory ()  {
                 "& > div": { gridColumn: isNonMobile ? undefined : "span 4" },
               }}
             >
-    {/* <TextField
-      label="ID"
-      value={values.id}
-      onChange={formik.handleChange}
-      onBlur={handleBlur}
-      name="id"
-      // // error={touched.id && errors.id}
-      // helperText={touched.id && errors.id}
-    /> */}
+
     <TextField
       label="Name"
       value={formik.values.Name}
@@ -304,129 +256,80 @@ export default function ProductInventory ()  {
       label="Actual Price"
       value={formik.values.actualPrice}
       onChange={formik.handleChange}
-      // onBlur={handleBlur}
       name="actualPrice"
-      // // error={touched.actualPrice && errors.actualPrice}
-      // helperText={touched.actualPrice && errors.actualPrice}
     />
     <TextField
       label="Offer Price"
       value={formik.values.offerPrice}
       onChange={formik.handleChange}
-      // onBlur={handleBlur}
       name="offerPrice"
-      // // error={touched.offerPrice && errors.offerPrice}
-      // helperText={touched.offerPrice && errors.offerPrice}
     />
-    {/* <TextField
-      label="Sizes"
-      value={formik.values.sizes}
-      onChange={formik.handleChange}
-      onBlur={handleBlur}
-      name="sizes"
-      // // error={touched.sizes && errors.sizes}
-      // helperText={touched.sizes && errors.sizes}
-    /> */}
-    
     <TextField
       label="Colour"
       value={formik.values.colour}
       onChange={formik.handleChange}
-      // onBlur={handleBlur}
       name="colour"
-      // // error={touched.color && errors.color}
-      // helperText={touched.color && errors.color}
     />
     <TextField
       label="Description"
       value={formik.values.description}
       onChange={formik.handleChange}
-      // onBlur={handleBlur}
       name="description"
-      // // error={touched.description && errors.description}
-      // helperText={touched.description && errors.description}
     />
     <TextField
       label="Dimension"
       value={formik.values.dimensions}
       onChange={formik.handleChange}
-      // onBlur={handleBlur}
       name="dimension"
-      // // error={touched.dimension && errors.dimension}
-      // helperText={touched.dimension && errors.dimension}
     />
     <TextField
       label="Features"
       value={formik.values.features}
       onChange={formik.handleChange}
-      // onBlur={handleBlur}
       name="features"
-      // // error={touched.features && errors.features}
-      // helperText={touched.features && errors.features}
     />
     <TextField
       label="Image"
       value={formik.values.image}
       onChange={formik.handleChange}
-      // onBlur={handleBlur}
       name="image"
-      // // error={touched.image && errors.image}
-      // helperText={touched.image && errors.image}
     />
     <TextField
       label="Category"
       value={formik.values.category}
       onChange={formik.handleChange}
-      // onBlur={handleBlur}
       name="category"
-      // // error={touched.category && errors.category}
-      // helperText={touched.category && errors.category}
     />
 
     <TextField
       label="Ratings"
       value={formik.values.ratings}
       onChange={formik.handleChange}
-      // onBlur={handleBlur}
       name="ratings"
-      // // error={touched.ratings && errors.ratings}
-      // helperText={touched.ratings && errors.ratings}
     />
     <TextField
       label="Specifications"
       value={formik.values.specifications}
       onChange={formik.handleChange}
-      // onBlur={handleBlur}
       name="specifications"
-      // // error={touched.specifications && errors.specifications}
-      // helperText={touched.specifications && errors.specifications}
     />
     <TextField
       label="Quantity In Stock"
       value={formik.values.quantityInStock}
       onChange={formik.handleChange}
-      // onBlur={handleBlur}
       name="quantityInStock"
-      // // error={touched.quantityInStock && errors.quantityInStock}
-      // helperText={touched.quantityInStock && errors.quantityInStock}
     />
     <TextField
       label="Delivery Time"
       value={formik.values.deliveryTime}
       onChange={formik.handleChange}
-      // onBlur={handleBlur}
       name="deliveryTime"
-      // // error={touched.deliveryTime && errors.deliveryTime}
-      // helperText={touched.deliveryTime && errors.deliveryTime}
     />
     <TextField
       label="Instore Pick-up Time"
       value={formik.values.instorePickupTime}
       onChange={formik.handleChange}
-      // onBlur={handleBlur}
       name="instorePickupTime"
-      // // error={touched.deliveryTime && errors.deliveryTime}
-      // helperText={touched.deliveryTime && errors.deliveryTime}
     />
     {sizes.map((size, index) => (
     <div key={index}>
@@ -435,17 +338,13 @@ export default function ProductInventory ()  {
         name={`sizes.${index}.key`}
         value={formik.values.sizes.key}
         onChange={formik.handleChange}
-        // onBlur={handleBlur}
-        // // error={touched.sizes&& errors.sizes}
-      // helperText={touched.sizes && errors.sizes}
       />
       <TextField
         label={`Price ${index + 1} `}
         name={`sizes.${index}.value`}
         value={formik.values.sizes[index]  === undefined ? '' : formik.values.sizes[index].value}
         onChange={formik.handleChange}
-        // onBlur={handleBlur}
-      />
+        />
       <button type="button" onClick={() => handleRemoveSize(index)}>
         Remove Size
       </button>

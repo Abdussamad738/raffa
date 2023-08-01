@@ -30,19 +30,15 @@ export default function Cart() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [showWarning, setShowWarning] = useState(false);
-  console.log("cart :",JSON.stringify(cartItems))
   const [shippingMethod, setShippingMethod] = useState('');
   const handleShippingMethodChange = (event) => {
     const selectedMethod = event.target.value;
-    console.log("from handleShipping:",selectedMethod)
   if (selectedMethod === 'deliverToHome' && subtotal < 100) {
     setShowWarning(true);
-    console.log("from handleShipping if :",selectedMethod)
   } else if(selectedMethod === 'deliverToHome' && subtotal > 100){
     setShippingMethod(selectedMethod);
     
     setShowWarning(false);
-    console.log("from handleShipping if else:",shippingMethod,selectedMethod)
   }
   else{
     setShippingMethod(selectedMethod);
@@ -80,16 +76,7 @@ export default function Cart() {
     }
   };
 
-  // Calculate the total price for each item (price * quantity)
-  // const calculateTotalPrice = (item) => {
 
-  //   return item.productDetails.quantity * item.productDetails.price;
-  // };
-
-  // Calculate the overall total price (sum of all items)
-  // const calculateOverallTotalPrice = () => {
-  //   return cartItems.reduce((total, item) => total + calculateTotalPrice(item), 0);
-  // };
 
   // Calculate the subtotal
   const subtotal = cartItems.reduce(
@@ -112,7 +99,6 @@ export default function Cart() {
   
     cartItems.forEach((item) => {
       if (item.productDetails.instorePickupTime > maxPickupTime) {
-        console.log("each item pickup time",item.productDetails.instorePickupTime)
         maxPickupTime = item.productDetails.instorePickupTime;
       }
     });
@@ -123,7 +109,6 @@ export default function Cart() {
     const adjustedDate = adjustTimeForNextDay(expectedInstorePickupTime);
     // Format the date to a string
     
-    console.log('maxPickupTime',maxPickupTime,'currentTime',currentTime,'expectedDeliveryTime',adjustedDate)
     return adjustedDate;
   };
   
@@ -144,7 +129,6 @@ const findMaxDeliveryTime = () => {
   const adjustedDate = adjustTimeForNextDay(expectedDeliveryTime);
     // Format the date to a string
     
-  console.log('maxDeliveryTime',maxDeliveryTime,'currentTime',currentTime,'expectedDeliveryTime',adjustedDate)
   return adjustedDate;
 
   
@@ -161,7 +145,6 @@ const [showForm, setShowForm] = useState(false);
   const delivery_time=findMaxDeliveryTime();
   const pickupTime=findMaxInstorePickupTime();
 
-  console.log("pickup time,",pickupTime)
   const userDeliveryAddress = user?user.deliveryAddress:null;
   const [order, setOrder] = useState({
     deliveryDate: delivery_time, // Logic to set the delivery date goes here
@@ -193,7 +176,6 @@ const [showForm, setShowForm] = useState(false);
         return;
       }
     
-    console.log("order from handlecheckout",order)
     try {
       const response = await axios.post(`${backendUrl}/users/updateOrderHistory`, {
         userId: user._id,
@@ -201,7 +183,6 @@ const [showForm, setShowForm] = useState(false);
       });
     
       if (response.status === 200) {
-        console.log("order updated successfully")
         setIsModalOpen(true);
         dispatch(clearCart());
         

@@ -32,43 +32,7 @@ const userSchema = new Schema({
     type: String,
     required: false,
   },
-  // deliveryAddress: {
-  //   name: { type: String },
-  // street: { type: String },
-  // city: { type: String },
-  // state: { type: String },
-  // phoneNo: { type: String },
-  // postalCode: { type: String },
-  // buildingName: {
-  //     type: String,
-  //     required: true,
-  //   },
-  //   suiteNo: {
-  //     type: String,
-  //     required: true,
-  //   },
-  //   street: {
-  //     type: String,
-  //     required: true,
-  //   },
-  //   emirate: {
-  //     type: String,
-  //     required: true,
-  //   },
-  //   postalCode: {
-  //     type: String,
-  //     required: true,
-  //   },
-  //   country: {
-  //     type: String,
-  //     required: true,
-  //   },
-  //   phoneNo: {
-  //     type: String,
-  //     required: true,
-  //   },
-    
-  // },
+
   orderHistory: [
     {
       orderId: {
@@ -99,10 +63,7 @@ const userSchema = new Schema({
         type: Number,
         required: true,
       },
-      // customerName: {
-      //   type: String,
-      //   required: true,
-      // },
+  
       orderNumber: {
         type: String,
         required: true,

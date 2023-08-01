@@ -17,10 +17,9 @@ export default function ShopByCategory({filteredItems}) {
   const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
-  // Check if filteredItems is undefined, and if so, set it to an empty array
-  console.log("from shop filteredItems:",JSON.stringify(filteredItems))
+ 
   const [items, setItems] = useState(filteredItems ? filteredItems : []);
-  console.log("from shop items:",JSON.stringify(items))
+
 
   // Rest of your component code...
 
@@ -36,7 +35,6 @@ export default function ShopByCategory({filteredItems}) {
 
   
   const handleCheckboxChange = (event, updatedCheckboxes) => {
-    console.log(JSON.stringify(selectedCheckboxes))
     // setSelectedCheckboxes(updatedCheckboxes);
     const value = event.target.value;
     if (event.target.checked) {
@@ -54,7 +52,6 @@ export default function ShopByCategory({filteredItems}) {
   const handleCategoryClick = (category) => {
     const updatedCheckboxes = [...selectedCheckboxes, category];
     setSelectedCheckboxes(updatedCheckboxes);
-    console.log("handlCategory click in shop by category :",JSON.stringify(category))
     const matchedItems = products.filter((item) => item.category.includes(category));
     
     const updatedFilteredItems = matchedItems.length > 0 ? matchedItems : [];
@@ -68,34 +65,9 @@ useEffect(()=>{
   selectedCheckboxes.some((checkbox) => item.category.includes(checkbox))
         );
         setItems(filteredItems);
-        console.log("filtered item from useeffect:",JSON.stringify(filteredItems))
  // eslint-disable-next-line
 },[selectedCheckboxes])
 
-  // useEffect(()=>{
-  //   return(
-  //     <CategoryProducts filteredItems={filteredItems} />
-  //   )
-
-  // },[filteredItems])
-
-  // const handleSearch = () => {
-  //   console.log(JSON.stringify(products))
-  //   const filtered = products.filter(
-  //     (product) =>
-  //       product.Name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-  //       product.Description.toLowerCase().includes(searchQuery.toLowerCase())
-  //   );
-    
-  //   console.log("filtered :",JSON.stringify(filtered))
-  //   setFilteredItems(filtered);
-  //   console.log(JSON.stringify(filteredItems))
-  // };
-
-  // useEffect(() => {
-  //   // Filter products based on the search query when searchQuery prop changes
-  //   handleSearch();
-  // }, [searchQuery]);
 
   const [showCategoryFilter, setShowCategoryFilter] = useState(false); // State for expanding/collapsing filter
 

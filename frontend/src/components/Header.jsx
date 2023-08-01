@@ -44,14 +44,6 @@ export default function Header({onSearch }) {
     dispatch(fetchProducts());
   }, [dispatch]);
 
-  // const StyledBadge = styled(Badge)<BadgeProps>(({ theme }) => ({
-  //   '& .MuiBadge-badge': {
-  //     right: -3,
-  //     top: 13,
-  //     border: `2px solid ${theme.palette.background.paper}`,
-  //     padding: '0 4px',
-  //   },
-  // }));
   const cartItems = useSelector((state) => state.cart.cart ?? []);
 const cartItemCount = cartItems.length;
 

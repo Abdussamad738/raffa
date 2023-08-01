@@ -42,7 +42,7 @@ mongoose
   .then(async () => {
     console.log(PORT);
     app.listen(PORT, () => console.log(`Server Port: ${PORT}`));
-    console.log(JSON.stringify(categoryRoutes))
+
 
     /* ADD DATA ONE TIME ONLY OR AS NEEDED */
     // await mongoose.connection.db.dropDatabase();

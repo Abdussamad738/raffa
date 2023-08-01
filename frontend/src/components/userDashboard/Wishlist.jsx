@@ -5,8 +5,6 @@ import CategoryProducts from '../CategoryProducts';
 export default function Wishlist() {
   const likeditems = useSelector((state) => state.products.likedItems);
   
-  console.log("from wishlist, likeditems:",likeditems)
-
   return (
     <div className='items scrollbar'>
           {likeditems.length > 0 ? (
