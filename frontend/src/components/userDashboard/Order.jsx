@@ -18,7 +18,6 @@ export default function Order() {
   
     const orders = user.orderHistory;
     
-    console.log("orders from user/order.jsx",JSON.stringify(orders))
   return (
     <div>
         <Box className="mb-4">
@@ -60,24 +59,6 @@ export default function Order() {
                 <strong>Order Number:</strong> {order.orderNumber}
             </Typography>
             </Box>
-            {/* <Typography>
-              <strong>Price:</strong> {order.price}
-            </Typography> */}
-            
-            {/* <Typography>
-                <strong>Delivery Date:</strong>{" "}
-                {new Date(order.deliveryDate).toLocaleString(undefined, {
-                    month: "long",
-                    day: "numeric",
-                    hour: "numeric",
-                    minute: "numeric",
-                })}
-            </Typography> */}
-            
-            {/* <Typography>
-              <strong>Order Number:</strong> {order.orderNumber}
-            </Typography>
-          </Box> */}
           <Box display="flex" flexDirection="row">
             
           {order.products.map((product, index) => (
@@ -106,10 +87,6 @@ export default function Order() {
             <Typography>
               <strong>Delivery Status:</strong> {order.status}
             </Typography>
-            {/* <Typography>
-              <strong>Delivery Address:</strong>
-            </Typography> */}
-            {/* <Box > */}
             <Typography>
                 <strong>Delivery Address:</strong>
                 <br />
@@ -121,16 +98,7 @@ export default function Order() {
                   )}
                 </div>
             </Typography>
-            {/* <Typography>
-              <strong>Shipping Method:</strong> {order.shippingMethod}
-            </Typography>
-            <Typography>
-              <strong>Product Rating:</strong> {order.productRating}
-            </Typography>
-            <Typography>
-              <strong>Shipping Rating:</strong> {order.shippingRating}
-            </Typography> */}
-            {/* </Box> */}
+
           </Box>
           <Box>
           <Typography>

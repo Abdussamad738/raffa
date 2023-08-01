@@ -14,7 +14,6 @@ export const fetchProducts = () => {
     try {
       const response = await fetch(`${backendUrl}/products`);
       const data = await response.json();
-      // console.log("fetchproducts:",data)
       dispatch({
         type: FETCH_PRODUCTS_SUCCESS,
         payload: data,
@@ -56,7 +55,6 @@ const initialState = {
 };
 
 export const updateLikedItems = (likedItems) => {
-  console.log("from updateLikedItems:-",likedItems)  
   return {
       type: UPDATE_LIKED_ITEMS,
       payload: likedItems,
@@ -64,7 +62,6 @@ export const updateLikedItems = (likedItems) => {
   };
 
   export const addToCart = (productDetails) => {
-    console.log("from addToCart :",JSON.stringify(productDetails))
     return {
       type: ADD_TO_CART,
       payload: productDetails,

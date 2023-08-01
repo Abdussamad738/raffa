@@ -34,19 +34,15 @@ const cartReducer = (state = initialState, action) => {
   
         case ADD_TO_CART:
             const  productDetails  = action.payload;
-            console.log("this is from productActions and product id and quantity is:",JSON.stringify(productDetails))
-            console.log("cart reducer, state.cart:",JSON.stringify(state.cart))
             const existingCartItem = state.cart.find((item) => item.productDetails.productId === productDetails.productId);
             
             if (existingCartItem) {
-                console.log("from cart reducer, there is already that item")
               // If the item is already in the cart, update the quantity
               const updatedCart = state.cart.map((item) =>
       item.productDetails.productId === productDetails.productId ? { ...item, quantity: item.productDetails.quantity += productDetails.quantity } : item
     );
               return { ...state, cart: updatedCart };
             } else {
-                console.log("there is no items in cart ")
               // If the item is not in the cart, add it
               return { ...state, cart: [...state.cart, { productDetails }] };
             }
@@ -70,7 +66,6 @@ const cartReducer = (state = initialState, action) => {
         ),
       };
           default:
-            console.log("this is from productActions and product id and quantity is:",JSON.stringify(state.cart))
             return state;
     }
   };

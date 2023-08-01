@@ -24,7 +24,6 @@ function Login() {
   const navigate = useNavigate();
   
   const dispatch = useDispatch();
-  console.log("from login.jsx")
   const onSubmit = async (values) => {
     // setError("");
 
@@ -33,7 +32,6 @@ function Login() {
         `${backendUrl}/users/login`,
         values
       );
-      console.log("from login, ",JSON.stringify(response.data))
 
       signIn({
         token: response.data.token,
@@ -49,16 +47,9 @@ function Login() {
         dispatch(addToCart(item.productDetails));
       });
       const userData = response.data;
-      console.log(userData)
       dispatch(setUser(userData, response.data.token));
-      // if (userData) {
-      //   dispatch(fetchCart(userData._id));
-      // }
-      console.log("after successful login :",JSON.stringify(cart))
-      // Redirect the user after successful login (optional)
-      // Check the user's role and redirect accordingly
+      
   if (userData.user.role === "admin") {
-    console.log("u r admin")
     navigate("/admin"); // Redirect to the admin routes
   } else {
     navigate("/user"); // Redirect to the user dashboard
@@ -68,7 +59,6 @@ function Login() {
         setError(err.response?.data.message);
       else if (err && err instanceof Error) setError(err.message);
 
-      console.log("Error: ", err);
     }
   };
 

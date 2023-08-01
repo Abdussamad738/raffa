@@ -57,7 +57,6 @@ const Users = () => {
           role: user.role||null,
         }));
         dispatch(setAllUsers(data)); // Dispatch the action to update the user state
-        console.log('users from Users.jsx:', JSON.stringify(data));
         setUsers(formattedUsers);
         console.log("users :",JSON.stringify(data))
       } catch (error) {

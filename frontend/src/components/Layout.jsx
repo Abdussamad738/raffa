@@ -17,15 +17,6 @@ import '../styles/layout.css';
 import { tokens } from "./../theme";
 
 
-// const gridTemplateLargeScreens = `
-//   "a a d d k k o p"
-//   "a a e e k k q r"
-//   "a a f f l l s t"
-//   "a a g g l l u v"
-//   "b b h h m m w w"
-//   "b b i i m m x x"
-//   "c c j j n n y y"
-// `;
 
 const gridTemplateLargeScreens = `
   "a a b b c c d d"
@@ -62,34 +53,6 @@ const gridTemplateSmallScreens = `
   "k l"
   "k l"
 `;
-// const categories = [
-//     { name: 'Team Sports', area: 'a' ,img:teamsports},
-//     { name: 'Active wear', area: 'b' ,img:activewear},
-//     { name: 'Exercise & Fitness', area: 'c',img:fitness },
-//     { name: 'Football', area: 'd',img: football},
-//     { name: 'Basketball', area: 'e' ,img:basketball},
-//     { name: 'Volleyball', area: 'f' ,img:volleyball},
-//     { name: 'Cricket', area: 'g' ,img:cricket},
-//     { name: 'Clothing', area: 'h' ,img:clothing},
-//     { name: 'Footwears', area: 'i',img:footwear },
-//     { name: 'Water Sports', area: 'j',img:water },
-//     { name: 'Games', area: 'k' ,img:games},
-//     { name: 'Racket ', area: 'l' ,img:racket},
-//     { name: 'Skating', area: 'm' ,img:skating},
-//     { name: 'Combat', area: 'n' ,img:combat},
-//     { name: 'Billiards', area: 'o' ,img:billiards},
-//     { name: 'Carroms', area: 'p' ,img:carroms},
-//     { name: 'Cards', area: 'q',img:cards },
-//     { name: 'Others', area: 'r',img:others },
-//     { name: 'Badminton', area: 's' ,img:badminton},
-//     { name: 'Tennis', area: 't',img:tennis },
-//     { name: 'Ping Pong', area: 'u',img:tabletennis },
-//     { name: 'Squash', area: 'v' ,img:squash},
-//     { name: 'Rollers', area: 'w',img:roller},
-//     { name: 'Skateboarding', area: 'x' ,img:skateboards},
-//     { name: 'Trophies', area: 'y' ,img:trophies},
-//     // Add more categories as needed
-//   ];
 
 
   const categories = [
@@ -115,26 +78,11 @@ export default function Layout({  onCategoryClick }) {
   const colors = tokens(theme.palette.mode);
   const isAboveMediumScreens = useMediaQuery("(min-width: 1500px)");
   const isSmallScreen = window.innerWidth <= 500;
-  // const navigate = useNavigate();
-    // const data = useSelector((state) => state.products.products);
-    
+
   const handleCategoryClick = (category) => {
-    console.log("from handleCategoryClick",JSON.stringify(category))
-    // const matchedItems = data.filter((item) => item.category === category.name);
-    // const updatedFilteredItems = matchedItems.length > 0 ? matchedItems : [];
-    
+
     onCategoryClick(category.name);
-    // setFilteredItems(updatedFilteredItems);
-    console.log("filtered item from layout :",JSON.stringify(category.name))
-    
-    // Redirect to the shop category page with the selected category and filtered items
-    // navigate({
-    //   pathname: '/category',
-    //   state: {
-    //     category: category.name,
-    //     filteredItems: filteredItems.filter(item => item.category === category.name),
-    //   },
-    // });
+
   };
   return (
     <div>
@@ -181,7 +129,6 @@ export default function Layout({  onCategoryClick }) {
           </div>
         ))}
     </Box>
-    {/* {filteredItems.length > 0 && <CategoryProducts filteredItems={filteredItems} />} */}
     </div>
   )
 }

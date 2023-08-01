@@ -101,10 +101,10 @@ router.delete('/:orderId', async (req, res) => {
 });
 router.get('/all', authMiddleware,isAdmin,async (req, res) => {
   try {
-    console.log("from orders/all")
+
     // Fetch all users with their orders
     const users = await User.find({}, 'name email phone orderHistory');
-    console.log("from orders/all",JSON.stringify(users))
+
     // Extract and format the order details
     const orders = users.reduce((allOrders, user) => {
       const userOrders = user.orderHistory.map((order) => ({
@@ -125,7 +125,6 @@ router.get('/all', authMiddleware,isAdmin,async (req, res) => {
 
     res.json(orders);
   } catch (error) {
-    console.error('Error fetching orders:', error);
     res.status(500).json({ message: 'Error fetching orders' });
   }
 });

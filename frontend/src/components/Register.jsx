@@ -30,13 +30,10 @@ function Register() {
         `${backendUrl}/users/register`,
         values
       );
-      console.log(JSON.stringify(response.data))
       setOtpdb(response.data.user.otp);
       setShowOtpInput(true);
       
 
-      // Redirect the user after successful registration (optional)
-       // Replace '/login' with the desired route for the login page
     } catch (err) {
       if (err && err instanceof AxiosError)
         setError(err.response?.data.message);
@@ -63,8 +60,9 @@ function Register() {
       // OTP is valid, redirect to the desired page
       navigate('/login'); // Replace '/user' with your desired route
     } else {
-      // OTP is invalid, handle the error or display an error message
+  
       console.log('Invalid OTP');
+      window.alert('Invalid OTP')
     } // Replace '/dashboard' with your desired route
   };
 
