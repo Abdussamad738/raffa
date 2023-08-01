@@ -8,7 +8,6 @@ import Bar from "./scenes/Bar";
 import Form from "./scenes/Form";
 import Line from "./scenes/Line";
 import Pie from "./scenes/Pie";
-import FAQ from "./scenes/Faq";
 import Calendar from "./scenes/Calendar";
 import { useState } from "react";
 import './index.css'
@@ -19,9 +18,7 @@ function AdminRoutes  () {
   const [isSidebar, setIsSidebar] = useState(true);
   const user = useSelector((state) => state.user);
   const token = sessionStorage.getItem("token");
-  console.log("user from index.js:",JSON.stringify(user,token))
   const LazyDashboard = lazy(() => import('./scenes/Dashboard'));
-const LazyTeam = lazy(() => import('./scenes/Team'));
 const LazyContacts = lazy(() => import('./scenes/Contacts'));
 const LazyUsers = lazy(() => import('./scenes/Users'));
 const LazyOrders = lazy(() => import('./scenes/Orders'));
@@ -41,14 +38,12 @@ const LazyProductInventory = lazy(() => import('./scenes/ProductInventory'));
             <Topbar setIsSidebar={setIsSidebar} />
     <Routes>
     <Route path="/" element={<Suspense fallback={<div>Loading...</div>}><LazyDashboard /></Suspense>} />
-    <Route path="/team" element={<Suspense fallback={<div>Loading...</div>}><LazyTeam /></Suspense>} />
     <Route path="/contacts" element={<Suspense fallback={<div>Loading...</div>}><LazyContacts /></Suspense>} />
       <Route path="/invoices" element={<Invoices />} />
       <Route path="/form" element={<Form />} />
       <Route path="/bar" element={<Bar />} />
        <Route path="/pie" element={<Pie />} />
        <Route path="/line" element={<Line />} />
-       <Route path="/faq" element={<FAQ />} />
       <Route path="/calendar" element={<Calendar />} />
       <Route path="/users" element={<Suspense fallback={<div>Loading...</div>}><LazyUsers /></Suspense>} />
           <Route path="/orders" element={<Suspense fallback={<div>Loading...</div>}><LazyOrders /></Suspense>} />

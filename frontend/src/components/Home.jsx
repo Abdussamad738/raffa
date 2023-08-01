@@ -18,9 +18,6 @@ export default function Home({onSearch}) {
   const handleSearch = (query) => {
     setSearchQuery(query);
   };
-  // const handleSearchIconClick = () => {
-  //   setShowShopByCategory(!showShopByCategory);
-  // };
   const navigate=useNavigate();
 
   const handleSecondTab=()=>{
@@ -152,43 +149,21 @@ export default function Home({onSearch}) {
         
             
         <Box className='first-tab' onClick={handleFirstTab}> 
-        {/* <Link to={{ pathname: "/login" }}> */}
-        {/* <img src={firsttab} alt='firsttab'></img> */}
-        
           <Typography variant='h5'>Sign in</Typography> 
-          <PersonIcon className='icon' fontSize='large'/>
-            
-            {/* </Link> */}
+          <PersonIcon className='icon' fontSize='large'/>   
         </Box>
 
         
         
         <Box className='second-tab' onClick={handleSecondTab}>
-        {/* <Link to={{ pathname: "/shop" }}> */}
-          {/* <img src={secondtab} alt='secondtab'  /> */}
-          
+    
           <Typography variant='h5'>Shop</Typography>  
           <ShoppingBagIcon className='icon' fontSize='large'/>
-          
-        {/* </Link> */}
+       
       </Box>
         
     </Box>
-    {/* <Box 
-      sx={{
-        maxHeight:'50%',
-        margin: '10% 20%',
-        position: 'relative', 
-      }}
-    >
-      <Link to={{ pathname: "/shop" }}>
-        <img src={main} className='home-main'alt='main'></img>
-        <div className="centered-button">
-          <p>Shop by category</p>
-          <FaAngleDown className='down' />
-        </div>
-      </Link>
-    </Box> */}
+
     
     
 </div>

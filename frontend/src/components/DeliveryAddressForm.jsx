@@ -20,7 +20,6 @@ function DeliveryAddressForm  ({ setOrderDeliveryAddressInCart })  {
     phoneNo: yup.string().required('required'),
     country: yup.string().required('required'),
   });
-  console.log("from DeliveryAddressForm:",isSubmitted)
   const deliveryAddressFormik = useFormik({
     initialValues: {
       name: '',
@@ -35,14 +34,11 @@ function DeliveryAddressForm  ({ setOrderDeliveryAddressInCart })  {
     onSubmit: (values) => {
       setSubmittedData(values);
       setIsSubmitted(true);
-      console.log("isSubmitted:",isSubmitted)
       // Call the callback function to set the order.deliveryAddress in the parent component
       setOrderDeliveryAddressInCart(values);
       dispatch(updateUser(values));
       updateDeliveryAddress(user.user._id, values);
-      // Handle form submission for delivery address insertion
-      console.log('Delivery address form submitted', values);
-      
+      // Handle form submission for delivery address insertion      
       
       
       // Call API or dispatch Redux action to insert delivery address

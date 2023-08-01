@@ -11,8 +11,8 @@ function Orders() {
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
   const colors = tokens(theme.palette.mode);
+  //eslint-disable-next-line
   const { user, token } = useSelector((state) => state.user);
-  console.log("from orders.jsx",user,token)
   const [orders, setOrders] = useState([]);
 //   const  orderHistory  = useSelector((state) => state.user.users);
   
@@ -25,7 +25,6 @@ useEffect(() => {
             },
           });
           const data = await response.json();
-          console.log("response.data:",JSON.stringify(response.orders))
         setOrders(data);
       } catch (error) {
         console.error('Error fetching orders:', error);
@@ -36,7 +35,6 @@ useEffect(() => {
      // eslint-disable-next-line
   }, []);
   
-    console.log("orderhISTORY:",JSON.stringify(orders))
   const columns = [
     { field: "id", headerName: "ID" },
     // { field: 'orderNumber', headerName: 'Order Number', flex: 1 },

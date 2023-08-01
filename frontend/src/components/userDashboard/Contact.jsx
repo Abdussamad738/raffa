@@ -5,7 +5,6 @@ import WhatsAppIcon from '@mui/icons-material/WhatsApp'
 
 import  './index.css';
 export default function Contact() {
-    console.log("from contact")
   return (
     <Box
     flexDirection="column"

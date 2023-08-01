@@ -51,7 +51,6 @@ const handleModalHide = () => {
 const [currentImage, setCurrentImage] = useState(0);
 const imageUrls = product?.image.map((imageName) => `https://raffasports.s3.ca-central-1.amazonaws.com/${imageName}`);
 
-// console.log("imageUrls :",JSON.stringify(imageUrls))
 
 
 
@@ -98,13 +97,11 @@ useEffect(() => {
     };
     dispatch(addToCart(productDetails));
     setShowModal(true);
-    console.log(`Added product ${productId} to cart with quantity ${quantity}`);
     
   };
 
   const handleThumbnailClick = (index) => {
     setCurrentImage(index);
-    console.log("from handleThumbnailClick:", JSON.stringify(currentImage))
   };
 
 
@@ -220,46 +217,6 @@ useEffect(() => {
     )}
 
           
-            {/* Select size */}
-            {/* {product.sizes && product.sizes.length > 1 ? (
-    <>
-      <Field
-        as={TextField}
-        select
-        label="Select Size"
-        name="size"
-        value={formik.values.size}
-        onChange={(e) => {
-          const selectedSize = e.target.value;
-          formik.setFieldValue("size", selectedSize);
-          const selectedSizeObject = product.sizes.find((size) => size.key === selectedSize);
-          if (selectedSizeObject) {
-            setPrice(selectedSizeObject.value);
-          } else {
-            setPrice(0);
-          }
-        }}
-        variant="filled"
-        sx={{ width: '50%' }}
-      >
-        <MenuItem value="">Select Size</MenuItem>
-        {product.sizes.map((size) => (
-          <MenuItem key={size._id} value={size.key}>
-            {size.key}
-          </MenuItem>
-        ))}
-      </Field>
-      {formik.values.size && price > 0 && (
-        <div>
-          <p>Selected Size: {formik.values.size}</p>
-          <p>Price: AED {price}</p>
-        </div>
-      )}
-    </>
-  ) : (
-    <p>Price: AED {price}</p>
-  )} */}
-
       {product.offerPrice ? (
         <Box className="price-product">
           <Typography variant="body1" color="textSecondary" sx={{ fontWeight: 'bold', fontSize:'large',color:'#fbde9b' }}>
@@ -320,7 +277,7 @@ useEffect(() => {
   >
     <Typography variant="body1" sx={{ color:'#f7d6ad' ,fontSize: '1rem', fontWeight: 'normal',fontFamily:'cursive' }}>
     Need Assistance?
-      <a href="https://wa.me/+9713569445532" style={{ cursor:'pointer',textDecoration: 'none', color: 'inherit' }}>
+      <a href="https://wa.me/+971569445532" style={{ cursor:'pointer',textDecoration: 'none', color: 'inherit' }}>
         
         
         <WhatsAppIcon sx={{ marginBottom:"10%",color:'#5fc23c',fontSize: 30, marginLeft: '4px' }} />

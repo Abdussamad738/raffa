@@ -55,14 +55,6 @@ const initials = userName
   .split(' ')
   .map((name) => name[0].toUpperCase())
   .join('');
-  // const handleItemClick = () => {
-  //   console.log("from HAndleitemclick")
-  //   if (user === null) {
-  //     navigate('/login');
-  //   } else {
-  //     navigate('/user');
-  //   }
-  // };
   const handleLogout = () => {
     let cart=[]
      // eslint-disable-next-line
@@ -70,22 +62,11 @@ const initials = userName
       cart.push(item)
     ));
     
-    console.log("from handlelogout:",JSON.stringify(user._id,cart))
-    // Dispatch the removeUser action to clear user data from the store
     dispatch(insertCartItems(user._id, cart));
     
     dispatch(removeUser());
     dispatch(clearCart());
-    // Get the cart items from the Redux store
-    
-  
-    // Update the user's cart in the database
-   
-  
-    // Clear the cart in the Redux store
-    
-  
-    // Redirect to the login page
+
     navigate('/login');
   };
   return (
@@ -209,14 +190,6 @@ const initials = userName
             >
               Data
             </Typography>
-            {/* <Item
-              title="Profile"
-              to="/user"
-              icon={<PersonIcon />}
-              selected={selected}
-              setSelected={setSelected}
-              onClick={handleItemClick}
-            /> */}
 
             <Item
               title="Orders"
@@ -247,20 +220,6 @@ const initials = userName
             >
               Pages
             </Typography>
-            {/* <Item
-              title="Profile Form"
-              to="/admin/form"
-              icon={<PersonOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Calendar"
-              to="/admin/calendar"
-              icon={<CalendarTodayOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            /> */}
             <Item
               title="Contact Us"
               to="/user/contact"
@@ -268,52 +227,10 @@ const initials = userName
               selected={selected}
               setSelected={setSelected}
             />
-            {/* <Item
-              title="FAQ Page"
-              to="/user/faq"
-              icon={<HelpOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            /> */}
+
             <Button variant="secondary" onClick={handleLogout} className="logout-sidebar">
               Logout
             </Button>
-
-            {/* <Typography
-              variant="h6"
-              color={colors.grey[300]}
-              sx={{ m: "15px 0 5px 20px" }}
-            >
-              Charts
-            </Typography>
-            <Item
-              title="Bar Chart"
-              to="/admin/bar"
-              icon={<BarChartOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Pie Chart"
-              to="/pie"
-              icon={<PieChartOutlineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Line Chart"
-              to="/admin/line"
-              icon={<TimelineOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            />
-            <Item
-              title="Geography Chart"
-              to="/admin/geography"
-              icon={<MapOutlinedIcon />}
-              selected={selected}
-              setSelected={setSelected}
-            /> */}
           </Box>
           
         </Menu>

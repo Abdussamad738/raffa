@@ -63,30 +63,16 @@ router.post('/register', async (req, res) => {
 router.post('/insertcartitems', async (req, res) => {
   
   const { userId, cartItems } = req.body;
-  console.log("this is from insertcartitems router cartitems:-,",JSON.stringify(cartItems))
-  
-
 // Copy the cartItems to user.cart
-
-
   try {
     // Find the user by userId
     const user = await User.findById(userId);
-    // console.log("user is,",JSON.stringify(user))
     
     if (!user) {
       return res.status(404).json({ message: 'User not found' });
     }
-    // console.log("cartItems is,",JSON.stringify(cartItems))
-    // const updatedUser = { ...user };
-    user.cart = [...cartItems];
-    
-    
-      console.log("user is,",JSON.stringify(user))
-    // Update the user's cart with the new cart items
-    // user.cart = cartItems;
-    console.log("user.cart is:",JSON.stringify(user.cart))
 
+    user.cart = [...cartItems];
     // Save the updated user in the database
     await user.save();
 
@@ -98,9 +84,6 @@ router.post('/insertcartitems', async (req, res) => {
 // Route for user login
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
-  console.log("from login router, body is:",JSON.stringify(req.body))
-  // const cartItems = req.body.cartItems || {};
-  // console.log(JSON.stringify(cartItems))
 
   try {
     const user = await User.findOne({ email });
@@ -142,7 +125,7 @@ router.get('/profile', authMiddleware, async (req, res) => {
 
 // DELETE user by ID
 router.delete("/:id", authMiddleware, isAdmin, async (req, res) => {
-  console.log("from delete")
+
   try {
     const { id } = req.params;
 
@@ -241,7 +224,6 @@ router.get('/:userId/cart', async (req, res) => {
 // Route for initiating the forgot password process
 router.post('/forgot-password', async (req, res) => {
   const { email } = req.body;
-  console.log("from  router forgot password")
   try {
     // Check if the email exists in the database
     const user = await User.findOne({ email });
@@ -334,39 +316,13 @@ router.post('/reset-password', async (req, res) => {
 });
 
 
-// router.post('/updateaddress', async (req, res) => {
-  
-//   const { userId, deliveryAddress } = req.body;
-//   console.log("this is from router.post :",JSON.stringify(userId,deliveryAddress))
-//   try {
-//     // Find the user by userId
-//     const user = await User.findById(userId);
-//     console.log("from routes/user.js and the user is:",JSON.stringify(user,deliveryAddress))
-
-//     if (!user) {
-//       return res.status(404).json({ message: 'User not found' });
-//     }
-
-//     // Update the user's delivery address
-//     user.orderHistory.deliveryAddress = deliveryAddress;
-//     console.log("from updateaddress after try, deliveryAddress  is,",JSON.stringify(deliveryAddress))
-
-//     // Save the updated user in the database
-//     await user.save();
-
-//     res.status(200).json({ message: 'Delivery address updated successfully' });
-//   } catch (error) {
-//     res.status(500).json({ message: 'Error updating delivery address', error });
-//   }
-// });
 
 // Update user order history
 router.post('/updateOrderHistory', async (req, res) => {
   const { userId, order } = req.body;
-  console.log("from updateOrderhistory",userId)
+
   try {
     const user = await User.findById(userId);
-    console.log("user",JSON.stringify(order))
 
     if (!user) {
       return res.status(404).json({ message: 'User not found' });

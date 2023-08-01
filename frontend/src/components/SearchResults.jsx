@@ -22,9 +22,8 @@ export default function SearchResults() {
         item.Name.toLowerCase().includes(query.toLowerCase()) ||
         item.description.toLowerCase().includes(query.toLowerCase())
     );
-    console.log("matched items :",matchedItems)
+
     setFilteredItems(matchedItems);
-    console.log("this is from searchResults",filteredItems)
   };
 
   return (

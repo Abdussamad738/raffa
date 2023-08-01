@@ -8,7 +8,6 @@ import { authMiddleware, isAdmin } from '../middleware/auth.js';
 router.get('/', async (req, res) => {
   try {
     const products = await Product.find();
-    console.log("this is from product.js")
     res.json(products);
   } catch (error) {
     res.status(500).json({ message: error.message });
@@ -71,16 +70,7 @@ router.patch('/:id', getProduct, async (req, res) => {
   }
 });
 
-// Delete a product
-// router.delete('/:id', getProduct, async (req, res) => {
-//   try {
-    
-//     // await res.product.remove();
-//     res.json({ message: 'Product deleted' });
-//   } catch (error) {
-//     res.status(500).json({ message: error.message });
-//   }
-// });
+
 
 
 // DELETE user by ID
@@ -88,10 +78,10 @@ router.delete("/:id", authMiddleware, isAdmin, async (req, res) => {
   
   try {
     const { id } = req.params;
-    console.log("from delete id is :",id)
+
     // Find the user by ID
     const product = await Product.findByIdAndRemove(id);
-    console.log("from delete product is :",JSON.stringify(product))
+    
     if (!product) {
       return res.status(404).json({ message: "Product not found" });
     }
@@ -105,7 +95,6 @@ router.delete("/:id", authMiddleware, isAdmin, async (req, res) => {
 async function getProduct(req, res, next) {
     try {
       const product = await Product.findOne({ _id: req.params.id });
-      console.log("productId from getProduct:",product)
       if (product == null) {
         return res.status(404).json({ message: 'Product not found' });
       }

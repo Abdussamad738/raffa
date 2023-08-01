@@ -45,7 +45,7 @@ export const updateDeliveryAddress = async (userId, deliveryAddress) => {
     return async (dispatch) => {
       try {
         // Make a POST request to the server endpoint
-        const response = await axios.post('http://localhost:9000/users/insertcartitems', {
+        const response = await axios.post(`${backendUrl}/users/insertcartitems`, {
           userId,
           cartItems,
         });
@@ -58,23 +58,3 @@ export const updateDeliveryAddress = async (userId, deliveryAddress) => {
     };
   };
 
-//   export const updateUserCart = (userId, cart) => {
-//     try {
-//       // Find the user by userId
-//       const user = await User.findById(userId);
-  
-//       if (!user) {
-//         return res.status(404).json({ message: 'User not found' });
-//       }
-  
-//       // Update the user's cart
-//       user.cart = cart;
-  
-//       // Save the updated user in the database
-//       await user.save();
-  
-//       res.status(200).json({ message: 'Cart updated successfully' });
-//     } catch (error) {
-//       res.status(500).json({ message: 'Error updating cart', error });
-//     }
-//   };
