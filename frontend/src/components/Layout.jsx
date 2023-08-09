@@ -1,4 +1,4 @@
-import { Box,useTheme, useMediaQuery } from "@mui/material";
+import { Box,useMediaQuery } from "@mui/material";
 import React from 'react'
 import activewear from '../assets/activewear.png'
 import billiards from '../assets/billiards.png'
@@ -14,7 +14,7 @@ import volleyball from '../assets/volleyball.png'
 import water from '../assets/water.png'
 import basketball from '../assets/basketball.png'
 import '../styles/layout.css'; 
-import { tokens } from "./../theme";
+
 
 
 
@@ -74,8 +74,8 @@ const gridTemplateSmallScreens = `
 
 export default function Layout({  onCategoryClick }) {
     
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+
+  // const colors = tokens(theme.palette.mode);
   const isAboveMediumScreens = useMediaQuery("(min-width: 1500px)");
   const isSmallScreen = window.innerWidth <= 500;
 
@@ -92,7 +92,7 @@ export default function Layout({  onCategoryClick }) {
       display="grid"
       gap="1.5rem"
       marginTop="5%"
-      backgroundColor={colors.primary[400]}
+      backgroundColor={'#f5f5f7'}
       sx={
         isAboveMediumScreens
           ? {

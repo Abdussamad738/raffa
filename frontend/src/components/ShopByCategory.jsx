@@ -81,30 +81,32 @@ useEffect(()=>{
   }, [dispatch]);
 
   return (
-    <Box className='main' sx={{ backgroundColor: colors.primary[400] }}>
+    <Box className='main' sx={{ backgroundColor: '#f5f5f7'}}>
       <Typography variant="h3">Shop By Category</Typography>
 
-      <Box className='container sub' display='flex'>
+      <Box className='container sub' display='flex'sx={{ backgroundColor: '#f5f5f7'}}>
       {isSmallScreen ? (
           // Show the expand icon for smaller screens
           
           showCategoryFilter ? (
-            <Box>
-              <IconButton color="inherit" aria-label="expand" onClick={handleCategoryFilterClick}>
+            <Box sx={{backgroundColor:'rgba(92, 96, 109, 0.6)',overflowY:'auto',width:'100%'}}>
+              <IconButton sx={{color:"#333"}} aria-label="expand" onClick={handleCategoryFilterClick}>
               <FilterListIcon />
             </IconButton>
             <CategoryFilter
               onFilterChange={handleFilterChange}
               selectedCheckboxes={selectedCheckboxes}
               onCheckboxChange={handleCheckboxChange}
-              backgroundColor={colors.primary[400]}
+              backgroundColor='rgba(92, 96, 109, 0.6)'
             />
             
             </Box>
           ) : (
-            <IconButton color="inherit" aria-label="expand" onClick={handleCategoryFilterClick}>
+            <Box >
+            <IconButton sx={{ color: "#333", margin: "8px" }} aria-label="expand" onClick={handleCategoryFilterClick}>
               <FilterListIcon />
             </IconButton>
+            </Box>
           )
         
         ) : (
@@ -121,7 +123,7 @@ useEffect(()=>{
 
         <Box className='items scrollbar' style={{ flex: '75%' }}>
           {items.length > 0 ? (
-            <CategoryProducts filteredItems={items} />
+            <CategoryProducts filteredItems={items} style={{backgroundColor:'#fff'}}/>
           ) : (
             <Layout onCategoryClick={handleCategoryClick} />
           )}

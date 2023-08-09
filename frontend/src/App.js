@@ -50,14 +50,9 @@ function App() {
         <Route path="/product/:productId" element={<ProductDetails/>} />
         <Route path="/confirmation" element={<OrderConfirmation/>} />
         <Route path="/deals" element={<Deals/>} />
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-        <Route path='/footer' element={<Footer/>}/>
 
->>>>>>> a2430ca (sitemap)
-=======
->>>>>>> 49d102e (code cleanup)
+
+
         <Route path="/login" element={<Login/>}/>
         <Route path="/user/*" element={<UserRoutes/>}/>
         <Route path="/register" element={<Register/>}/>
