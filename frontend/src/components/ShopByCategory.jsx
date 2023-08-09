@@ -89,7 +89,7 @@ useEffect(()=>{
           // Show the expand icon for smaller screens
           
           showCategoryFilter ? (
-            <Box sx={{backgroundColor:'rgba(92, 96, 109, 0.6)'}}>
+            <Box sx={{backgroundColor:'rgba(92, 96, 109, 0.6)',overflowY:'auto'}}>
               <IconButton sx={{color:"#333"}} aria-label="expand" onClick={handleCategoryFilterClick}>
               <FilterListIcon />
             </IconButton>
@@ -97,7 +97,7 @@ useEffect(()=>{
               onFilterChange={handleFilterChange}
               selectedCheckboxes={selectedCheckboxes}
               onCheckboxChange={handleCheckboxChange}
-              backgroundColor={colors.primary[400]}
+              backgroundColor='rgba(92, 96, 109, 0.6)'
             />
             
             </Box>
