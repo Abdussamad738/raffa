@@ -89,7 +89,7 @@ useEffect(()=>{
           // Show the expand icon for smaller screens
           
           showCategoryFilter ? (
-            <Box sx={{backgroundColor:'rgba(92, 96, 109, 0.6)',overflowY:'auto'}}>
+            <Box sx={{backgroundColor:'rgba(92, 96, 109, 0.6)',overflowY:'auto',width:'100%'}}>
               <IconButton sx={{color:"#333"}} aria-label="expand" onClick={handleCategoryFilterClick}>
               <FilterListIcon />
             </IconButton>
