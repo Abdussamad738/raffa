@@ -14,7 +14,7 @@
     border-radius: 5px;
 }
 .items{
-    background-color: #1F2A40;
+    /* background-color: #e3e6e4!important; */
     
     padding-bottom: 5%;
     padding-left: 2%;
@@ -48,8 +48,8 @@ h2{
 }
 
 .main h3{
-    /* background-color: #f7f8fa !important; */
-    padding-top: 7%;
+    background-color: rgba(92, 96, 109, 0.6) !important;
+    padding-top: 4%;
     padding-left: 2%;
     padding-bottom: 3%;
     font-size: 30px;
@@ -58,9 +58,9 @@ h2{
     
 }
 @media (max-width: 550px) {
-  .main{
+  /* .main{
     padding-top: 8%;
-  }
+  } */
   .container,.items{
     padding-right: 0%!important;
     margin:0 8%;
@@ -73,7 +73,7 @@ h2{
   }
   .main h3{
     /* background-color: #f7f8fa !important; */
-    padding-top: 10%!important;
+    padding-top: 5%!important;
     padding-left: 5%!important;
     padding-bottom: 5%!important;
     font-size: 20px!important;
@@ -91,7 +91,7 @@ h2{
     
     height: 100vh;
     max-width:none!important;
-    /* background-color: #1ab333; */
+    /* background-color: #e3e6e4!important; */
   }
   
 
@@ -167,9 +167,13 @@ label {
 .MuiTypography-body2 {
   font-size: 14px;
 }
+/* .MuiBox-root{
+  background-color: #8d929a!important;
+} */
 
 .MuiCheckbox-root {
   color: #2196f3;
+  
 }
 
 .MuiCheckbox-colorSecondary.Mui-checked {
@@ -177,7 +181,7 @@ label {
 }
 
 .MuiTypography-colorTextPrimary {
-  color: #333;
+  color: rgb(29, 29, 31);
 }
 
 .product-items{
