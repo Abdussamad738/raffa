@@ -61,6 +61,7 @@ function App() {
       </Routes>
       {/* <ShopByCategory/> */}
       
+      
     </BrowserRouter>
     </ThemeProvider>
     </ColorModeContext.Provider>

@@ -20,7 +20,7 @@ export default function CategoryProducts({ filteredItems }) {
   return (
     <div>
     
-    <div className="products row row-cols-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
+    <div className="products row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-3 row-cols-xl-4">
       {filteredItems.map((item) => (
         <div className="col mb-4 product-items" key={item._id}>
             
