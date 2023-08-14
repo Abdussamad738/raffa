@@ -1,7 +1,7 @@
 import React, { useState, useEffect }  from 'react'
 import '../styles/shop.css'; 
-import { Box,useTheme,Typography } from "@mui/material";
-import { tokens } from "./../theme";
+import { Box } from "@mui/material";
+// import { tokens } from "./../theme";
 import { useSelector, useDispatch } from 'react-redux';
 import CategoryFilter from './CategoryFilter';
 import Layout from './Layout';
@@ -12,8 +12,8 @@ import FilterListIcon from '@mui/icons-material/FilterList';
 export default function ShopByCategory({filteredItems}) {
    // eslint-disable-next-line
   const [selectedFilter, setSelectedFilter] = useState('');
-  const theme = useTheme();
-  const colors = tokens(theme.palette.mode);
+  // const theme = useTheme();
+  // const colors = tokens(theme.palette.mode);
   const [selectedCheckboxes, setSelectedCheckboxes] = useState([]);
   const dispatch = useDispatch();
   const products = useSelector((state) => state.products.products);
@@ -56,6 +56,7 @@ export default function ShopByCategory({filteredItems}) {
     
     const updatedFilteredItems = matchedItems.length > 0 ? matchedItems : [];
     setItems(updatedFilteredItems);
+    console.log('filtereditems from shop',JSON.stringify(items))
     // setSearchQuery('');
   };
 
@@ -81,57 +82,70 @@ useEffect(()=>{
   }, [dispatch]);
 
   return (
-    <Box className='main' sx={{ backgroundColor: '#f5f5f7'}}>
-      <Typography variant="h3">Shop By Category</Typography>
+    <Box className='main' sx={{ backgroundColor: '#dddcdbcc'}}>
+  {/* <Typography variant="h3">Shop By Category</Typography> */}
 
-      <Box className='container sub' display='flex'sx={{ backgroundColor: '#f5f5f7'}}>
-      {isSmallScreen ? (
+  <Box className='container sub' display='flex' sx={{ backgroundColor: '#dddcdbcc' }}>
+
+    <Box className='items scrollbar' style={{ display: 'flex', flexDirection: 'row' }}>
+      {items.length > 0 ? (
+        isSmallScreen ? (
           // Show the expand icon for smaller screens
-          
           showCategoryFilter ? (
-            <Box sx={{backgroundColor:'rgba(92, 96, 109, 0.6)',overflowY:'auto',width:'100%'}}>
-              <IconButton sx={{color:"#333"}} aria-label="expand" onClick={handleCategoryFilterClick}>
-              <FilterListIcon />
-            </IconButton>
-            <CategoryFilter
-              onFilterChange={handleFilterChange}
-              selectedCheckboxes={selectedCheckboxes}
-              onCheckboxChange={handleCheckboxChange}
-              backgroundColor='rgba(92, 96, 109, 0.6)'
-            />
+            <Box sx={{ display: 'flex', flexDirection: 'row' ,backgroundColor: 'rgba(92, 96, 109, 0.6)', overflowY: 'auto', width: '100%' }}>
+              <Box style={{ flex: '25%' }}>
+              <IconButton sx={{ color: "#333" }} aria-label="expand" onClick={handleCategoryFilterClick}>
+                <FilterListIcon />
+              </IconButton>
+              
+              <CategoryFilter
+                onFilterChange={handleFilterChange}
+                selectedCheckboxes={selectedCheckboxes}
+                onCheckboxChange={handleCheckboxChange}
+                backgroundColor='rgba(92, 96, 109, 0.6)'
+              />
+              </Box>
             
+            <Box style={{ flex: '75%' }}>
+              <CategoryProducts filteredItems={items} style={{ backgroundColor: '#fff' }} />
             </Box>
+          </Box>
           ) : (
-            <Box >
-            <IconButton sx={{ color: "#333", margin: "8px" }} aria-label="expand" onClick={handleCategoryFilterClick}>
-              <FilterListIcon />
-            </IconButton>
+            <Box style={{ display: 'flex', flexDirection: 'row' }}>
+              <Box style={{ flex: '10%' }}>
+              <IconButton sx={{ color: "#333", margin: "8px" }} aria-label="expand" onClick={handleCategoryFilterClick}>
+                <FilterListIcon />
+              </IconButton>
+              </Box>
+              <Box style={{ flex: '90%' }}>
+              <CategoryProducts filteredItems={items} style={{ backgroundColor: '#fff' }} />
+            </Box>
             </Box>
           )
-        
         ) : (
-        <Box className='filter scrollbar' style={{ flex: '25%' }}>
-          {/* <h4>Categories</h4> */}
-          <CategoryFilter
-            onFilterChange={handleFilterChange}
-            selectedCheckboxes={selectedCheckboxes}
-            onCheckboxChange={handleCheckboxChange}
-            backgroundColor={colors.primary[400]}
-          />
-        </Box>
-        )}
-
-        <Box className='items scrollbar' style={{ flex: '75%' }}>
-          {items.length > 0 ? (
-            <CategoryProducts filteredItems={items} style={{backgroundColor:'#fff'}}/>
-          ) : (
-            <Layout onCategoryClick={handleCategoryClick} />
-          )}
-        </Box>
-      </Box>
-      {/* <img src={fitness } alt='fitness'></img> */}
-      
+          // Render Category Products and Category Filter
+          <React.Fragment>
+            <Box className='filter scrollbar' style={{ flex: '25%' }}>
+              <CategoryFilter
+                onFilterChange={handleFilterChange}
+                selectedCheckboxes={selectedCheckboxes}
+                onCheckboxChange={handleCheckboxChange}
+                backgroundColor='rgba(92, 96, 109, 0.6)'
+              />
+            </Box>
+            <Box style={{ flex: '75%' }}>
+              <CategoryProducts filteredItems={items} style={{ backgroundColor: '#fff' }} />
+            </Box>
+          </React.Fragment>
+        )
+      ) : (
+        // Render Layout
+        <Layout onCategoryClick={handleCategoryClick} />
+      )}
     </Box>
+  </Box>
+  {/* <img src={fitness } alt='fitness'></img> */}
+</Box>
     
   )
 };

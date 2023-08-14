@@ -29,13 +29,14 @@ const gridTemplateLargeScreens = `
 `;
 
 const gridTemplateMediumScreens = `
-  "a b c "
-
-  "d e f"
-
-  "g h i "
-
-  "j k l"
+  "a a b b c c "
+  "a a b b c c "
+  "d d e e f f"
+  "d d e e f f"
+  "g g h h i i "
+  "g g h h i i"
+  "j j k k l l"
+  "j j k k l l"
 
 `;
 
@@ -80,7 +81,7 @@ export default function Layout({  onCategoryClick }) {
   const isSmallScreen = window.innerWidth <= 500;
 
   const handleCategoryClick = (category) => {
-
+      console.log('from handlecategoryclick',category)
     onCategoryClick(category.name);
 
   };
@@ -88,11 +89,13 @@ export default function Layout({  onCategoryClick }) {
     <div>
     <Box
       width="100%"
-      height="80%"
+      height="100%"
       display="grid"
       gap="1.5rem"
       marginTop="5%"
-      backgroundColor={'#f5f5f7'}
+      marginLeft='3%'
+      marginRight='3%'
+      backgroundColor={'#dddcdbcc'}
       sx={
         isAboveMediumScreens
           ? {
