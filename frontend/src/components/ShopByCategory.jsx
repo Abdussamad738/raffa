@@ -1,6 +1,6 @@
 import React, { useState, useEffect }  from 'react'
 import '../styles/shop.css'; 
-import { Box } from "@mui/material";
+import { Box,Typography } from "@mui/material";
 // import { tokens } from "./../theme";
 import { useSelector, useDispatch } from 'react-redux';
 import CategoryFilter from './CategoryFilter';
@@ -111,13 +111,15 @@ useEffect(()=>{
             </Box>
           </Box>
           ) : (
-            <Box style={{ display: 'flex', flexDirection: 'row' }}>
-              <Box style={{ flex: '10%' }}>
-              <IconButton sx={{ color: "#333", margin: "8px" }} aria-label="expand" onClick={handleCategoryFilterClick}>
+            <Box style={{ display: 'flex', flexDirection: 'row',alignItems:'start'}}>
+              <Box style={{display:'flex', flex: '20%' ,flexDirection:'row',marginRight:'10px'}}>
+              <Typography sx={{color:'#333',fontSize:'medium',marginTop:'14px'}}>Filters</Typography>
+              <IconButton sx={{ color: "#333", marginTop: "8px" }} aria-label="expand" onClick={handleCategoryFilterClick}>
                 <FilterListIcon />
               </IconButton>
+              
               </Box>
-              <Box style={{ flex: '90%' }}>
+              <Box style={{ flex: '90%' ,marginRight:'15px'}}>
               <CategoryProducts filteredItems={items} style={{ backgroundColor: '#fff' }} />
             </Box>
             </Box>
