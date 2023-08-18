@@ -27,7 +27,7 @@ function DeliveryAddressForm  ({ setOrderDeliveryAddressInCart })  {
       buildingName: '',
       suiteNo: '',
       street: '',
-      state: 'Dubai',
+      state: '',
       country: 'UAE',
     },
     validationSchema: checkoutSchema,
@@ -59,7 +59,8 @@ function DeliveryAddressForm  ({ setOrderDeliveryAddressInCart })  {
           <p>Apt/Bldg Name: {submittedData.buildingName}</p>
           
           <p>Street: {submittedData.street}</p>
-          <p>Dubai, UAE</p>
+          <p>State:{submittedData.state}</p>
+          <p>UAE</p>
           {/* Display other submitted data here... */}
           <Button // Add a button to reset the form and enter new data
             variant="contained"
@@ -172,7 +173,7 @@ function DeliveryAddressForm  ({ setOrderDeliveryAddressInCart })  {
           name="state"
           error={!!deliveryAddressFormik.touched.state && !!deliveryAddressFormik.errors.state}
           helperText={deliveryAddressFormik.touched.state && deliveryAddressFormik.errors.state}
-          disabled // Disable the State field
+          
         />
         <TextField
           fullWidth

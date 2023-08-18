@@ -275,7 +275,7 @@ useEffect(() => {
     marginTop="5%"
    
   >
-    <Typography variant="body1" sx={{ color:'#f7d6ad' ,fontSize: '1rem', fontWeight: 'normal',fontFamily:'cursive' }}>
+    <Typography variant="body1" sx={{ color:'#fbfaf6' ,fontSize: 'medium', fontWeight: 'normal',fontFamily:'-moz-initial' }}>
     Need Assistance?
       <a href="https://wa.me/+971569445532" style={{ cursor:'pointer',textDecoration: 'none', color: 'inherit' }}>
         
@@ -297,7 +297,7 @@ useEffect(() => {
             {/* Modal content */}
             <Typography variant="body1">Item added to cart successfully!</Typography>
           <Box display="flex" flexDirection="column"alignItems="center" mb={2}>
-            <img src={imageUrls[currentImage]} className='modal-image' alt={product.Name} />
+            <img src={imageUrls[currentImage]} className='modal-image' alt={product.Name} style={{width:'100%',height:'auto'}} />
             <Box ml={2} >
               <Typography variant="body1" className="item-name">
                 {product.Name}
