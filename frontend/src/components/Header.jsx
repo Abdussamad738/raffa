@@ -32,9 +32,7 @@ export default function Header({onSearch }) {
   const handleSearchMenuClick = () => {
     setShowSearchMenu(!showSearchMenu);
     if (!showSearchMenu && searchInputRef.current) {
-      setTimeout(() => {
-        searchInputRef.current.focus();
-      }, 100);
+      searchInputRef.current.focus();
     }
   };
   const handleSearchInputChange = (event) => {
@@ -85,7 +83,7 @@ const cartItemCount = cartItems.length;
               <Search />
             </IconButton>
             <Menu
-              anchorEl={showSearchMenu ? searchInputRef.current : null}
+              anchorEl={showSearchMenu}
               anchorOrigin={{ vertical: 'top', horizontal:'center' }}
               keepMounted
               open={Boolean(showSearchMenu)}

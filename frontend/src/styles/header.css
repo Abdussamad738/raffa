@@ -75,10 +75,14 @@
   height: 40px !important;
 }
 
-.search-input-container {
+/* .search-input-container {
   display: flex;
   align-items: center;
-}
+  height: 48px; 
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 5px;
+} */
 
 .search-mobile-input {
   height: 40px; /* Adjust the height as needed */
