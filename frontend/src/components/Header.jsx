@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from 'react';
+import React, { useState,useEffect,useRef } from 'react';
 import { Link,useLocation } from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
 import {  FaUser } from 'react-icons/fa';
@@ -28,9 +28,12 @@ export default function Header({onSearch }) {
   const user = useSelector((state) => state.user.user);
   const [showSearchMenu, setShowSearchMenu] = useState(false);
   
-  
+  const searchInputRef = useRef(null);
   const handleSearchMenuClick = () => {
     setShowSearchMenu(!showSearchMenu);
+    if (!showSearchMenu && searchInputRef.current) {
+      searchInputRef.current.focus();
+    }
   };
   const handleSearchInputChange = (event) => {
     setSearchQuery(event.target.value);
@@ -94,6 +97,7 @@ const cartItemCount = cartItems.length;
                 placeholder="Search"
                 value={searchQuery}
                 className="search-mobile-input"
+                ref={searchInputRef}
                 onChange={handleSearchInputChange}
               />
                 <Link to={`/search?query=${searchQuery}`}><Search /></Link>
