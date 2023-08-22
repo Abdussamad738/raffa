@@ -88,13 +88,16 @@ const cartItemCount = cartItems.length;
             >
               {/* Add your search menu items here */}
               <MenuItem onClick={() => setShowSearchMenu(false)}>
+              <div className="search-input-container">
               <input
                 type="text"
                 placeholder="Search"
                 value={searchQuery}
+                className="search-mobile-input"
                 onChange={handleSearchInputChange}
               />
                 <Link to={`/search?query=${searchQuery}`}><Search /></Link>
+                </div>
               </MenuItem>
               
               {/* Add more menu items as needed */}
