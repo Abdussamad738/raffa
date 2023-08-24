@@ -31,7 +31,7 @@ export default function Header({onSearch }) {
   const searchInputRef = useRef(null);
   const handleSearchMenuClick = () => {
     setShowSearchMenu(!showSearchMenu);
-    if (!showSearchMenu && searchInputRef.current) {
+    if (showSearchMenu && searchInputRef.current) {
       searchInputRef.current.focus();
     }
   };
