@@ -1,9 +1,11 @@
 import React, { useState,useEffect,useRef } from 'react';
-import { Link,useLocation } from 'react-router-dom';
+import { Link} from 'react-router-dom';
 import { useDispatch,useSelector } from 'react-redux';
 import {  FaUser } from 'react-icons/fa';
 import logo from '../assets/logo.png';
 import '../styles/header.css'; 
+import { InputGroup, FormControl, Button } from 'react-bootstrap';
+
 import Badge from '@mui/material/Badge';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import { fetchProducts } from '../utils/productActions';
@@ -22,8 +24,8 @@ import {
 import { Category, Person, Search } from '@mui/icons-material';
 
 export default function Header({onSearch }) {
-  const location = useLocation();
-  const isHomePage = location.pathname === '/';
+  
+
   const [searchQuery, setSearchQuery] = useState('');
   const user = useSelector((state) => state.user.user);
   const [showSearchMenu, setShowSearchMenu] = useState(false);
@@ -156,21 +158,24 @@ const cartItemCount = cartItems.length;
               </Typography>
             </Link>
           </div>
-          {!isHomePage && (
-            <div className="search-input">
-              <input
+        
+            <Box className="search-input">
+            <InputGroup>
+            <Box sx={{display:'flex',flexDirection:'row'}}>
+              <FormControl
                 type="text"
                 placeholder="Search"
                 value={searchQuery}
                 onChange={handleSearchInputChange}
               />
-              <Link to={`/search?query=${searchQuery}`}>
-                <button onClick={handleSearch}>
-                  <Search />
-                </button>
-              </Link>
-            </div>
-          )}
+              <Button style={{ marginTop:'5%',paddingTop: 0, paddingBottom: 0 }}variant="outline-secondary" onClick={handleSearch}>
+                <Search />
+              </Button>
+              </Box>
+            </InputGroup>
+            <Link to={`/search?query=${searchQuery}`} />
+          </Box>
+          
           <div className="header-icons">
             <Link to="user/wishlist">
               <HeartFill className="text-danger" />
