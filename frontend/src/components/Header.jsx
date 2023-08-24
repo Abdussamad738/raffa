@@ -90,7 +90,7 @@ const cartItemCount = cartItems.length;
               onClose={() => setShowSearchMenu(false)}
             >
               {/* Add your search menu items here */}
-              <MenuItem onClick={() => setShowSearchMenu(false)}>
+              <MenuItem onClick={() => setShowSearchMenu(true)}>
               <div className="search-input-container">
               <input
                 type="text"
