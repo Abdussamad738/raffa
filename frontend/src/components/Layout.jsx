@@ -92,9 +92,9 @@ export default function Layout({  onCategoryClick }) {
       height="100%"
       display="grid"
       gap="1.5rem"
-      marginTop="5%"
+      marginTop="7%"
       marginLeft='3%'
-      marginRight='3%'
+      marginRight='5%'
       backgroundColor={'#dddcdbcc'}
       sx={
         isAboveMediumScreens
