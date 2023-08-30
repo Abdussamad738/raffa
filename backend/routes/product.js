@@ -64,6 +64,7 @@ router.patch('/:id', getProduct, async (req, res) => {
 
   try {
     const updatedProduct = await res.product.save();
+    console.log(JSON.stringify(updatedProduct))
     res.json(updatedProduct);
   } catch (error) {
     res.status(400).json({ message: error.message });
