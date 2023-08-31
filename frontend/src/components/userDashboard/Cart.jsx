@@ -14,6 +14,7 @@ import axios from "axios";
 import DeliveryAddressForm from '../DeliveryAddressForm';
 import { clearCart } from '../../utils/productActions';
 import { deleteFromCart } from '../../utils/cartReducer';
+import { updateOrderHistory } from '../../utils/userActions';
 
 // Function to adjust the time to the next day 11:00 AM if it falls between 10:30 PM and 10:30 AM
 function adjustTimeForNextDay(date) {
@@ -144,12 +145,12 @@ const [showForm, setShowForm] = useState(false);
   };
   const delivery_time=findMaxDeliveryTime();
   const pickupTime=findMaxInstorePickupTime();
-
+  const total=(subtotal + shippingCharge).toFixed(2)
   const userDeliveryAddress = user?user.deliveryAddress:null;
   const [order, setOrder] = useState({
     deliveryDate: delivery_time, // Logic to set the delivery date goes here
       status: 'Pending', // Value passed from cart component
-      price: subtotal.toFixed(2),
+      price: total,
       shippingMethod:shippingMethod,
       finalPickupTime:pickupTime,
       finalDeliveryTime:delivery_time,
@@ -186,6 +187,7 @@ const [showForm, setShowForm] = useState(false);
         setIsModalOpen(true);
         dispatch(clearCart());
         
+        dispatch(updateOrderHistory(response.data.updatedOrderHistory))
         // Order history updated successfully
         // You can redirect or show a success message here
       } else {
@@ -240,7 +242,7 @@ const [showForm, setShowForm] = useState(false);
           )}
     </div>
       <div className='total-price'>
-            <h3>Overall Total Price: {(subtotal + shippingCharge).toFixed(2)} AED</h3>
+            <h3>Overall Total Price: {total} AED</h3>
             {/* Place your shipping method content here */}
           </div>
 
@@ -302,7 +304,7 @@ const [showForm, setShowForm] = useState(false);
               <strong>Shipping Charge:</strong> {shippingCharge.toFixed(2)} AED
             </p>
             <p>
-              <strong>Total:</strong> {(subtotal + shippingCharge).toFixed(2)} AED
+              <strong>Total:</strong> {total} AED
             </p>
           </div>
         </div>
@@ -325,13 +327,24 @@ const [showForm, setShowForm] = useState(false);
           </div>
           ) : (
             <div>
-              {/* {showForm ? ( */}
-                <div>
+            {user===null?(
+              <Box sx={{marginTop:'5px',marginBottom:'5px',display:'flex',flexDirection:'column',gap:'10px'}}>
+                Sign in to add the delivery Address
+                <Button onClick={() => navigate('/login')}style={{width:'20%'}}>Sign in </Button>
+              </Box>
+
+            ):(
+              <div>
                   <DeliveryAddressForm setOrderDeliveryAddressInCart={setOrderDeliveryAddress}
                    // Pass the orderHistory.deliveryAddress as a prop
                 />
                 </div>
+            )}
+            <div>
+              {/* {showForm ? ( */}
+                
  
+      </div>
       </div>
     )}
   </div>

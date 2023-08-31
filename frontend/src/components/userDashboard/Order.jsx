@@ -17,6 +17,7 @@ export default function Order() {
     }
   
     const orders = user.orderHistory;
+    console.log(JSON.stringify(user))
     
   return (
     <div>

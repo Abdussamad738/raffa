@@ -5,6 +5,7 @@ export const SET_USER = "SET_USER";
 export const UPDATE_USER = "UPDATE_USER";
 export const REMOVE_USER = "REMOVE_USER";
 export const SET_ALL_USERS="SET_ALL_USERS";
+export const UPDATE_ORDER_HISTORY="UPDATE_ORDER_HISTORY";
 const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 // Action creators
@@ -12,6 +13,11 @@ export const setUser = (user,token) => ({
   type: SET_USER,
   payload: user,token,
 });
+
+export const updateOrderHistory=(updatedOrderHistory)=>({
+  type: UPDATE_ORDER_HISTORY,
+  payload: updatedOrderHistory,
+}); 
 
 export const updateUser = (user) => ({
   type: UPDATE_USER,

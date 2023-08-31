@@ -1,6 +1,6 @@
 // utils/userReducer.js
 
-import { SET_USER, UPDATE_USER, REMOVE_USER,SET_ALL_USERS } from "./userActions";
+import { SET_USER, UPDATE_USER, REMOVE_USER,SET_ALL_USERS,UPDATE_ORDER_HISTORY } from "./userActions";
 
 const initialState = {
   user: null,
@@ -15,6 +15,14 @@ const userReducer = (state = initialState, action) => {
         ...state,
         user: action.payload.user,
         token: action.payload.token,
+      };
+    case UPDATE_ORDER_HISTORY:
+      return {
+        ...state,
+        user: {
+          ...state.user,
+          orderHistory: action.payload,
+        },
       };
     case UPDATE_USER:
       return {

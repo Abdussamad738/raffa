@@ -227,10 +227,20 @@ const initials = userName
               selected={selected}
               setSelected={setSelected}
             />
-
-            <Button variant="secondary" onClick={handleLogout} className="logout-sidebar">
+          {user===null?(
+            <div>
+              <Button variant="secondary" onClick={() => navigate('/login')} className="logout-sidebar">
+                Login
+            </Button>
+            </div>
+          ):(
+            <div>
+              <Button variant="secondary" onClick={handleLogout} className="logout-sidebar">
               Logout
             </Button>
+            </div>
+          )}
+            
           </Box>
           
         </Menu>
