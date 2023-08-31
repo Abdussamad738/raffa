@@ -38,7 +38,7 @@ useEffect(() => {
   const columns = [
     { field: "id", headerName: "ID" },
     // { field: 'orderNumber', headerName: 'Order Number', flex: 1 },
-    { field: 'userId', headerName: 'User ID', flex: 1 },
+    // { field: 'userId', headerName: 'User ID', flex: 1 },
     { field: 'customerName', headerName: 'Customer Name', flex: 1 },
     { field: 'price', headerName: 'Price', flex: 1 },
     { field: 'transactionDate', headerName: 'Transaction Date', flex: 1 },
@@ -47,15 +47,22 @@ useEffect(() => {
     {
       field: 'products',
       headerName: 'Products',
-      flex: 1,
+      flex: 3,
       renderCell: ({ row }) => {
+        
+        
         const productData = row.products.map((product) => (
-          <Box key={product.productId}>
-            <Typography>{product.productId}</Typography>
-            <img src={product.image} alt="Product" />
-            <Typography>Quantity: {product.quantity}</Typography>
+          <Box key={product.productId} sx={{display:'flex', flexDirection:'row'}}>
+            
+            {/* <Typography>{product.productId}</Typography> */}
+            <a href={`https://www.raffasports.com/product/${product.productId}`}>
+            <img src={`https://raffasports.s3.ca-central-1.amazonaws.com/${product.image}`} alt="Product" 
+            style={{  width: '50px', height: '50px' }}/>
+            </a>
+            <Typography >Qty: {product.quantity}</Typography>
           </Box>
         ));
+        
         return productData;
       },
     },
@@ -63,7 +70,7 @@ useEffect(() => {
     {
       field: 'deliveryAddress',
       headerName: 'Delivery Address',
-      flex: 1.5,
+      flex: 3,
       renderCell: ({ row }) => {
         const { suiteNo, buildingName, street, emirate, postalCode, country, phoneNo } = row.deliveryAddress;
         const formattedAddress = `${suiteNo}, ${buildingName}, ${street}, ${emirate}, ${postalCode}, ${country}, ${phoneNo}`;
@@ -78,7 +85,7 @@ useEffect(() => {
       <Header title="ORDERS" subtitle="Order Details" />
       <div className="orders-container">
       <Box
-        m="40px 0 0 0"
+        m="50px 0 0 0"
         height="75vh"
         
         sx={{
@@ -87,6 +94,7 @@ useEffect(() => {
           },
           '& .MuiDataGrid-cell': {
             borderBottom: 'none',
+            whiteSpace:'normal',
           },
           '& .MuiDataGrid-columnHeaders': {
             backgroundColor: colors.blueAccent[700],

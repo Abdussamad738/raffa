@@ -52,3 +52,8 @@ body,
   background-color: rgba(54, 32, 32, 0.884) !important;
 }
 
+.custom-actions-container {
+  display: flex;
+  max-width: none!important; /* Override the max-width set by MUI Data Grid */
+  margin-right: 10px;
+}

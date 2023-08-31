@@ -60,10 +60,50 @@ router.patch('/:id', getProduct, async (req, res) => {
   if (req.body.name != null) {
     res.product.name = req.body.name;
   }
+  if (req.body.description != null) {
+    res.product.description = req.body.description;
+  }
+  if (req.body.image != null) {
+    res.product.image = req.body.image;
+  }
+  if (req.body.features != null) {
+    res.product.features = req.body.features;
+  }
+  if (req.body.dimensions != null) {
+    res.product.dimensions = req.body.dimensions;
+  }
+  if (req.body.specifications != null) {
+    res.product.specifications = req.body.specifications;
+  }
+  if (req.body.ratings != null) {
+    res.product.ratings = req.body.ratings;
+  }
+  if (req.body.actualPrice != null) {
+    res.product.actualPrice = req.body.actualPrice;
+  }
+  if (req.body.offerPrice != null) {
+    res.product.offerPrice = req.body.offerPrice;
+  }
+  if (req.body.sizes != null) {
+    res.product.sizes = req.body.sizes;
+  }
+  if (req.body.quantityInStock != null) {
+    res.product.quantityInStock = req.body.quantityInStock;
+  }
+  if (req.body.colour != null) {
+    res.product.colour = req.body.colour;
+  }
+  if (req.body.deliveryTime != null) {
+    res.product.deliveryTime = req.body.deliveryTime;
+  }
+  if (req.body.instorePickupTime != null) {
+    res.product.instorePickupTime = req.body.instorePickupTime;
+  }
   // Update other fields as needed
 
   try {
     const updatedProduct = await res.product.save();
+    console.log(JSON.stringify(updatedProduct))
     res.json(updatedProduct);
   } catch (error) {
     res.status(400).json({ message: error.message });

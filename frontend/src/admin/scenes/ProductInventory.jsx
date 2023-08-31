@@ -11,12 +11,18 @@ import useMediaQuery from "@mui/material/useMediaQuery";
 import '../index.css'
 import { useFormik } from "formik";
 import { AxiosError } from "axios";
-
+import ProductEditForm from './ProductEditForm';
 // import { fetchProducts } from '../../utils/productActions';
 import Header from "../components/Header";
 export default function ProductInventory ()  {
 //   const [products, setProducts] = useState([]);
   const [openModal, setOpenModal] = useState(false);
+  const [editModalOpen, setEditModalOpen] = useState(false);
+const [editingProduct, setEditingProduct] = useState(null);
+const handleEditClick = (product) => {
+  setEditingProduct(product);
+  setEditModalOpen(true);
+};
   const theme = useTheme();
    // eslint-disable-next-line
   const [error, setError] = useState("");
@@ -27,29 +33,37 @@ export default function ProductInventory ()  {
   const isNonMobile = useMediaQuery("(min-width:600px)");
   const columns = [
     { field: 'id', headerName: 'ID' },
-    { field: 'Name', headerName: 'Name' },
-    { field: 'actualPrice', headerName: 'Actual Price' },
-    { field: 'offerPrice', headerName: 'Offer Price' },
-    { field: 'sizes', headerName: 'Sizes' },
-    { field: 'color', headerName: 'Colour' },
-    { field: 'description', headerName: 'Description' },
-    { field: 'dimension', headerName: 'Dimension' },
-    { field: 'features', headerName: 'Features' },
-    { field: 'image', headerName: 'Image' },
-    { field: 'category', headerName: 'Category' },
-    { field: 'ratings', headerName: 'Ratings' },
-    { field: 'specifications', headerName: 'Specifications' },
-    { field: 'quantityInStock', headerName: 'Quantity In Stock' },
-    { field: 'deliveryTime', headerName: 'Delivery Time' },
+    { field: 'Name', headerName: 'Name', flex: 2 },
+    { field: 'actualPrice', headerName: 'Actual Price' , flex: 1},
+    { field: 'offerPrice', headerName: 'Offer Price', flex: 1 },
+    { field: 'sizes', headerName: 'Sizes', flex: 1 },
+    { field: 'color', headerName: 'Colour', flex: 1 },
+    { field: 'description', headerName: 'Description' , flex: 2},
+    { field: 'dimension', headerName: 'Dimension', flex: 1 },
+    { field: 'features', headerName: 'Features', flex: 1 },
+    { field: 'image', headerName: 'Image', flex: 1 },
+    { field: 'category', headerName: 'Category' , flex: 1},
+    { field: 'ratings', headerName: 'Ratings', flex: 1 },
+    { field: 'specifications', headerName: 'Specifications', flex: 1 },
+    { field: 'quantityInStock', headerName: 'Quantity In Stock', flex: 1 },
+    { field: 'deliveryTime', headerName: 'Delivery Time', flex: 1 },
     {
       field: 'actions',
       headerName: 'Actions',
       renderCell: ({ row }) => (
+        <div >
+        <Button variant="contained" color="primary" onClick={() => handleEditClick(row)}>
+          Edit
+        </Button>
         <Button variant="contained" color="secondary" onClick={() => handleDeleteProduct(row.id)}>
           Delete
         </Button>
-      ),
+      </div>
+      ), flex: 2
+      
+      
     },
+    
   ];
 
   const handleDeleteProduct = async (productId) => {
@@ -75,6 +89,8 @@ export default function ProductInventory ()  {
       console.error('Error deleting product:', error);
     }
   };
+
+  
   
 
     
@@ -187,6 +203,9 @@ export default function ProductInventory ()  {
   const handleModalClose = () => {
     setOpenModal(false);
   };
+  const handleEditModalClose = () => {
+    setEditModalOpen(false);
+  };
 
   return (
     <div>
@@ -196,7 +215,7 @@ export default function ProductInventory ()  {
       <Box m="20px">
       <Header title="Product Inventory" subtitle="Managing the Products" />
       <Box
-        m="40px 0 0 0"
+        m="40px 0 0 10px"
         height="75vh"
         sx={{
           "& .MuiDataGrid-root": {
@@ -366,6 +385,24 @@ export default function ProductInventory ()  {
  
   </Box>
   </div>
+  </Box>
+</Modal>
+
+<Modal open={editModalOpen} onClose={handleEditModalClose}>
+  <Box className="modal-container">
+  <div className='modal-product'style={{ overflowY: 'auto' ,height: '80vh'}}>
+  <Box m="20px">
+      <Header title="Edit Product"  />
+
+      {/* Rest of the modal content */}
+      {editingProduct && (
+        <ProductEditForm
+          initialValues={editingProduct}
+          handleClose={() => setEditModalOpen(false)}
+        />
+      )}
+      </Box>
+    </div>
   </Box>
 </Modal>
 </div>
