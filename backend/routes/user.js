@@ -353,7 +353,7 @@ router.post('/updateOrderHistory', async (req, res) => {
 
     await user.save();
 
-    res.status(200).json({ message: 'Order history updated successfully' });
+    res.status(200).json({ message: 'Order history updated successfully' , updatedOrderHistory: user.orderHistory});
   } catch (error) {
     res.status(500).json({ message: 'Failed to update order history', error });
   }

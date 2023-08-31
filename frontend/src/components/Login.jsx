@@ -52,7 +52,7 @@ function Login() {
   if (userData.user.role === "admin") {
     navigate("/admin"); // Redirect to the admin routes
   } else {
-    navigate("/user"); // Redirect to the user dashboard
+    navigate("/user/cart"); // Redirect to the user dashboard
   }
     } catch (err) {
       if (err && err instanceof AxiosError)
