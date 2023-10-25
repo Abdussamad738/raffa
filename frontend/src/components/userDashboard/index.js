@@ -8,6 +8,7 @@ import Cart from './Cart';
 import Order from './Order.jsx';
 import Contact from './Contact.jsx'
 import React,{ useState } from "react";
+import Return from './Return.jsx';
 import './index.css'
 
 // ... other route components
@@ -34,6 +35,7 @@ function UserRoutes  () {
       <Route path="/dashboard" element={<Dashboard/>}/>
       <Route path="/cart" element={<Cart/>}/>
       <Route path="/contact" element={<Contact/>}/>
+      <Route path="/returns" element={<Return/>}/>
     </Routes>
     </main>
         </div>

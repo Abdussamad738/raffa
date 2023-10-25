@@ -16,7 +16,7 @@ import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import ShoppingBagIcon from "@mui/icons-material/ShoppingBag"
 import HelpOutlineOutlinedIcon from "@mui/icons-material/HelpOutlineOutlined";
-
+import PolicyIcon from '@mui/icons-material/Policy';
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import { NavigationBreadcrumbs } from '../NavigationBreadcrumbs';
 import Avatar from '@mui/material/Avatar';
@@ -224,6 +224,13 @@ const initials = userName
               title="Contact Us"
               to="/user/contact"
               icon={<HelpOutlineOutlinedIcon />}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <Item
+              title="Return Policy"
+              to="/user/returns"
+              icon={<PolicyIcon />}
               selected={selected}
               setSelected={setSelected}
             />
