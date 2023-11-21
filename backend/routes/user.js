@@ -356,7 +356,7 @@ router.post('/updateOrderHistory', async (req, res) => {
     const customerEmailMsg = {
       to: user.email, // Change to the customer's email address
       from: 'raffasports313@gmail.com', // Change to your verified sender
-      subject: 'Order Confirmed',
+      
       templateId: process.env.TEMPLATEID, // Change to your SendGrid template ID
       dynamicTemplateData: {
         orderNumber: orderNumber,
