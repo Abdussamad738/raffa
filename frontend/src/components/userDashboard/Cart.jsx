@@ -159,6 +159,7 @@ const [showForm, setShowForm] = useState(false);
       products: cartItems.map((item) => ({
         productId: item.productDetails.productId,
         quantity: item.productDetails.quantity,
+        itemPrice:item.productDetails.price,
         image:item.productDetails.imageUrl[0],
         productName:item.productDetails.name||null,
         productDescription:item.productDetails.description||null,

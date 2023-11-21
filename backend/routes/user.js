@@ -377,7 +377,7 @@ router.post('/updateOrderHistory', async (req, res) => {
     sgMail
       .send(customerEmailMsg)
       .then(() => {
-        console.log('Email sent')
+        console.log('Email sent',JSON.stringify(customerEmailMsg))
       })
       .catch((error) => {
         console.error(error)
