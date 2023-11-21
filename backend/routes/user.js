@@ -356,7 +356,7 @@ router.post('/updateOrderHistory', async (req, res) => {
     const customerEmailMsg = {
       to: user.email, // Change to the customer's email address
       from: 'raffasports313@gmail.com', // Change to your verified sender
-      
+      subject: 'Order Confirmed',
       templateId: process.env.TEMPLATEID, // Change to your SendGrid template ID
       dynamicTemplateData: {
         orderNumber: orderNumber,
@@ -367,11 +367,6 @@ router.post('/updateOrderHistory', async (req, res) => {
         customerName: user.name,
         products: order.products,
         deliveryAddress: order.deliveryAddress,
-        // Add other dynamic data as needed for the customer email
-        // For example: productName: savedOrder.products[0].name,
-        //               quantity: savedOrder.products[0].quantity,
-        //               totalPrice: savedOrder.price,
-        //               expectedDelivery: savedOrder.deliveryDate,
       },
     };
     sgMail
@@ -382,6 +377,31 @@ router.post('/updateOrderHistory', async (req, res) => {
       .catch((error) => {
         console.error(error)
       })
+
+      const clientEmailMsg = {
+        to: 'raffasports313@gmail.com', // Change to the customer's email address
+        from: 'raffasports313@gmail.com', // Change to your verified sender
+        subject: 'Order Confirmed',
+        templateId: process.env.TEMPLATEIDCLIENT, // Change to your SendGrid template ID
+        dynamicTemplateData: {
+          orderNumber: orderNumber,
+          deliveryDate: order.deliveryDate,
+          status: order.status,
+          price: order.price,
+          shippingMethod: order.shippingMethod,
+          customerName: user.name,
+          products: order.products,
+          deliveryAddress: order.deliveryAddress,
+        },
+      };
+      sgMail
+        .send(clientEmailMsg)
+        .then(() => {
+          console.log('Email sent',JSON.stringify(clientEmailMsg))
+        })
+        .catch((error) => {
+          console.error(error)
+        })
     // Send email to the client
     // const clientEmailMsg = {
     //   to: 'raffasports313@gmail.com', // Change to the client's email address

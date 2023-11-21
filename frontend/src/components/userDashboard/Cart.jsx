@@ -57,13 +57,7 @@ export default function Cart() {
       dispatch(decreaseQuantity(productId));
     }
   };
-  useEffect(() => {
-    setOrder((prevOrder) => ({
-      ...prevOrder,
-      shippingMethod: shippingMethod, // Update the 'shippingMethod' property in the 'order' state
-    }));
-    console.log('Shipping method updated:', shippingMethod);
-  }, [shippingMethod]);
+  
   const handleIncreaseQuantity = (productId) => {
     const product = cartItems.find((item) => item.productDetails.productId === productId);
     if (product) {
@@ -90,6 +84,14 @@ export default function Cart() {
   };
   // Calculate the shipping charge
   const shippingCharge = shippingMethod === 'deliverToHome' ? 15 : 0;
+  useEffect(() => {
+    setOrder((prevOrder) => ({
+      ...prevOrder,
+      shippingMethod: shippingMethod, // Update the 'shippingMethod' property in the 'order' state
+      price: (subtotal + shippingCharge).toFixed(2), // Update the 'price' property in the 'order' state
+    }));
+    
+  }, [shippingMethod, subtotal, shippingCharge]);
   // const imageUrls = cartItems.Image.map((imageName) => require(`../assets/${imageName}`));
   
   //delivery Address submit
@@ -112,7 +114,8 @@ export default function Cart() {
     
     return adjustedDate;
   };
-  
+  const total=(subtotal + shippingCharge).toFixed(2);
+
     
 
   // Find the maximum Delivery_Time from the cart
@@ -145,7 +148,7 @@ const [showForm, setShowForm] = useState(false);
   };
   const delivery_time=findMaxDeliveryTime();
   const pickupTime=findMaxInstorePickupTime();
-  const total=(subtotal + shippingCharge).toFixed(2)
+  
   const userDeliveryAddress = user?user.deliveryAddress:null;
   const [order, setOrder] = useState({
     deliveryDate: delivery_time, // Logic to set the delivery date goes here
@@ -167,6 +170,7 @@ const [showForm, setShowForm] = useState(false);
     // Other order properties
     deliveryAddress: userDeliveryAddress || null,
   });
+  
   const backendUrl = process.env.REACT_APP_BACKEND_URL;
 
 
@@ -177,7 +181,6 @@ const [showForm, setShowForm] = useState(false);
         navigate('/login');
         return;
       }
-    
     try {
       const response = await axios.post(`${backendUrl}/users/updateOrderHistory`, {
         userId: user._id,
