@@ -352,6 +352,56 @@ router.post('/updateOrderHistory', async (req, res) => {
     user.orderHistory.push(updatedOrder);
 
     await user.save();
+    // Send email to the customer
+    const customerEmailMsg = {
+      to: user.email, // Change to the customer's email address
+      from: 'raffasports313@gmail.com', // Change to your verified sender
+      subject: 'Order Confirmed',
+      templateId: process.env.TEMPLATEID, // Change to your SendGrid template ID
+      dynamicTemplateData: {
+        orderNumber: orderNumber,
+        deliveryDate: order.deliveryDate,
+        status: order.status,
+        price: order.price,
+        shippingMethod: order.shippingMethod,
+        customerName: user.name,
+        products: order.products,
+        deliveryAddress: order.deliveryAddress,
+      },
+    };
+    sgMail
+      .send(customerEmailMsg)
+      .then(() => {
+        console.log('Email sent',JSON.stringify(customerEmailMsg))
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+
+      const clientEmailMsg = {
+        to: 'raffasports313@gmail.com', // Change to the customer's email address
+        from: 'raffasports313@gmail.com', // Change to your verified sender
+        subject: 'Order Confirmed',
+        templateId: process.env.TEMPLATEIDCLIENT, // Change to your SendGrid template ID
+        dynamicTemplateData: {
+          orderNumber: orderNumber,
+          deliveryDate: order.deliveryDate,
+          status: order.status,
+          price: order.price,
+          shippingMethod: order.shippingMethod,
+          customerName: user.name,
+          products: order.products,
+          deliveryAddress: order.deliveryAddress,
+        },
+      };
+      sgMail
+        .send(clientEmailMsg)
+        .then(() => {
+          console.log('Email sent',JSON.stringify(clientEmailMsg))
+        })
+        .catch((error) => {
+          console.error(error)
+        })
 
     res.status(200).json({ message: 'Order history updated successfully' , updatedOrderHistory: user.orderHistory});
   } catch (error) {
