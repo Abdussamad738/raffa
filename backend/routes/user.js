@@ -402,23 +402,7 @@ router.post('/updateOrderHistory', async (req, res) => {
         .catch((error) => {
           console.error(error)
         })
-    // Send email to the client
-    // const clientEmailMsg = {
-    //   to: 'raffasports313@gmail.com', // Change to the client's email address
-    //   from: 'raffasports313@gmail.com', // Change to your verified sender
-    //   templateId: 'your_sendgrid_template_id_for_client', // Change to your SendGrid template ID
-    //   dynamicTemplateData: {
-    //     orderNumber: orderNumber,
-    //     deliveryDate: order.deliveryDate,
-    //     status: order.status,
-    //     price: order.price,
-    //     shippingMethod: order.shippingMethod,
-    //     customerName: user.name,
-    //     products: order.products,
-    //     deliveryAddress: order.deliveryAddress,
-    //     // Add other dynamic data as needed for the client email
-    //   },
-    // };
+
     res.status(200).json({ message: 'Order history updated successfully' , updatedOrderHistory: user.orderHistory});
   } catch (error) {
     res.status(500).json({ message: 'Failed to update order history', error });
